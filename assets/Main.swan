@@ -1,0 +1,31 @@
+-- version swan: 2025.0 graph: 2.0
+use Math::Common as MathCommon;
+
+node Start (i0: int32;)
+  returns (o0: int32;)
+{
+}
+
+node MainStateMachine ()
+  returns ()
+{
+  diagram
+    ({syntax%/* Add led */
+             i = 0xFF;%syntax}
+    #pragma diagram {"xy":"H-70450;V-45891","wh":"18000;4219"} #end)
+    
+    (automaton $mainAutomaton
+      initial state #1 Running
+      #pragma diagram {"xy":"h-3219;v-7175","wh":"40000;26000"} #end :
+      state #2 Failure
+      #pragma diagram {"xy":"h53344;v-6162","wh":"40000;26000"} #end :
+      state #3 Idle
+      #pragma diagram {"xy":"h-56494;v-7175","wh":"40000;26000"} #end :
+      :1: #1 until 
+      restart #2
+      #pragma diagram {"tp":"h20000;v506|#1 h5521 h5521 h-20000;v-506|#2"} #end;
+      :1: #3 until 
+      restart #1
+      #pragma diagram {"tp":"h20000;v0|#3 h4425 h4425 h-20000;v0|#1"} #end;
+      #pragma diagram {"xy":"H-12344;V-5875","wh":"173062;66100"} #end)
+}
