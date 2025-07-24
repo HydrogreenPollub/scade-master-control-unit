@@ -1,0 +1,25 @@
+{
+  "files": [
+    "..\\..\\assets\\Main.swan",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Common.swani",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Common.swan",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Complex.swani",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Complex.swan",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-Common.swan",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-Cordic.swani",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-Cordic.swan",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-StdC.swani",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-StdC.swan",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Float\\assets\\Float.swani",
+    "C:\\Program Files\\Ansys Inc\\v251\\Scade One Student\\libraries\\Float\\assets\\Float.swan"
+  ],
+  "roots": [
+    "Main::MainStateMachine"
+  ],
+  "target_dir": "out",
+  "target": "C",
+  "keep_asserts": false,
+  "metadata": {
+    "date": "2025-07-17T08:55:25.8989393Z"
+  }
+}
