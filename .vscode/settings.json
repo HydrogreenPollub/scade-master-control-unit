@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "swan_consts.h": "c",
+        "swan_sensors.h": "c"
+    }
+}

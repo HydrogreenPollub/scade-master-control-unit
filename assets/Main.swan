@@ -1,31 +1,124 @@
 -- version swan: 2025.0 graph: 2.0
 use Math::Common as MathCommon;
 
-node Start (i0: int32;)
-  returns (o0: int32;)
+node Start ()
+  returns ()
 {
 }
 
-node MainStateMachine ()
-  returns ()
+node MainStateMachine (hasStartButtonTriggered : bool;
+                       isProtiumBehavingAbnormal : bool;)
+  returns (shouldProtiumRun : bool;)
 {
   diagram
-    ({syntax%/* Add led */
-             i = 0xFF;%syntax}
-    #pragma diagram {"xy":"H-70450;V-45891","wh":"18000;4219"} #end)
+    (#0 block CheckProtiumAnomalies
+              #pragma diagram {"xy":"H-41644;V-56425","wh":"29400;14000"} #end)
+    (#4 expr HydrogenLeakVoltageRaw
+    #pragma diagram {"xy":"H-84044;V-56425","wh":"26000;3200"} #end)
+    (#5 def isFuelCellBehavingAbnormal
+    #pragma diagram {"xy":"H4029;V-56425","wh":"30000;3200"} #end)
     
+    (#6 wire #4 => #0)
+    (#7 wire #0 => #5
+    #pragma diagram {"wp":"v0|#0 #5"} #end)
+    
+    (var
+        isFuelCellBehavingAbnormal: bool;)
     (automaton $mainAutomaton
-      initial state #1 Running
-      #pragma diagram {"xy":"h-3219;v-7175","wh":"40000;26000"} #end :
+      state #1 Running
+      #pragma diagram {"xy":"h-450;v-19388","wh":"54300;26000"} #end :
+        diagram
+          (#8 def shouldProtiumRun
+          #pragma diagram {"xy":"h11150;v6238","wh":"20000;3200"} #end)
+          (#9 expr true
+          #pragma diagram {"xy":"h-19150;v6238"} #end)
+          
+          (#10 wire #9 => #8)
       state #2 Failure
-      #pragma diagram {"xy":"h53344;v-6162","wh":"40000;26000"} #end :
-      state #3 Idle
-      #pragma diagram {"xy":"h-56494;v-7175","wh":"40000;26000"} #end :
+      #pragma diagram {"xy":"h64850;v-17274","wh":"54300;26000"} #end :
+        diagram
+          (#11 def shouldProtiumRun
+          #pragma diagram {"xy":"h11150;v4124","wh":"20000;3200"} #end)
+          (#12 expr false
+          #pragma diagram {"xy":"h-18150;v4124","wh":"10000;3200"} #end)
+          
+          (#13 wire #12 => #11)
+      initial state #3 Idle
+      #pragma diagram {"xy":"h-62150;v-19388","wh":"54300;26000"} #end :
+        diagram
+          (#14 def shouldProtiumRun
+          #pragma diagram {"xy":"h14077;v7038","wh":"20000;3200"} #end)
+          (#15 expr false
+          #pragma diagram {"xy":"h-15223;v7038","wh":"10000;3200"} #end)
+          
+          (#16 wire #15 => #14)
+      state #20 Shutdown
+      #pragma diagram {"xy":"h-33950;v27362","wh":"51200;26000"} #end :
+        diagram
+          (#17 def shouldProtiumRun
+          #pragma diagram {"xy":"h12700;v4300","wh":"20000;3200"} #end)
+          (#18 expr false
+          #pragma diagram {"xy":"h-16600;v4300","wh":"10000;3200"} #end)
+          
+          (#19 wire #18 => #17)
       :1: #1 until 
       restart #2
-      #pragma diagram {"tp":"h20000;v506|#1 h5521 h5521 h-20000;v-506|#2"} #end;
+      #pragma diagram {"tp":"h27150;v1056|#1 h3667 h3667 h-27150;v-1056|#2"} #end;
       :1: #3 until 
       restart #1
-      #pragma diagram {"tp":"h20000;v0|#3 h4425 h4425 h-20000;v0|#1"} #end;
-      #pragma diagram {"xy":"H-12344;V-5875","wh":"173062;66100"} #end)
+      #pragma diagram {"tp":"h27150;v0|#3 h2467 h2467 h-27150;v0|#1"} #end;
+      :2: #1 until if (isFuelCellBehavingAbnormal)
+      restart #20
+      #pragma diagram {"tp":"h-17525;v13000|#1 v6917 v6917 h15975;v-13000|#20"} #end;
+      :1: #20 until if (hasStartButtonTriggered)
+      restart #1
+      #pragma diagram {"tp":"h25600;v-6700|#20 h500 h500 h500 h3200 h3200;v-6262 v-6262 v-4175 v-9683 h0;v13000|#1"} #end;
+      #pragma diagram {"xy":"H-25494;V4462","wh":"186600;90525"} #end)
+}
+
+node CheckProtiumAnomalies (hydrogenLeakVoltageRaw: uint16;)
+  returns (isAbnormal: bool;)
+{
+  diagram
+    (#0 expr #1 >= #2
+      where
+        (#1 group)
+        (#2 group)
+    #pragma diagram {"xy":"H-74850;V-950"} #end)
+    (#3 def isAbnormal
+    #pragma diagram {"xy":"H-35750;V-950","wh":"14000;3200"} #end)
+    (#4 expr hydrogenLeakVoltageRaw
+    #pragma diagram {"xy":"H-140225;V-7738","wh":"26000;3200"} #end)
+    (#5 block ConditionLeakVoltage
+              #pragma diagram {"xy":"H-103538;V-7738","wh":"20000;14000"} #end)
+    (#6 expr HydrogenLeakVoltageMaximum
+    #pragma diagram {"xy":"H-104350;V6150","wh":"30000;3200"} #end)
+    
+    (#7 wire #6 => #2
+    #pragma diagram {"wp":"#6 h6250 v-5200 #2"} #end)
+    (#8 wire #5 => #1
+    #pragma diagram {"wp":"v4888|#5 #1"} #end)
+    (#9 wire #0 => #3)
+    (#10 wire #4 => #5)
+}
+
+const HydrogenLeakVoltageMaximum: float32 = 1.1;
+
+sensor HydrogenLeakVoltageRaw: uint16;
+
+node ConditionLeakVoltage (voltage: uint16;)
+  returns (result: float32;)
+{
+  diagram
+    (#0 expr voltage
+    #pragma diagram {"xy":"H-105250;V-27250","wh":"12000;3200"} #end)
+    (#1 def result
+    #pragma diagram {"xy":"H-36150;V-27250","wh":"10000;3200"} #end)
+    (#2 expr (#3 :>  float32)
+      where
+        (#3 group)
+    #pragma diagram {"xy":"H-67050;V-27250","wh":"18000;7000"} #end)
+    
+    (#4 wire #0 => #3)
+    (#5 wire #2 => #1)
 }
