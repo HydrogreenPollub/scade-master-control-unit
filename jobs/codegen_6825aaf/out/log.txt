@@ -1,0 +1,9 @@
+<JobStatus:Completed>7/24/2025 10:27:29 AM
+<JobCommandLine>"C:\Program Files\ANSYS Inc\v251\Scade One Student\tools\swan_cg.exe" config.json -student
+<JobWorkingDirectory>C:\Users\ErgoA\projects\scade-master-control-unit\jobs\codegen_6825aaf
+Ansys Scade One - Swan Code Generator - Version 2.2.1 - Build 0016
+(C) 2023-2025 ANSYS, Inc. Unauthorized use, distribution, or duplication is prohibited.
+
+5 warnings were found
+No error was found
+No failure occurred

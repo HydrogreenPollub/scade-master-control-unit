@@ -1,0 +1,463 @@
+{
+  "$schema" : "cg-map-schema.json",
+  "config" : { },
+  "model" : [
+    [ "predefined_type", { "id" : 2, "name" : "bool" } ],
+    [ "predefined_type", { "id" : 3, "name" : "char" } ],
+    [ "predefined_type", { "id" : 4, "name" : "int8" } ],
+    [ "predefined_type", { "id" : 5, "name" : "int16" } ],
+    [ "predefined_type", { "id" : 6, "name" : "int32" } ],
+    [ "predefined_type", { "id" : 7, "name" : "int64" } ],
+    [ "predefined_type", { "id" : 8, "name" : "uint8" } ],
+    [ "predefined_type", { "id" : 9, "name" : "uint16" } ],
+    [ "predefined_type", { "id" : 10, "name" : "uint32" } ],
+    [ "predefined_type", { "id" : 11, "name" : "uint64" } ],
+    [ "predefined_type", { "id" : 12, "name" : "float32" } ],
+    [ "predefined_type", { "id" : 13, "name" : "float64" } ],
+    [
+      "operator",
+      {
+        "id" : 32,
+        "path" : "Main::MainStateMachine",
+        "inputs" : [
+          { "id" : 558, "name" : "hasStartButtonTriggered" },
+          { "id" : 559, "name" : "isProtiumBehavingAbnormal" }
+        ],
+        "outputs" : [
+          { "id" : 560, "name" : "shouldProtiumRun" },
+          { "id" : 561, "name" : "isFuelCellCorrect" }
+        ],
+        "root" : true,
+        "imported" : false,
+        "expanded" : false,
+        "watches" : [ ],
+        "instances" : [
+          [
+            "operator",
+            {
+              "id" : 578,
+              "path" : "#0:",
+              "operator" : 33,
+              "watches" : [ ],
+              "instances" : [ ]
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      "operator",
+      {
+        "id" : 33,
+        "path" : "Main::CheckProtiumAnomalies",
+        "inputs" : [ { "id" : 613, "name" : "hydrogenLeakVoltageRaw" } ],
+        "outputs" : [ { "id" : 614, "name" : "isAbnormal" } ],
+        "root" : false,
+        "imported" : false,
+        "expanded" : false,
+        "watches" : [ ],
+        "instances" : [
+          [
+            "operator",
+            {
+              "id" : 622,
+              "path" : "#5:",
+              "operator" : 36,
+              "watches" : [ ],
+              "instances" : [ ]
+            }
+          ]
+        ]
+      }
+    ],
+    [
+      "operator",
+      {
+        "id" : 36,
+        "path" : "Main::ConditionLeakVoltage",
+        "inputs" : [ { "id" : 628, "name" : "voltage" } ],
+        "outputs" : [ { "id" : 629, "name" : "result" } ],
+        "root" : false,
+        "imported" : false,
+        "expanded" : false,
+        "watches" : [ ],
+        "instances" : [ ]
+      }
+    ],
+    [
+      "sensor",
+      { "id" : 35, "path" : "Main::HydrogenLeakVoltageRaw", "type" : 9 }
+    ],
+    [ "sensor", { "id" : 37, "path" : "Main::fuelCellVoltage", "type" : 12 } ],
+    [ "elaboration", { "id" : 0 } ]
+  ],
+  "code" : [
+    {
+      "interface_file" : "MainStateMachine_Main.h",
+      "implementation_file" : "MainStateMachine_Main.c",
+      "declarations" : [
+        [ "macro", { "id" : 8098, "name" : "SWAN_MainStateMachine_Main_H_" } ],
+        [
+          "struct",
+          {
+            "id" : 8091,
+            "name" : "outC_MainStateMachine_Main",
+            "fields" : [
+              { "id" : 7995, "name" : "mem1", "type" : 8047, "pointer" : false },
+              { "id" : 7996, "name" : "mem2", "type" : 8047, "pointer" : false },
+              { "id" : 7997, "name" : "mem3", "type" : 7799, "pointer" : false },
+              { "id" : 560, "name" : "shouldProtiumRun", "type" : 8047, "pointer" : false },
+              { "id" : 561, "name" : "isFuelCellCorrect", "type" : 8047, "pointer" : false }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 32,
+            "name" : "MainStateMachine_Main",
+            "parameters" : [
+              {
+                "id" : 558,
+                "name" : "hasStartButtonTriggered",
+                "type" : 8047,
+                "pointer" : false,
+                "const" : false
+              },
+              {
+                "id" : 559,
+                "name" : "isProtiumBehavingAbnormal",
+                "type" : 8047,
+                "pointer" : false,
+                "const" : false
+              },
+              {
+                "id" : 8093,
+                "name" : "outC",
+                "type" : 8091,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 8094,
+            "name" : "MainStateMachine_reset_Main",
+            "parameters" : [
+              {
+                "id" : 8095,
+                "name" : "outC",
+                "type" : 8091,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 8096,
+            "name" : "MainStateMachine_init_Main",
+            "parameters" : [
+              {
+                "id" : 8097,
+                "name" : "outC",
+                "type" : 8091,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "interface_file" : "CheckProtiumAnomalies_Main.h",
+      "implementation_file" : "CheckProtiumAnomalies_Main.c",
+      "declarations" : [
+        [ "macro", { "id" : 8089, "name" : "SWAN_CheckProtiumAnomalies_Main_H_" } ],
+        [
+          "struct",
+          {
+            "id" : 8081,
+            "name" : "outC_CheckProtiumAnomalies_Main",
+            "fields" : [
+              { "id" : 614, "name" : "isAbnormal", "type" : 8047, "pointer" : false },
+              {
+                "id" : 8082,
+                "name" : "Ctx_1ConditionLeakVoltage",
+                "type" : 8072,
+                "pointer" : false
+              }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 33,
+            "name" : "CheckProtiumAnomalies_Main",
+            "parameters" : [
+              {
+                "id" : 613,
+                "name" : "hydrogenLeakVoltageRaw",
+                "type" : 8006,
+                "pointer" : false,
+                "const" : false
+              },
+              {
+                "id" : 8084,
+                "name" : "outC",
+                "type" : 8081,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 8085,
+            "name" : "CheckProtiumAnomalies_reset_Main",
+            "parameters" : [
+              {
+                "id" : 8086,
+                "name" : "outC",
+                "type" : 8081,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 8087,
+            "name" : "CheckProtiumAnomalies_init_Main",
+            "parameters" : [
+              {
+                "id" : 8088,
+                "name" : "outC",
+                "type" : 8081,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "interface_file" : "ConditionLeakVoltage_Main.h",
+      "implementation_file" : "ConditionLeakVoltage_Main.c",
+      "declarations" : [
+        [ "macro", { "id" : 8079, "name" : "SWAN_ConditionLeakVoltage_Main_H_" } ],
+        [
+          "struct",
+          {
+            "id" : 8072,
+            "name" : "outC_ConditionLeakVoltage_Main",
+            "fields" : [
+              { "id" : 629, "name" : "result", "type" : 8010, "pointer" : false }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 36,
+            "name" : "ConditionLeakVoltage_Main",
+            "parameters" : [
+              {
+                "id" : 628,
+                "name" : "voltage",
+                "type" : 8006,
+                "pointer" : false,
+                "const" : false
+              },
+              {
+                "id" : 8074,
+                "name" : "outC",
+                "type" : 8072,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 8075,
+            "name" : "ConditionLeakVoltage_reset_Main",
+            "parameters" : [
+              {
+                "id" : 8076,
+                "name" : "outC",
+                "type" : 8072,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ],
+        [
+          "function",
+          {
+            "id" : 8077,
+            "name" : "ConditionLeakVoltage_init_Main",
+            "parameters" : [
+              {
+                "id" : 8078,
+                "name" : "outC",
+                "type" : 8072,
+                "pointer" : true,
+                "const" : false
+              }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "interface_file" : "swan_types.h",
+      "implementation_file" : "swan_types.c",
+      "declarations" : [
+        [ "macro", { "id" : 8018, "name" : "SWAN_TYPES_H_" } ],
+        [
+          "enum",
+          {
+            "id" : 7799,
+            "name" : "SSM_ST_mainAutomaton",
+            "tag_name" : "swan_tag_SSM_ST_mainAutomaton",
+            "values" : [
+              { "id" : 7800, "name" : "SSM_st_Running_mainAutomaton" },
+              { "id" : 7801, "name" : "SSM_st_Failure_mainAutomaton" },
+              { "id" : 7802, "name" : "SSM_st_Idle_mainAutomaton" },
+              { "id" : 7803, "name" : "SSM_st_Shutdown_mainAutomaton" },
+              { "id" : 7804, "name" : "SSM_st_Init_mainAutomaton" }
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "interface_file" : "swan_consts.h",
+      "implementation_file" : "swan_consts.c",
+      "declarations" : [
+        [ "macro", { "id" : 8017, "name" : "SWAN_CONSTS_H_" } ],
+        [ "macro", { "id" : 34, "name" : "HydrogenLeakVoltageMaximum_Main" } ]
+      ]
+    },
+    {
+      "interface_file" : "swan_sensors.h",
+      "declarations" : [
+        [ "macro", { "id" : 8016, "name" : "SWAN_SENSORS_H_" } ],
+        [
+          "global",
+          { "id" : 35, "name" : "HydrogenLeakVoltageRaw_Main", "type" : 8006 }
+        ],
+        [ "global", { "id" : 37, "name" : "fuelCellVoltage_Main", "type" : 8010 } ]
+      ]
+    },
+    {
+      "interface_file" : "swan_config.h",
+      "user_provided" : true,
+      "declarations" : [
+        [ "predefined_type", { "id" : 8001, "name" : "swan_int8" } ],
+        [ "predefined_type", { "id" : 8002, "name" : "swan_int16" } ],
+        [ "predefined_type", { "id" : 8003, "name" : "swan_int32" } ],
+        [ "predefined_type", { "id" : 8004, "name" : "swan_int64" } ],
+        [ "predefined_type", { "id" : 8005, "name" : "swan_uint8" } ],
+        [ "predefined_type", { "id" : 8006, "name" : "swan_uint16" } ],
+        [ "predefined_type", { "id" : 8007, "name" : "swan_uint32" } ],
+        [ "predefined_type", { "id" : 8008, "name" : "swan_uint64" } ],
+        [ "predefined_type", { "id" : 8009, "name" : "swan_size" } ],
+        [ "predefined_type", { "id" : 8010, "name" : "swan_float32" } ],
+        [ "predefined_type", { "id" : 8011, "name" : "swan_float64" } ],
+        [ "macro", { "id" : 8027, "name" : "swan_incr" } ],
+        [ "macro", { "id" : 8028, "name" : "swan_cond" } ],
+        [ "macro", { "id" : 8029, "name" : "swan_not" } ],
+        [ "macro", { "id" : 8030, "name" : "swan_xor" } ],
+        [ "macro", { "id" : 8031, "name" : "swan_or" } ],
+        [ "macro", { "id" : 8032, "name" : "swan_and" } ],
+        [ "macro", { "id" : 8033, "name" : "swan_index" } ],
+        [ "macro", { "id" : 8034, "name" : "swan_diff" } ],
+        [ "macro", { "id" : 8035, "name" : "swan_eq" } ],
+        [ "macro", { "id" : 8036, "name" : "swan_assign_union" } ],
+        [ "macro", { "id" : 8037, "name" : "swan_assign_array" } ],
+        [ "macro", { "id" : 8038, "name" : "swan_assign_struct" } ],
+        [ "macro", { "id" : 8039, "name" : "swan_assign" } ],
+        [ "macro", { "id" : 8042, "name" : "swan_guarantee" } ],
+        [ "macro", { "id" : 8043, "name" : "swan_assume" } ],
+        [ "macro", { "id" : 8044, "name" : "swan_assert" } ],
+        [ "macro", { "id" : 8045, "name" : "swan_false" } ],
+        [ "macro", { "id" : 8046, "name" : "swan_true" } ],
+        [ "predefined_type", { "id" : 8047, "name" : "swan_bool" } ],
+        [ "predefined_type", { "id" : 8048, "name" : "swan_char" } ],
+        [ "macro", { "id" : 8049, "name" : "swan_lit_int8" } ],
+        [ "macro", { "id" : 8050, "name" : "swan_lit_int16" } ],
+        [ "macro", { "id" : 8051, "name" : "swan_lit_int32" } ],
+        [ "macro", { "id" : 8052, "name" : "swan_lit_int64" } ],
+        [ "macro", { "id" : 8053, "name" : "swan_lsl_uint8" } ],
+        [ "macro", { "id" : 8054, "name" : "swan_lnot_uint8" } ],
+        [ "macro", { "id" : 8055, "name" : "swan_lit_uint8" } ],
+        [ "macro", { "id" : 8056, "name" : "swan_lsl_uint16" } ],
+        [ "macro", { "id" : 8057, "name" : "swan_lnot_uint16" } ],
+        [ "macro", { "id" : 8058, "name" : "swan_lit_uint16" } ],
+        [ "macro", { "id" : 8059, "name" : "swan_lsl_uint32" } ],
+        [ "macro", { "id" : 8060, "name" : "swan_lnot_uint32" } ],
+        [ "macro", { "id" : 8061, "name" : "swan_lit_uint32" } ],
+        [ "macro", { "id" : 8062, "name" : "swan_lsl_uint64" } ],
+        [ "macro", { "id" : 8063, "name" : "swan_lnot_uint64" } ],
+        [ "macro", { "id" : 8064, "name" : "swan_lit_uint64" } ],
+        [ "macro", { "id" : 8065, "name" : "swan_lit_size" } ],
+        [ "macro", { "id" : 8066, "name" : "swan_lit_float32" } ],
+        [ "macro", { "id" : 8067, "name" : "swan_lit_float64" } ],
+        [ "macro", { "id" : 8068, "name" : "swan_diff_char" } ],
+        [ "macro", { "id" : 8069, "name" : "swan_eq_char" } ],
+        [ "macro", { "id" : 8070, "name" : "swan_lit_char" } ]
+      ]
+    }
+  ],
+  "mapping" : [
+    { "model_id" : 2, "code_id" : 8047 },
+    { "model_id" : 3, "code_id" : 8048 },
+    { "model_id" : 4, "code_id" : 8001 },
+    { "model_id" : 5, "code_id" : 8002 },
+    { "model_id" : 6, "code_id" : 8003 },
+    { "model_id" : 7, "code_id" : 8004 },
+    { "model_id" : 8, "code_id" : 8005 },
+    { "model_id" : 9, "code_id" : 8006 },
+    { "model_id" : 10, "code_id" : 8007 },
+    { "model_id" : 11, "code_id" : 8008 },
+    { "model_id" : 12, "code_id" : 8010 },
+    { "model_id" : 13, "code_id" : 8011 },
+    { "model_id" : 36, "code_id" : 36, "role" : "CycleMethod" },
+    { "model_id" : 36, "code_id" : 8072, "role" : "ContextType" },
+    { "model_id" : 629, "code_id" : 629 },
+    { "model_id" : 628, "code_id" : 628 },
+    { "model_id" : 36, "code_id" : 8075, "role" : "ResetMethod" },
+    { "model_id" : 36, "code_id" : 8077, "role" : "InitMethod" },
+    { "model_id" : 33, "code_id" : 33, "role" : "CycleMethod" },
+    { "model_id" : 33, "code_id" : 8081, "role" : "ContextType" },
+    { "model_id" : 614, "code_id" : 614 },
+    { "model_id" : 613, "code_id" : 613 },
+    { "model_id" : 33, "code_id" : 8085, "role" : "ResetMethod" },
+    { "model_id" : 33, "code_id" : 8087, "role" : "InitMethod" },
+    { "model_id" : 32, "code_id" : 32, "role" : "CycleMethod" },
+    { "model_id" : 32, "code_id" : 8091, "role" : "ContextType" },
+    { "model_id" : 560, "code_id" : 560 },
+    { "model_id" : 561, "code_id" : 561 },
+    { "model_id" : 558, "code_id" : 558 },
+    { "model_id" : 559, "code_id" : 559 },
+    { "model_id" : 32, "code_id" : 8094, "role" : "ResetMethod" },
+    { "model_id" : 32, "code_id" : 8096, "role" : "InitMethod" }
+  ]
+}

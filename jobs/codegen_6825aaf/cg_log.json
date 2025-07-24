@@ -1,0 +1,149 @@
+{
+"version" : "0.1",
+"log_entries": [
+{
+  "timestamp" : "2025-07-24T08:27:26Z",
+  "tool" : "SWAN-CG",
+  "severity" : "INFO",
+  "message_kind" : "cg_options",
+  "message" : {
+    "target" : "C",
+    "files" : [
+      "..\\..\\assets\\Main.swan",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Common.swani",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Common.swan",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Complex.swani",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Complex.swan",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-Common.swan",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-Cordic.swani",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-Cordic.swan",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-StdC.swani",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Math\\assets\\Math-Trigo-StdC.swan",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Float\\assets\\Float.swani",
+      "C:\\Program Files\\ANSYS Inc\\v251\\Scade One Student\\libraries\\Float\\assets\\Float.swan"
+    ],
+    "roots" : [ "Main::MainStateMachine" ],
+    "target_dir" : "out",
+    "keep_asserts" : false,
+    "short_circuit" : false,
+    "wrap_c_ops" : false,
+    "significance_length" : 31,
+    "name_length" : 200,
+    "static_locals" : false,
+    "expansion" : [ "Expand", [ ] ],
+    "globals_prefix" : "",
+    "basic" : false,
+    "student" : true
+  }
+},
+{
+  "timestamp" : "2025-07-24T08:27:26Z",
+  "tool" : "SWAN-CG",
+  "severity" : "NOTICE",
+  "message_kind" : "diagnostic",
+  "message" : {
+    "key" : "sls.structuralcheck.unused_use",
+    "template" : "Unused use directive {{ loc }}",
+    "parameters" : {
+      "loc" : [
+        "file_location",
+        {
+          "path" : "C:/Users/ErgoA/projects/scade-master-control-unit/assets/Main.swan",
+          "range" : [ 35, 65 ]
+        }
+      ]
+    },
+    "experimental" : false,
+    "level" : "WARNING",
+    "children" : [ ]
+  }
+},
+{
+  "timestamp" : "2025-07-24T08:27:26Z",
+  "tool" : "SWAN-CG",
+  "severity" : "NOTICE",
+  "message_kind" : "diagnostic",
+  "message" : {
+    "key" : "sls.structuralcheck.unused_input",
+    "template" : "Unused input {{ loc }}",
+    "parameters" : {
+      "loc" : [
+        "file_location",
+        {
+          "path" : "C:/Users/ErgoA/projects/scade-master-control-unit/assets/Main.swan",
+          "range" : [ 178, 203 ]
+        }
+      ]
+    },
+    "experimental" : false,
+    "level" : "WARNING",
+    "children" : [ ]
+  }
+},
+{
+  "timestamp" : "2025-07-24T08:27:26Z",
+  "tool" : "SWAN-CG",
+  "severity" : "NOTICE",
+  "message_kind" : "diagnostic",
+  "message" : {
+    "key" : "sls.structuralcheck.unreachable_state",
+    "template" : "State {{ loc }} cannot be reached from the initial state",
+    "parameters" : {
+      "loc" : [
+        "file_location",
+        {
+          "path" : "C:/Users/ErgoA/projects/scade-master-control-unit/assets/Main.swan",
+          "range" : [ 2722, 2724 ]
+        }
+      ]
+    },
+    "experimental" : false,
+    "level" : "WARNING",
+    "children" : [ ]
+  }
+},
+{
+  "timestamp" : "2025-07-24T08:27:27Z",
+  "tool" : "SWAN-CG",
+  "severity" : "NOTICE",
+  "message_kind" : "diagnostic",
+  "message" : {
+    "key" : "sls.typing.temporality_warning",
+    "template" : "Combinational operator {{ loc }} declared as node",
+    "parameters" : {
+      "loc" : [
+        "file_location",
+        {
+          "path" : "C:/Users/ErgoA/projects/scade-master-control-unit/assets/Main.swan",
+          "range" : [ 4506, 4526 ]
+        }
+      ]
+    },
+    "experimental" : false,
+    "level" : "WARNING",
+    "children" : [ ]
+  }
+},
+{
+  "timestamp" : "2025-07-24T08:27:27Z",
+  "tool" : "SWAN-CG",
+  "severity" : "NOTICE",
+  "message_kind" : "diagnostic",
+  "message" : {
+    "key" : "sls.typing.temporality_warning",
+    "template" : "Combinational operator {{ loc }} declared as node",
+    "parameters" : {
+      "loc" : [
+        "file_location",
+        {
+          "path" : "C:/Users/ErgoA/projects/scade-master-control-unit/assets/Main.swan",
+          "range" : [ 73, 78 ]
+        }
+      ]
+    },
+    "experimental" : false,
+    "level" : "WARNING",
+    "children" : [ ]
+  }
+}
+]}
