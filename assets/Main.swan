@@ -8,7 +8,8 @@ node Start ()
 
 node MainStateMachine (hasStartButtonTriggered : bool;
                        isProtiumBehavingAbnormal : bool;)
-  returns (shouldProtiumRun : bool;)
+  returns (shouldProtiumRun : bool;
+           isFuelCellCorrect : bool;)
 {
   diagram
     (#0 block CheckProtiumAnomalies
@@ -17,16 +18,30 @@ node MainStateMachine (hasStartButtonTriggered : bool;
     #pragma diagram {"xy":"H-84044;V-56425","wh":"26000;3200"} #end)
     (#5 def isFuelCellBehavingAbnormal
     #pragma diagram {"xy":"H4029;V-56425","wh":"30000;3200"} #end)
+    (#21 def isFuelCellCorrect
+    #pragma diagram {"xy":"H-9634;V-84062","wh":"20000;3200"} #end)
+    (#22 expr fuelCellVoltage
+    #pragma diagram {"xy":"H-56800;V-85962","wh":"20000;3200"} #end)
+    (#23 expr #24 >= #25
+      where
+        (#24 group)
+        (#25 group)
+    #pragma diagram {"xy":"H-36588;V-84062"} #end)
+    (#26 expr 5.0
+    #pragma diagram {"xy":"H-50800;V-82162"} #end)
     
     (#6 wire #4 => #0)
     (#7 wire #0 => #5
     #pragma diagram {"wp":"v0|#0 #5"} #end)
+    (#27 wire #26 => #25)
+    (#28 wire #23 => #21)
+    (#29 wire #22 => #24)
     
     (var
         isFuelCellBehavingAbnormal: bool;)
     (automaton $mainAutomaton
       state #1 Running
-      #pragma diagram {"xy":"h-450;v-19388","wh":"54300;26000"} #end :
+      #pragma diagram {"xy":"h20778;v-19388","wh":"54300;26000"} #end :
         diagram
           (#8 def shouldProtiumRun
           #pragma diagram {"xy":"h11150;v6238","wh":"20000;3200"} #end)
@@ -35,7 +50,7 @@ node MainStateMachine (hasStartButtonTriggered : bool;
           
           (#10 wire #9 => #8)
       state #2 Failure
-      #pragma diagram {"xy":"h64850;v-17274","wh":"54300;26000"} #end :
+      #pragma diagram {"xy":"h86078;v-17274","wh":"54300;26000"} #end :
         diagram
           (#11 def shouldProtiumRun
           #pragma diagram {"xy":"h11150;v4124","wh":"20000;3200"} #end)
@@ -44,7 +59,7 @@ node MainStateMachine (hasStartButtonTriggered : bool;
           
           (#13 wire #12 => #11)
       initial state #3 Idle
-      #pragma diagram {"xy":"h-62150;v-19388","wh":"54300;26000"} #end :
+      #pragma diagram {"xy":"h-40922;v-19388","wh":"54300;26000"} #end :
         diagram
           (#14 def shouldProtiumRun
           #pragma diagram {"xy":"h14077;v7038","wh":"20000;3200"} #end)
@@ -53,7 +68,7 @@ node MainStateMachine (hasStartButtonTriggered : bool;
           
           (#16 wire #15 => #14)
       state #20 Shutdown
-      #pragma diagram {"xy":"h-33950;v27362","wh":"51200;26000"} #end :
+      #pragma diagram {"xy":"h-12722;v27362","wh":"51200;26000"} #end :
         diagram
           (#17 def shouldProtiumRun
           #pragma diagram {"xy":"h12700;v4300","wh":"20000;3200"} #end)
@@ -61,6 +76,8 @@ node MainStateMachine (hasStartButtonTriggered : bool;
           #pragma diagram {"xy":"h-16600;v4300","wh":"10000;3200"} #end)
           
           (#19 wire #18 => #17)
+      state #30 Init
+      #pragma diagram {"xy":"h-93228;v-19388","wh":"40000;26000"} #end :
       :1: #1 until 
       restart #2
       #pragma diagram {"tp":"h27150;v1056|#1 h3667 h3667 h-27150;v-1056|#2"} #end;
@@ -73,7 +90,10 @@ node MainStateMachine (hasStartButtonTriggered : bool;
       :1: #20 until if (hasStartButtonTriggered)
       restart #1
       #pragma diagram {"tp":"h25600;v-6700|#20 h500 h500 h500 h3200 h3200;v-6262 v-6262 v-4175 v-9683 h0;v13000|#1"} #end;
-      #pragma diagram {"xy":"H-25494;V4462","wh":"186600;90525"} #end)
+      :1: #30 until 
+      restart #3
+      #pragma diagram {"tp":"h20000;v0|#30 h1719 h1719 h-27150;v0|#3"} #end;
+      #pragma diagram {"xy":"H-46722;V4462","wh":"234456;90525"} #end)
 }
 
 node CheckProtiumAnomalies (hydrogenLeakVoltageRaw: uint16;)
@@ -114,11 +134,13 @@ node ConditionLeakVoltage (voltage: uint16;)
     #pragma diagram {"xy":"H-105250;V-27250","wh":"12000;3200"} #end)
     (#1 def result
     #pragma diagram {"xy":"H-36150;V-27250","wh":"10000;3200"} #end)
-    (#2 expr (#3 :>  float32)
+    (#2 expr (#3 :> float32)
       where
         (#3 group)
-    #pragma diagram {"xy":"H-67050;V-27250","wh":"18000;7000"} #end)
+    #pragma diagram {"xy":"H-68050;V-27250","wh":"16000;7000"} #end)
     
     (#4 wire #0 => #3)
     (#5 wire #2 => #1)
 }
+
+sensor fuelCellVoltage: float32;
