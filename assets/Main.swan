@@ -1,15 +1,58 @@
 -- version swan: 2025.0 graph: 2.0
 use Math::Common as MathCommon;
 
-node Start ()
-  returns ()
+node MasterController (BrakePedalVoltageRaw : uint16;
+                       AccPedalVoltageRaw : uint16;
+                       IsEmergencyButtonPressed : bool;)
+  returns (AccelerationVoltage : float32;
+           IsMainValveOpen : bool;)
 {
+  diagram
+    (#0 block EmergencyCheck
+              #pragma diagram {"xy":"H29675;V-6650","wh":"20000;14000"} #end)
+    (#1 expr IsEmergencyButtonPressed
+    #pragma diagram {"xy":"H-55750;V3075","wh":"28000;3200"} #end)
+    (#2 block LoopStepSignalConditioning
+              #pragma diagram {"xy":"H-24975;V-6650","wh":"20000;14000"} #end)
+    (#3 block LoopStepTransmissionIn
+              #pragma diagram {"xy":"H-24975;V13575","wh":"20000;14000"} #end)
+    (#4 expr BrakePedalVoltageRaw
+    #pragma diagram {"xy":"H-51750;V-12050","wh":"24000;3200"} #end)
+    (#5 expr AccPedalVoltageRaw
+    #pragma diagram {"xy":"H-52750;V-5000","wh":"22000;3200"} #end)
+    (#6 block MainStateMachine
+              #pragma diagram {"xy":"H57150;V-6650","wh":"20000;14000"} #end)
+    (#7 block SignalConditioningOut
+              #pragma diagram {"xy":"H82575;V-6650","wh":"20000;14000"} #end)
+    (#8 block TransmissionOut
+              #pragma diagram {"xy":"H108000;V11125","wh":"20000;14000"} #end)
+    (#9 def AccelerationVoltage
+    #pragma diagram {"xy":"H114925;V-6650","wh":"22000;3200"} #end)
+    (#10 def IsMainValveOpen
+    #pragma diagram {"xy":"H115925;V-21900","wh":"20000;3200"} #end)
+    
+    (#11 wire #5 => #2)
+    (#12 wire #4 => #2)
+    (#13 wire #2 .(BrakePedalVoltage) => #0
+    #pragma diagram {"wp":"v-3000|#2 #0"} #end)
+    (#14 wire #1 => #2
+    #pragma diagram {"wp":"#1 h4888 v-5175 #2"} #end)
+    (#15 wire #3 => #0
+    #pragma diagram {"wp":"v0|#3 h17325 v-16225 #0"} #end)
+    (#16 wire #2 .(AccPedalVoltage) => #0
+    #pragma diagram {"wp":"v0|#2 #0"} #end)
+    (#17 wire #7 => #9
+    #pragma diagram {"wp":"v0|#7 #9"} #end)
+    (#18 wire #6 => #10
+    #pragma diagram {"wp":"v0|#6 h2712 v-15250 #10"} #end)
 }
 
 node MainStateMachine (hasStartButtonTriggered : bool;
-                       isProtiumBehavingAbnormal : bool;)
+                       isProtiumBehavingAbnormal : bool;
+                       vehicleStateOriginal : VehicleState;)
   returns (shouldProtiumRun : bool;
-           isFuelCellCorrect : bool;)
+           isFuelCellCorrect : bool;
+           vehicleState : VehicleState;)
 {
   diagram
     (#0 block CheckProtiumAnomalies
@@ -29,6 +72,21 @@ node MainStateMachine (hasStartButtonTriggered : bool;
     #pragma diagram {"xy":"H-36588;V-84062"} #end)
     (#26 expr 5.0
     #pragma diagram {"xy":"H-50800;V-82162"} #end)
+    (#31 def vehicleState
+    #pragma diagram {"xy":"H-4600;V-112925","wh":"16000;3200"} #end)
+    (#32 expr #33 .  fuelCellVoltage
+      where
+        (#33 group)
+    #pragma diagram {"xy":"H-46162;V-114825","wh":"24000;7000"} #end)
+    (#34 expr vehicleStateOriginal
+    #pragma diagram {"xy":"H-77362;V-114825","wh":"24000;3200"} #end)
+    (#35 expr fuelCellVoltage
+    #pragma diagram {"xy":"H-44162;V-106887","wh":"20000;3200"} #end)
+    (#36 expr #37 * #38
+      where
+        (#37 group)
+        (#38 group)
+    #pragma diagram {"xy":"H-25500;V-112925"} #end)
     
     (#6 wire #4 => #0)
     (#7 wire #0 => #5
@@ -36,6 +94,11 @@ node MainStateMachine (hasStartButtonTriggered : bool;
     (#27 wire #26 => #25)
     (#28 wire #23 => #21)
     (#29 wire #22 => #24)
+    (#39 wire #34 => #33)
+    (#40 wire #32 => #37)
+    (#41 wire #35 => #38
+    #pragma diagram {"wp":"#35 h3082 v-4138 #38"} #end)
+    (#42 wire #36 => #31)
     
     (var
         isFuelCellBehavingAbnormal: bool;)
@@ -58,7 +121,7 @@ node MainStateMachine (hasStartButtonTriggered : bool;
           #pragma diagram {"xy":"h-18150;v4124","wh":"10000;3200"} #end)
           
           (#13 wire #12 => #11)
-      initial state #3 Idle
+      state #3 Idle
       #pragma diagram {"xy":"h-40922;v-19388","wh":"54300;26000"} #end :
         diagram
           (#14 def shouldProtiumRun
@@ -76,7 +139,7 @@ node MainStateMachine (hasStartButtonTriggered : bool;
           #pragma diagram {"xy":"h-16600;v4300","wh":"10000;3200"} #end)
           
           (#19 wire #18 => #17)
-      state #30 Init
+      initial state #30 Init
       #pragma diagram {"xy":"h-93228;v-19388","wh":"40000;26000"} #end :
       :1: #1 until 
       restart #2
@@ -144,3 +207,43 @@ node ConditionLeakVoltage (voltage: uint16;)
 }
 
 sensor fuelCellVoltage: float32;
+
+type VehicleState = { 
+    fuelCellVoltage: float32, 
+    supercapacitorVoltage: float32,
+    errorMask: uint32
+}
+;
+
+type ErrorState = enum { H2Leakage, SCOverVoltage, SCUnderVoltage, None };
+
+const ERROR_H2_LEAKAGE: uint32 = 1;
+
+const ERROR_FC_V_OVERVOLTAGE: uint32 = 2;
+
+const ERROR_FC_V_UNDERVOLTAGE: uint32 = 4;
+
+node LoopStepSignalConditioning (i0: int32;)
+  returns (o0: int32;)
+{
+}
+
+node LoopStepTransmissionIn (i0: int32;)
+  returns (o0: int32;)
+{
+}
+
+node EmergencyCheck (i0: int32;)
+  returns (o0: int32;)
+{
+}
+
+node SignalConditioningOut (i0: int32;)
+  returns (o0: int32;)
+{
+}
+
+node TransmissionOut (i0: int32;)
+  returns (o0: int32;)
+{
+}
