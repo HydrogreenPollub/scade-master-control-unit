@@ -115,7 +115,40 @@ node Debouncing (i0: bool;)
       #pragma diagram {"xy":"H120511;V-239567","wh":"130312;69175"} #end)
 }
 
-node SignalConditioning (i0: int32;)
-  returns (o0: int32;)
+node SignalConditioning (supercapacitorCurrentRaw : uint16;
+                         accelPedalRaw : uint16;
+                         brakePedalRaw : uint16;
+                         accessoryBatteryCurrentRaw : uint16;
+                         hydrogenHighPressureRaw : uint16;
+                          hydrogenLeakageRaw : uint16;
+                          fuelCellOutputCurrentRaw : uint16;
+                         motorControllerSupplyCurrentRaw : uint16;
+                         accessoryBatteryVoltageRaw : uint16;
+                          fuelCellOutputVoltageRaw : uint16;
+                         supercapacitorVoltageRaw : uint16;
+                         motorControllerSupplyVoltageRaw : uint16;
+                         dinRaw : uint8;
+                         rpm0 : float32;)
+  returns (supercapacitorCurrent : float32;
+           accelPedalVoltage : float32;
+            brakePedalVoltage : float32;
+            accessoryBatteryCurrent : float32;
+           hydrogenHighPressure : float32;
+           hydrogenHighPressure : float32;
+           fuelCellOutputCurrent : float32;
+            motorControllerSupplyCurrent : float32;
+           accessoryBatteryVoltage : float32;
+           fuelCellOutputVoltage : float32;
+           supercapacitorVoltage : float32;
+           motorControllerSupplyVoltage : float32;
+           startBtn : bool;
+           deadManSwitch : bool;
+           emergencySwitch : bool;
+           resetBtn : bool;
+           calibrationBtn : bool;
+           leakageSensorSwitch : bool;
+           shellTelemetryEmergencyRelay : bool;
+            rpm : float32;
+            speed : float32;)
 {
 }

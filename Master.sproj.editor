@@ -5,7 +5,6 @@
   "ModulesOrder": [
     "assets\\Main.swan",
     "assets\\SignalConditioning.swan",
-    "assets\\Testing.swant",
-    "assets\\TelemetryCommunication.swan"
+    "assets\\Testing.swant"
   ]
 }
