@@ -3,6 +3,7 @@
     "jobs\\codegen_6825aaf\\.sjob"
   ],
   "ModulesOrder": [
-    "assets\\Main.swan"
+    "assets\\Main.swan",
+    "assets\\SignalConditioning.swan"
   ]
 }

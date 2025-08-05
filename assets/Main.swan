@@ -74,10 +74,10 @@ node MainStateMachine (hasStartButtonTriggered : bool;
     #pragma diagram {"xy":"H-50800;V-82162"} #end)
     (#31 def vehicleState
     #pragma diagram {"xy":"H-4600;V-112925","wh":"16000;3200"} #end)
-    (#32 expr #33 .  fuelCellVoltage
+    (#32 expr #33 . fuelCellVoltage
       where
         (#33 group)
-    #pragma diagram {"xy":"H-46162;V-114825","wh":"24000;7000"} #end)
+    #pragma diagram {"xy":"H-47162;V-114825","wh":"22000;7000"} #end)
     (#34 expr vehicleStateOriginal
     #pragma diagram {"xy":"H-77362;V-114825","wh":"24000;3200"} #end)
     (#35 expr fuelCellVoltage

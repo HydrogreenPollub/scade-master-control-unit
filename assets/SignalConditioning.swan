@@ -1,0 +1,5 @@
+-- version swan: 2025.0 graph: 2.0
+node LinearMapping (i0: int32;)
+  returns (o0: int32;)
+{
+}
