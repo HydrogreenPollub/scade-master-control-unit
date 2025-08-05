@@ -4,6 +4,7 @@
   ],
   "ModulesOrder": [
     "assets\\Main.swan",
-    "assets\\SignalConditioning.swan"
+    "assets\\SignalConditioning.swan",
+    "assets\\Testing.swant"
   ]
 }
