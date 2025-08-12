@@ -4,11 +4,11 @@ function LinearMapping (value: int16;
                         fromHigh : int16;
                         toHigh : int16;
                         toLow : int16;)
-  returns (mapped: int16;)
+  returns (mapped: float32;)
 {
   diagram
     (#0 def mapped
-    #pragma diagram {"xy":"H30967;V15707","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H58680;V14757","wh":"10000;3200"} #end)
     (#1 expr fromHigh - fromLow
     #pragma diagram {"xy":"H-41033;V15707","wh":"22000;3200"} #end)
     (#2 expr value - fromLow
@@ -32,16 +32,23 @@ function LinearMapping (value: int16;
         (#12 group)
         (#13 group)
     #pragma diagram {"xy":"H-35033;V10107"} #end)
+    (#16 expr (#21 :> float32)
+      where
+        (#21 group)
+    #pragma diagram {"xy":"H32467;V16657","wh":"16000;7000"} #end)
     
     (#14 wire #2 => #12)
     (#15 wire #1 => #8
     #pragma diagram {"wp":"#1 h7500 v-1800 #8"} #end)
-    (#16 wire #3 => #0)
     (#17 wire #10 => #5)
     (#18 wire #6 => #4
     #pragma diagram {"wp":"#6 h7500 v1800 #4"} #end)
     (#19 wire #9 => #13)
     (#20 wire #11 => #7)
+    (#23 wire #16 => #0
+    #pragma diagram {"wp":"#16 h8106 v-1900 #0"} #end)
+    (#22 wire #3 => #21
+    #pragma diagram {"wp":"#3 h6750 v950 #21"} #end)
 }
 
 node Debouncing (i0: bool;)
@@ -135,7 +142,7 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
                          din6 : bool;
                          din7 : bool;
                          din8 : bool;
-                         rpm0 : float32;)
+                         rpmHz : float32;)
   returns (supercapacitorCurrent : int16;
            accelPedalVoltage : int16;
            brakePedalVoltage : int16;
@@ -156,7 +163,7 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
            calibrationBtn : bool;
            leakageSensorSwitch : bool;
            shellTelemetryEmergencyRelay : bool;
-           rpm : float32;
+           rpmLinear : float32;
            speed : float32;)
 {
   diagram
@@ -285,14 +292,14 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
         (#85 group)
         (#86 group)
     #pragma diagram {"xy":"H70075;V385776"} #end)
-    (#87 expr rpm0
-    #pragma diagram {"xy":"H47350;V376998"} #end)
-    (#88 def rpm
-    #pragma diagram {"xy":"H103255;V385776"} #end)
+    (#87 expr rpmHz
+    #pragma diagram {"xy":"H48350;V376998","wh":"10000;3200"} #end)
+    (#88 def rpmLinear
+    #pragma diagram {"xy":"H106255;V385776","wh":"14000;3200"} #end)
     (#89 expr 60
     #pragma diagram {"xy":"H47350;V387676"} #end)
-    (#90 expr rpm0
-    #pragma diagram {"xy":"H50400;V403081"} #end)
+    (#90 expr rpmHz
+    #pragma diagram {"xy":"H51400;V403081","wh":"10000;3200"} #end)
     (#91 expr #92 * #93
       where
         (#92 group)
@@ -364,12 +371,12 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
     (#111 wire #67 => #72
     #pragma diagram {"wp":"v0|#67 #72"} #end)
     (#112 wire #87 => #85
-    #pragma diagram {"wp":"#87 h10725 v6878 #85"} #end)
+    #pragma diagram {"wp":"#87 h4862 v6878 #85"} #end)
     (#113 wire #84 => #88)
     (#114 wire #89 => #86)
     (#115 wire #94 => #93)
     (#116 wire #91 => #95
     #pragma diagram {"wp":"#91 h11337 v-1900 #95"} #end)
     (#117 wire #90 => #92
-    #pragma diagram {"wp":"#90 h7675 v4656 #92"} #end)
+    #pragma diagram {"wp":"#90 h5838 v4656 #92"} #end)
 }
