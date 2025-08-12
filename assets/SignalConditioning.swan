@@ -127,7 +127,14 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
                          fuelCellOutputVoltageRaw : int16;
                          supercapacitorVoltageRaw : int16;
                          motorControllerSupplyVoltageRaw : int16;
-                         dinRaw : uint8;
+                         din1 : bool;
+                         din2 : bool;
+                         din3 : bool;
+                         din4 : bool;
+                         din5 : bool;
+                         din6 : bool;
+                         din7 : bool;
+                         din8 : bool;
                          rpm0 : float32;)
   returns (supercapacitorCurrent : int16;
            accelPedalVoltage : int16;
@@ -141,6 +148,7 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
            fuelCellOutputVoltage : int16;
            supercapacitorVoltage : int16;
            motorControllerSupplyVoltage : int16;
+           speedSensorPulse : bool;
            startBtn : bool;
            deadManSwitch : bool;
            emergencySwitch : bool;
@@ -215,7 +223,7 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
     (#30 block (LinearMapping \ fromLow: 1638_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 5_i16)
                #pragma diagram {"xy":"H61981;V2807","wh":"20000;14000"} #end)
     (#21 def hydrogenHighPressure
-    #pragma diagram {"xy":"H94186;V45242","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H101074;V43342","wh":"24000;3200"} #end)
     (#29 expr motorControllerSupplyVoltageRaw
     #pragma diagram {"xy":"H19255;V168868","wh":"34000;3200"} #end)
     (#3 expr accelPedalRaw
@@ -224,6 +232,76 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
     #pragma diagram {"xy":"H120855;V151512","wh":"24000;3200"} #end)
     (#43 def motorControllerSupplyVoltage
     #pragma diagram {"xy":"H103255;V168868","wh":"32000;3200"} #end)
+    (#60 block Debouncing
+               #pragma diagram {"xy":"H70075;V214380","wh":"20000;14000"} #end)
+    (#61 block Debouncing
+               #pragma diagram {"xy":"H70075;V191624","wh":"20000;14000"} #end)
+    (#62 block Debouncing
+               #pragma diagram {"xy":"H70075;V237136","wh":"20000;14000"} #end)
+    (#63 block Debouncing
+               #pragma diagram {"xy":"H70075;V259892","wh":"20000;14000"} #end)
+    (#64 block Debouncing
+               #pragma diagram {"xy":"H70075;V282648","wh":"20000;14000"} #end)
+    (#65 block Debouncing
+               #pragma diagram {"xy":"H70075;V305404","wh":"20000;14000"} #end)
+    (#66 block Debouncing
+               #pragma diagram {"xy":"H70075;V328160","wh":"20000;14000"} #end)
+    (#67 block Debouncing
+               #pragma diagram {"xy":"H70075;V350916","wh":"20000;14000"} #end)
+    (#68 def speedSensorPulse
+    #pragma diagram {"xy":"H103255;V191624","wh":"20000;3200"} #end)
+    (#69 def startBtn
+    #pragma diagram {"xy":"H103255;V214380","wh":"12000;3200"} #end)
+    (#70 def deadManSwitch
+    #pragma diagram {"xy":"H103255;V237136","wh":"18000;3200"} #end)
+    (#71 def emergencySwitch
+    #pragma diagram {"xy":"H103255;V258025","wh":"20000;3200"} #end)
+    (#72 def shellTelemetryEmergencyRelay
+    #pragma diagram {"xy":"H103255;V350916","wh":"32000;3200"} #end)
+    (#73 def resetBtn
+    #pragma diagram {"xy":"H103255;V282648","wh":"12000;3200"} #end)
+    (#74 def calibrationBtn
+    #pragma diagram {"xy":"H103255;V305404","wh":"18000;3200"} #end)
+    (#75 def leakageSensorSwitch
+    #pragma diagram {"xy":"H103255;V328160","wh":"22000;3200"} #end)
+    (#76 expr din1
+    #pragma diagram {"xy":"H39125;V191624"} #end)
+    (#77 expr din2
+    #pragma diagram {"xy":"H39125;V214380"} #end)
+    (#78 expr din3
+    #pragma diagram {"xy":"H39125;V237136"} #end)
+    (#79 expr din4
+    #pragma diagram {"xy":"H39125;V259892"} #end)
+    (#80 expr din5
+    #pragma diagram {"xy":"H40625;V282648"} #end)
+    (#81 expr din6
+    #pragma diagram {"xy":"H40625;V305404"} #end)
+    (#82 expr din7
+    #pragma diagram {"xy":"H40625;V328160"} #end)
+    (#83 expr din8
+    #pragma diagram {"xy":"H40625;V350916"} #end)
+    (#84 expr #85 * #86
+      where
+        (#85 group)
+        (#86 group)
+    #pragma diagram {"xy":"H70075;V385776"} #end)
+    (#87 expr rpm0
+    #pragma diagram {"xy":"H47350;V376998"} #end)
+    (#88 def rpm
+    #pragma diagram {"xy":"H103255;V385776"} #end)
+    (#89 expr 60
+    #pragma diagram {"xy":"H47350;V387676"} #end)
+    (#90 expr rpm0
+    #pragma diagram {"xy":"H50400;V403081"} #end)
+    (#91 expr #92 * #93
+      where
+        (#92 group)
+        (#93 group)
+    #pragma diagram {"xy":"H70075;V409637"} #end)
+    (#94 expr 0.027085
+    #pragma diagram {"xy":"H42100;V411850","wh":"12000;3200"} #end)
+    (#95 def speed
+    #pragma diagram {"xy":"H99750;V407737","wh":"10000;3200"} #end)
     
     (#12 wire #0 => #1)
     (#13 wire #1 => #2
@@ -232,13 +310,13 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
     #pragma diagram {"wp":"v0|#17 #5"} #end)
     (#32 wire #3 => #17)
     (#33 wire #19 => #37
-    #pragma diagram {"wp":"v-0|#19 #37"} #end)
+    #pragma diagram {"wp":"v0|#19 #37"} #end)
     (#34 wire #23 => #19)
     (#35 wire #15 => #38
-    #pragma diagram {"wp":"v-0|#15 #38"} #end)
+    #pragma diagram {"wp":"v0|#15 #38"} #end)
     (#36 wire #24 => #15)
     (#44 wire #18 => #39
-    #pragma diagram {"wp":"v-0|#18 #39"} #end)
+    #pragma diagram {"wp":"v0|#18 #39"} #end)
     (#45 wire #25 => #18)
     (#46 wire #14 => #40
     #pragma diagram {"wp":"v0|#14 #40"} #end)
@@ -249,7 +327,7 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
     (#49 wire #16 => #43
     #pragma diagram {"wp":"v0|#16 #43"} #end)
     (#50 wire #22 => #21
-    #pragma diagram {"wp":"v0|#22 #21"} #end)
+    #pragma diagram {"wp":"v-1900|#22 #21"} #end)
     (#51 wire #7 => #11
     #pragma diagram {"wp":"v0|#7 #11"} #end)
     (#52 wire #30 => #8
@@ -261,4 +339,37 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
     (#57 wire #28 => #10)
     (#58 wire #27 => #4)
     (#59 wire #26 => #14)
+    (#96 wire #76 => #61)
+    (#97 wire #61 => #68
+    #pragma diagram {"wp":"v0|#61 #68"} #end)
+    (#98 wire #77 => #60)
+    (#99 wire #60 => #69
+    #pragma diagram {"wp":"v0|#60 #69"} #end)
+    (#100 wire #78 => #62)
+    (#101 wire #62 => #70
+    #pragma diagram {"wp":"v0|#62 #70"} #end)
+    (#102 wire #79 => #63)
+    (#103 wire #63 => #71
+    #pragma diagram {"wp":"v-1867|#63 #71"} #end)
+    (#104 wire #80 => #64)
+    (#105 wire #64 => #73
+    #pragma diagram {"wp":"v0|#64 #73"} #end)
+    (#106 wire #81 => #65)
+    (#107 wire #65 => #74
+    #pragma diagram {"wp":"v0|#65 #74"} #end)
+    (#108 wire #82 => #66)
+    (#109 wire #66 => #75
+    #pragma diagram {"wp":"v0|#66 #75"} #end)
+    (#110 wire #83 => #67)
+    (#111 wire #67 => #72
+    #pragma diagram {"wp":"v0|#67 #72"} #end)
+    (#112 wire #87 => #85
+    #pragma diagram {"wp":"#87 h10725 v6878 #85"} #end)
+    (#113 wire #84 => #88)
+    (#114 wire #89 => #86)
+    (#115 wire #94 => #93)
+    (#116 wire #91 => #95
+    #pragma diagram {"wp":"#91 h11337 v-1900 #95"} #end)
+    (#117 wire #90 => #92
+    #pragma diagram {"wp":"#90 h7675 v4656 #92"} #end)
 }
