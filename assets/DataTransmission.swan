@@ -1,0 +1,20 @@
+-- version swan: 2025.0 graph: 2.0
+node TelemetryDataReception (i0: int32;)
+  returns ()
+{
+}
+
+node TelemetryDataTransmission (i0: int32;)
+  returns ()
+{
+}
+
+node ProtiumDataReception (i0: int32;)
+  returns ()
+{
+}
+
+node ProtiumDataTransmission (i0: int32;)
+  returns ()
+{
+}

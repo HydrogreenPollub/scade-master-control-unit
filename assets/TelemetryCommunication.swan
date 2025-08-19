@@ -1,5 +1,0 @@
--- version swan: 2025.0 graph: 2.0
-node TelemetryDataReception (i0: int32;)
-  returns (o0: int32;)
-{
-}

@@ -122,7 +122,7 @@ node Debouncing (i0: bool;)
       #pragma diagram {"xy":"H120511;V-239567","wh":"130312;69175"} #end)
 }
 
-node SignalConditioning (supercapacitorCurrentRaw : int16;
+node SignalConditioningIn (supercapacitorCurrentRaw : int16;
                          accelPedalRaw : int16;
                          brakePedalRaw : int16;
                          accessoryBatteryCurrentRaw : int16;
@@ -379,4 +379,9 @@ node SignalConditioning (supercapacitorCurrentRaw : int16;
     #pragma diagram {"wp":"#91 h11337 v-1900 #95"} #end)
     (#117 wire #90 => #92
     #pragma diagram {"wp":"#90 h5838 v4656 #92"} #end)
+}
+
+node SignalConditioningOut (i0: int32;)
+  returns ()
+{
 }

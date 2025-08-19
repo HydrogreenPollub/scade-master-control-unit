@@ -6,6 +6,7 @@
     "assets\\Main.swan",
     "assets\\SignalConditioning.swan",
     "assets\\Testing.swant",
-    "assets\\TelemetryCommunication.swan"
+    "assets\\DataTransmission.swan",
+    "assets\\DataValidation.swan"
   ]
 }
