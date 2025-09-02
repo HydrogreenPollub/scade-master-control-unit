@@ -1,20 +1,106 @@
 -- version swan: 2025.0 graph: 2.0
-node TelemetryDataReception (i0: int32;)
-  returns ()
+const ZERO: uint8 = 0;
+
+type message = MasterMeasurements {masterMeasurements} | MasterStatus {masterStatus} | ProtiumValues {protiumValues} | ProtiumOperatingState {protiumOperatingState};
+
+type masterState = enum {Idle, Running, Shutdown, Failure};
+
+type masterMeasurements = {ai1:float64, supercapacitorCurrent:float64, ai3:float64, ai4:float64, ai5:float64, accelPedalVoltage:float64, brakePedalVoltage:float64, accessoryBatteryCurrent:float64, hydrogenHighPressure:float64, hydrogenLeakageSensorVoltage:float64, fuelCellOutputCurrent:float64, motorControllerSupplyCurrent:float64, accessoryBatteryVoltage:float64, fuelCellOutputVoltage:float64, supercapacitorVoltage:float64, motorControllerSupplyVoltage:float64, din:uint8, rpm:float64, speed:float64};
+
+type masterStatus = {serialNumber:uint8, State:masterState, mainValveEnableOutput:bool, motorControllerEnableOutput:bool, accelOutputVoltage:float64, brakeOutputVoltage:float64};
+
+type protiumValues = {FC_V:float64, FC_A:float64, FC_W:float64, Energy:float64, FCT1:float64, FAN:float64, H2P1:float64, TankP:float64, TankT:float64, V_Set:float64, I_Set:float64, UCB_V:float64, Stasic_selector:float64, STASIS_V1:float64, STASIS_V2:float64, Number_of_cell:float64, FCT2:float64, BLW:float64, BattV:float64, IP:float64, TP:float64};
+
+type protiumOperatingState = enum {Disconnected, SystemOff, FirmwareVersion, CommandNotFound, EnteringToStartingPhase, EnteringToRunningPhase, AnodeSupplyPressureCheck, TemperatureCheck, FCGasSystemCheck, FCSealingCheck, FCVoltageCheck, LowH2Supply, ShutdownInitiated, AbnormalShutdownInitiated, Running};
+
+type encodedMSG = uint8^256;
+
+node Encoding (msg: message;)
+  returns (code:encodedMSG;)
 {
+  diagram
+    (activate when msg match
+      | ProtiumOperatingState{x} :
+        {
+        #pragma diagram {"xy":"h0;v-33100","wh":"48000;20000"} #end
+        }
+      | MasterStatus{x} :
+        {
+        #pragma diagram {"xy":"h0;v-8900","wh":"48000;20000"} #end
+        }
+      | MasterMeasurements{x} :
+        {
+        #pragma diagram {"xy":"h0;v15300","wh":"48000;20000"} #end
+        }
+      | ProtiumValues{x} :
+        {
+        #pragma diagram {"xy":"h0;v39500","wh":"48000;20000"} #end
+        }
+      #pragma diagram {"xy":"H-12900;V6275","wh":"51000;102000"} #end)
 }
 
-node TelemetryDataTransmission (i0: int32;)
-  returns ()
+node EncodingProtiumOperatingState (i0:protiumOperatingState;)
+  returns (msg:encodedMSG;)
 {
-}
-
-node ProtiumDataReception (i0: int32;)
-  returns ()
-{
-}
-
-node ProtiumDataTransmission (i0: int32;)
-  returns ()
-{
+  diagram
+    (#0 expr enumInterpreted
+    #pragma diagram {"xy":"H26112;V-21638","wh":"20000;3200"} #end)
+    (#1 group bypos
+    #pragma diagram {"xy":"H54112;V-21638"} #end)
+    (#2 expr [#3]
+      where
+        (#3 group)
+    #pragma diagram {"xy":"H80112;V-21638"} #end)
+    (#4 def msg
+    #pragma diagram {"xy":"H107925;V-21638"} #end)
+    (#5 def iter
+    #pragma diagram {"xy":"H54112;V-51850"} #end)
+    (#6 expr 0_i32
+    #pragma diagram {"xy":"H21112;V-51850","wh":"10000;3200"} #end)
+    (#7 expr forward
+      <<size>>
+      returns ()
+      #pragma diagram {"xy":"H45850;V15200","wh":"48600;40000"} #end)
+    
+    (#8 wire #0 => #1)
+    (#9 wire #1 => #3)
+    (#10 wire #2 => #4)
+    (#11 wire #6 => #5)
+    
+    (var
+        enumInterpreted:uint8;
+        iter:int32;)
+    (activate $ActivateWhen0 when i0 match
+      | Disconnected :
+        {
+          diagram
+            (#12 expr 1_ui8
+            #pragma diagram {"xy":"h-8825;v-1575","wh":"10000;3200"} #end)
+            (#13 def enumInterpreted
+            #pragma diagram {"xy":"h9675;v-1575","wh":"20000;3200"} #end)
+            
+            (#14 wire #12 => #13)
+        #pragma diagram {"xy":"h0;v-57300","wh":"48000;20000"} #end
+        }
+      | SystemOff :
+        {
+        #pragma diagram {"xy":"h0;v-33100","wh":"48000;20000"} #end
+        }
+      | FirmwareVersion :
+        {
+        #pragma diagram {"xy":"h0;v-8900","wh":"48000;20000"} #end
+        }
+      | CommandNotFound :
+        {
+        #pragma diagram {"xy":"h0;v15300","wh":"48000;20000"} #end
+        }
+      | EnteringToStartingPhase :
+        {
+        #pragma diagram {"xy":"h0;v39500","wh":"48000;20000"} #end
+        }
+      | {syntax%%syntax} :
+        {
+        #pragma diagram {"xy":"h0;v63700","wh":"48000;20000"} #end
+        }
+      #pragma diagram {"xy":"H-21388;V22125","wh":"51000;150400"} #end)
 }

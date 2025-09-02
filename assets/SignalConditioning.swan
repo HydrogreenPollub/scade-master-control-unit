@@ -123,26 +123,26 @@ node Debouncing (i0: bool;)
 }
 
 node SignalConditioningIn (supercapacitorCurrentRaw : int16;
-                         accelPedalRaw : int16;
-                         brakePedalRaw : int16;
-                         accessoryBatteryCurrentRaw : int16;
-                         hydrogenHighPressureRaw : int16;
-                         hydrogenLeakageRaw : int16;
-                         fuelCellOutputCurrentRaw : int16;
-                         motorControllerSupplyCurrentRaw : int16;
-                         accessoryBatteryVoltageRaw : int16;
-                         fuelCellOutputVoltageRaw : int16;
-                         supercapacitorVoltageRaw : int16;
-                         motorControllerSupplyVoltageRaw : int16;
-                         din1 : bool;
-                         din2 : bool;
-                         din3 : bool;
-                         din4 : bool;
-                         din5 : bool;
-                         din6 : bool;
-                         din7 : bool;
-                         din8 : bool;
-                         rpmHz : float32;)
+                           accelPedalRaw : int16;
+                           brakePedalRaw : int16;
+                           accessoryBatteryCurrentRaw : int16;
+                           hydrogenHighPressureRaw : int16;
+                           hydrogenLeakageRaw : int16;
+                           fuelCellOutputCurrentRaw : int16;
+                           motorControllerSupplyCurrentRaw : int16;
+                           accessoryBatteryVoltageRaw : int16;
+                           fuelCellOutputVoltageRaw : int16;
+                           supercapacitorVoltageRaw : int16;
+                           motorControllerSupplyVoltageRaw : int16;
+                           din1 : bool;
+                           din2 : bool;
+                           din3 : bool;
+                           din4 : bool;
+                           din5 : bool;
+                           din6 : bool;
+                           din7 : bool;
+                           din8 : bool;
+                           rpmHz : float32;)
   returns (supercapacitorCurrent : float32;
            accelPedalVoltage : float32;
            brakePedalVoltage : float32;
