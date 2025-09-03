@@ -1,4 +1,4 @@
--- version swan: 2025.0 graph: 2.0
+-- version swan: 2025.1 graph: 2.0
 node Validation (i0: int32;)
   returns ()
 {

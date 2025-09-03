@@ -1,4 +1,4 @@
--- version swan: 2025.0 graph: 2.0
+-- version swan: 2025.1 graph: 2.0
 const ZERO: uint8 = 0;
 
 type message = MasterMeasurements {masterMeasurements} | MasterStatus {masterStatus} | ProtiumValues {protiumValues} | ProtiumOperatingState {protiumOperatingState};

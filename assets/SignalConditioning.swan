@@ -1,4 +1,4 @@
--- version swan: 2025.0 graph: 2.0
+-- version swan: 2025.1 graph: 2.0
 function LinearMapping (value: int16;
                         fromLow : int16;
                         fromHigh : int16;
@@ -51,7 +51,8 @@ function LinearMapping (value: int16;
     #pragma diagram {"wp":"#3 h6750 v950 #21"} #end)
 }
 
-node Debouncing (i0: bool;)
+node Debouncing (i0: bool;
+                 debounceCycles : int32;)
   returns (o0: bool;)
 {
   diagram
@@ -110,7 +111,7 @@ node Debouncing (i0: bool;)
       :1: #3 until if (i0)
       restart #20
       #pragma diagram {"tp":"h19000;v0|#3 h2242 h2242 h-38794;v0|#20"} #end;
-      :2: #20 until if (count = 4)
+      :2: #20 until if (count = debounceCycles)
       restart #24
       #pragma diagram {"tp":"h-5588;v9944|#20 v3685 v3685 h0;v-13000|#24"} #end;
       :1: #20 until if (not i0)
@@ -239,21 +240,21 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
     #pragma diagram {"xy":"H120855;V151512","wh":"24000;3200"} #end)
     (#43 def motorControllerSupplyVoltage
     #pragma diagram {"xy":"H103255;V168868","wh":"32000;3200"} #end)
-    (#60 block Debouncing
+    (#60 block (Debouncing \ debounceCycles: 500_i32)
                #pragma diagram {"xy":"H70075;V214380","wh":"20000;14000"} #end)
-    (#61 block Debouncing
+    (#61 block (Debouncing \ debounceCycles: 500_i32)
                #pragma diagram {"xy":"H70075;V191624","wh":"20000;14000"} #end)
-    (#62 block Debouncing
+    (#62 block (Debouncing \ debounceCycles: 100_i32)
                #pragma diagram {"xy":"H70075;V237136","wh":"20000;14000"} #end)
-    (#63 block Debouncing
+    (#63 block (Debouncing \ debounceCycles: 500_i32)
                #pragma diagram {"xy":"H70075;V259892","wh":"20000;14000"} #end)
-    (#64 block Debouncing
+    (#64 block (Debouncing \ debounceCycles: 1000_i32)
                #pragma diagram {"xy":"H70075;V282648","wh":"20000;14000"} #end)
-    (#65 block Debouncing
+    (#65 block (Debouncing \ debounceCycles: 2000_i32)
                #pragma diagram {"xy":"H70075;V305404","wh":"20000;14000"} #end)
-    (#66 block Debouncing
+    (#66 block (Debouncing \ debounceCycles: 500_i32)
                #pragma diagram {"xy":"H70075;V328160","wh":"20000;14000"} #end)
-    (#67 block Debouncing
+    (#67 block (Debouncing \ debounceCycles: 500_i32)
                #pragma diagram {"xy":"H70075;V350916","wh":"20000;14000"} #end)
     (#68 def speedSensorPulse
     #pragma diagram {"xy":"H103255;V191624","wh":"20000;3200"} #end)
@@ -305,10 +306,38 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
         (#92 group)
         (#93 group)
     #pragma diagram {"xy":"H70075;V409637"} #end)
-    (#94 expr 0.027085
-    #pragma diagram {"xy":"H42100;V411850","wh":"12000;3200"} #end)
+    (#94 expr 0.2903555599
+    #pragma diagram {"xy":"H44100;V411850","wh":"16000;3200"} #end)
     (#95 def speed
     #pragma diagram {"xy":"H99750;V407737","wh":"10000;3200"} #end)
+    (#96 expr not #98
+      where
+        (#98 group)
+    #pragma diagram {"xy":"H51600;V191624"} #end)
+    (#100 expr not #104
+      where
+        (#104 group)
+    #pragma diagram {"xy":"H51600;V214380"} #end)
+    (#106 expr not #108
+      where
+        (#108 group)
+    #pragma diagram {"xy":"H51600;V237136"} #end)
+    (#110 expr not #118
+      where
+        (#118 group)
+    #pragma diagram {"xy":"H52350;V282648"} #end)
+    (#119 expr not #120
+      where
+        (#120 group)
+    #pragma diagram {"xy":"H52350;V305404"} #end)
+    (#121 expr not #122
+      where
+        (#122 group)
+    #pragma diagram {"xy":"H52350;V328160"} #end)
+    (#123 expr not #124
+      where
+        (#124 group)
+    #pragma diagram {"xy":"H52350;V350916"} #end)
     
     (#12 wire #0 => #1)
     (#13 wire #1 => #2
@@ -346,28 +375,21 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
     (#57 wire #28 => #10)
     (#58 wire #27 => #4)
     (#59 wire #26 => #14)
-    (#96 wire #76 => #61)
     (#97 wire #61 => #68
     #pragma diagram {"wp":"v0|#61 #68"} #end)
-    (#98 wire #77 => #60)
     (#99 wire #60 => #69
     #pragma diagram {"wp":"v0|#60 #69"} #end)
-    (#100 wire #78 => #62)
     (#101 wire #62 => #70
     #pragma diagram {"wp":"v0|#62 #70"} #end)
     (#102 wire #79 => #63)
     (#103 wire #63 => #71
     #pragma diagram {"wp":"v-1867|#63 #71"} #end)
-    (#104 wire #80 => #64)
     (#105 wire #64 => #73
     #pragma diagram {"wp":"v0|#64 #73"} #end)
-    (#106 wire #81 => #65)
     (#107 wire #65 => #74
     #pragma diagram {"wp":"v0|#65 #74"} #end)
-    (#108 wire #82 => #66)
     (#109 wire #66 => #75
     #pragma diagram {"wp":"v0|#66 #75"} #end)
-    (#110 wire #83 => #67)
     (#111 wire #67 => #72
     #pragma diagram {"wp":"v0|#67 #72"} #end)
     (#112 wire #87 => #85
@@ -379,6 +401,20 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
     #pragma diagram {"wp":"#91 h11337 v-1900 #95"} #end)
     (#117 wire #90 => #92
     #pragma diagram {"wp":"#90 h5838 v4656 #92"} #end)
+    (#125 wire #76 => #98)
+    (#126 wire #77 => #104)
+    (#127 wire #78 => #108)
+    (#128 wire #80 => #118)
+    (#129 wire #81 => #120)
+    (#130 wire #82 => #122)
+    (#131 wire #83 => #124)
+    (#132 wire #96 => #61)
+    (#133 wire #100 => #60)
+    (#134 wire #106 => #62)
+    (#135 wire #110 => #64)
+    (#136 wire #119 => #65)
+    (#137 wire #121 => #66)
+    (#138 wire #123 => #67)
 }
 
 node SignalConditioningOut (i0: int32;)
