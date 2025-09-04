@@ -464,3 +464,26 @@ function SignalConditioningOut ()
   returns ()
 {
 }
+
+function SignalChecks (input: float32;
+                       min : float32;
+                       max : float32;)
+  returns (error: bool;)
+{
+  diagram
+    (#0 expr input < min
+    #pragma diagram {"xy":"H-26538;V-1800","wh":"16000;3200"} #end)
+    (#1 expr input > max
+    #pragma diagram {"xy":"H-26538;V2000","wh":"16000;3200"} #end)
+    (#2 expr #3 or #4
+      where
+        (#3 group)
+        (#4 group)
+    #pragma diagram {"xy":"H462;V100"} #end)
+    (#5 def error
+    #pragma diagram {"xy":"H24462;V100","wh":"10000;3200"} #end)
+    
+    (#6 wire #0 => #3)
+    (#7 wire #1 => #4)
+    (#8 wire #2 => #5)
+}
