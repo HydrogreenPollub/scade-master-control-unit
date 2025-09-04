@@ -1,0 +1,11 @@
+{
+  "Version": "1.0",
+  "Name": "MasterController",
+  "Dependencies": [
+    "$(SCADE_ONE_LIBRARIES_DIR)\\Math\\Math.sproj",
+    "..\\data-transmission\\DataTransmission.sproj",
+    "..\\data-validation\\DataValidation.sproj",
+    "..\\signal-conditioning\\SignalConditioning.sproj"
+  ],
+  "Resources": []
+}

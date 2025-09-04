@@ -1,11 +1,9 @@
 -- version swan: 2025.1 graph: 2.0
-use Math::Common as MathCommon;
+use SignalConditioningLogic as SignalConditioning;
 
-use SignalConditioning;
+use DataValidationLogic as DataValidation;
 
-use DataValidation;
-
-use DataTransmission;
+use DataTransmissionLogic as DataTransmission;
 
 node MasterController (supercapacitorCurrentRaw : int16;
                        accelPedalRaw : int16;
@@ -40,7 +38,7 @@ node MasterController (supercapacitorCurrentRaw : int16;
     (#1 expr accelPedalRaw
     #pragma diagram {"xy":"H-79619;V8050","wh":"18000;3200"} #end)
     (#2 expr supercapacitorCurrentRaw
-    #pragma diagram {"xy":"H-84619;V-122575","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-88844;V-119875","wh":"28000;3200"} #end)
     (#0 block DataTransmission::ProtiumDataReception
               #pragma diagram {"xy":"H-21775;V30200","wh":"29750;14000"} #end)
     (#4 expr accessoryBatteryCurrentRaw
@@ -86,7 +84,7 @@ node MasterController (supercapacitorCurrentRaw : int16;
     (#25 expr rpmHz
     #pragma diagram {"xy":"H-75619;V1175","wh":"10000;3200"} #end)
     (#26 group
-    #pragma diagram {"xy":"H-54719;V-57262","wh":"800;137500"} #end)
+    #pragma diagram {"xy":"H-54719;V-61043","wh":"800;145062"} #end)
     (#29 block DataTransmission::TelemetryDataReception
                #pragma diagram {"xy":"H-21775;V9550","wh":"29750;14000"} #end)
     (#33 block DataValidation::Validation
@@ -123,7 +121,7 @@ node MasterController (supercapacitorCurrentRaw : int16;
     (#51 wire #24 => #26)
     (#52 wire #25 => #26)
     (#53 wire #26 => #7
-    #pragma diagram {"wp":"v46162|#26 #7"} #end)
+    #pragma diagram {"wp":"v49943|#26 #7"} #end)
     (#56 wire #29 => #33
     #pragma diagram {"wp":"v0|#29 h5797 v-11908 #33"} #end)
     (#58 wire #6 => #3
@@ -137,8 +135,6 @@ node MasterController (supercapacitorCurrentRaw : int16;
 }
 
 node MainStateMachine (hasStartButtonTriggered : bool;
-                       isProtiumBehavingAbnormal : bool;
-                       vehicleStateOriginal : VehicleState;
                        isFuelCellBehavingAbnormal : bool;)
   returns (shouldProtiumRun : bool;)
 {
@@ -206,12 +202,3 @@ node MainStateMachine (hasStartButtonTriggered : bool;
       #pragma diagram {"tp":"h26150;v0|#30 h1682 h1682 h-27150;v0|#3"} #end;
       #pragma diagram {"xy":"H-52817;V4462","wh":"246646;90525"} #end)
 }
-
-type VehicleState = { 
-    fuelCellVoltage: float32, 
-    supercapacitorVoltage: float32,
-    errorMask: uint32
-}
-;
-
-sensor HydrogenLeakVoltageRaw: uint16;

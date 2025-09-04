@@ -1,53 +1,44 @@
 -- version swan: 2025.1 graph: 2.0
-const ZERO: uint8 = 0;
+use DataTransmissionDefinitions as Definitions;
 
-type message = MasterMeasurements {masterMeasurements} | MasterStatus {masterStatus} | ProtiumValues {protiumValues} | ProtiumOperatingState {protiumOperatingState};
-
-type masterState = enum {Idle, Running, Shutdown, Failure};
-
-type masterMeasurements = {ai1:float64, supercapacitorCurrent:float64, ai3:float64, ai4:float64, ai5:float64, accelPedalVoltage:float64, brakePedalVoltage:float64, accessoryBatteryCurrent:float64, hydrogenHighPressure:float64, hydrogenLeakageSensorVoltage:float64, fuelCellOutputCurrent:float64, motorControllerSupplyCurrent:float64, accessoryBatteryVoltage:float64, fuelCellOutputVoltage:float64, supercapacitorVoltage:float64, motorControllerSupplyVoltage:float64, din:uint8, rpm:float64, speed:float64};
-
-type masterStatus = {serialNumber:uint8, State:masterState, mainValveEnableOutput:bool, motorControllerEnableOutput:bool, accelOutputVoltage:float64, brakeOutputVoltage:float64};
-
-type protiumValues = {FC_V:float64, FC_A:float64, FC_W:float64, Energy:float64, FCT1:float64, FAN:float64, H2P1:float64, TankP:float64, TankT:float64, V_Set:float64, I_Set:float64, UCB_V:float64, Stasic_selector:float64, STASIS_V1:float64, STASIS_V2:float64, Number_of_cell:float64, FCT2:float64, BLW:float64, BattV:float64, IP:float64, TP:float64};
-
-type protiumOperatingState = enum {Disconnected, SystemOff, FirmwareVersion, CommandNotFound, EnteringToStartingPhase, EnteringToRunningPhase, AnodeSupplyPressureCheck, TemperatureCheck, FCGasSystemCheck, FCSealingCheck, FCVoltageCheck, LowH2Supply, ShutdownInitiated, AbnormalShutdownInitiated, Running};
-
-type encodedMSG = uint8^256;
-
-node Encoding (msg: message;)
-  returns (code:encodedMSG;)
+node Encoding (msg: Definitions::Message;)
+  returns ()
 {
   diagram
+    (#0 expr -- Add back as output:
+             -- code: Definitions::EncodedFrame
+             0_ui8
+    #pragma diagram {"xy":"H-67525;V-14273","wh":"36000;6078"} #end)
+    
     (activate when msg match
-      | ProtiumOperatingState{x} :
+      | Definitions::ProtiumOperatingStateMsg {x} :
         {
-        #pragma diagram {"xy":"h0;v-33100","wh":"48000;20000"} #end
+        #pragma diagram {"xy":"h0;v-32930","wh":"48000;20000"} #end
         }
-      | MasterStatus{x} :
+      | Definitions::MasterStatusMsg {x} :
         {
-        #pragma diagram {"xy":"h0;v-8900","wh":"48000;20000"} #end
+        #pragma diagram {"xy":"h0;v-9070","wh":"48000;20000"} #end
         }
-      | MasterMeasurements{x} :
+      | Definitions::MasterMeasurementsMsg {x} :
         {
-        #pragma diagram {"xy":"h0;v15300","wh":"48000;20000"} #end
+        #pragma diagram {"xy":"h0;v14789","wh":"48000;20000"} #end
         }
-      | ProtiumValues{x} :
+      | Definitions::ProtiumValuesMsg {x} :
         {
-        #pragma diagram {"xy":"h0;v39500","wh":"48000;20000"} #end
+        #pragma diagram {"xy":"h0;v38649","wh":"48000;20000"} #end
         }
-      #pragma diagram {"xy":"H-12900;V6275","wh":"51000;102000"} #end)
+      #pragma diagram {"xy":"H-12900;V6105","wh":"51000;100297"} #end)
 }
 
-node EncodingProtiumOperatingState (i0:protiumOperatingState;
-                                    time:int64;)
-  returns (msg:encodedMSG;)
+node EncodingProtiumOperatingState (protiumState: Definitions::ProtiumOperatingState;
+                                    time: int64;)
+  returns (msg: Definitions::EncodedFrame;)
 {
   diagram
     (#0 expr enumInterpreted
-    #pragma diagram {"xy":"H28325;V19647","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H46525;V12047","wh":"20000;3200"} #end)
     (#1 group bypos
-    #pragma diagram {"xy":"H78769;V19647"} #end)
+    #pragma diagram {"xy":"H96969;V12047"} #end)
     (#2 expr [#3, #4, #5, #6, #7]
       where
         (#3 group)
@@ -55,106 +46,106 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
         (#5 group)
         (#6 group)
         (#7 group)
-    #pragma diagram {"xy":"H185112;V-30538"} #end)
+    #pragma diagram {"xy":"H203312;V-38138"} #end)
     (#8 expr #9 @ #10
       where
         (#9 group)
         (#10 group)
-    #pragma diagram {"xy":"H256209;V-12632"} #end)
+    #pragma diagram {"xy":"H274409;V-20232"} #end)
     (#11 expr [#12]
       where
         (#12 group)
-    #pragma diagram {"xy":"H115900;V51700"} #end)
+    #pragma diagram {"xy":"H134100;V44100"} #end)
     (#13 expr #14 @ #15
       where
         (#14 group)
         (#15 group)
-    #pragma diagram {"xy":"H281920;V-4475"} #end)
+    #pragma diagram {"xy":"H300120;V-12075"} #end)
     (#16 expr forward
       <<256-21>>
       diagram
         (let op = 0_ui8;
         #pragma diagram {"xy":"h-4225;v0","wh":"20000;3200"} #end)
       returns ([op])
-      #pragma diagram {"xy":"H42525;V85625","wh":"48600;19600"} #end)
-    (#18 expr START_BYTE
-    #pragma diagram {"xy":"H31325;V-37910","wh":"14000;3200"} #end)
-    (#19 expr ID_PROTIUM_OPERATING_STATE
-    #pragma diagram {"xy":"H23325;V-9132","wh":"30000;3200"} #end)
+      #pragma diagram {"xy":"H60725;V78025","wh":"48600;19600"} #end)
+    (#18 expr Definitions::START_BYTE
+    #pragma diagram {"xy":"H55525;V-45510","wh":"26000;3200"} #end)
+    (#19 expr Definitions::ID_PROTIUM_OPERATING_STATE
+    #pragma diagram {"xy":"H36517;V-14200","wh":"42000;3200"} #end)
     (#20 expr 21_i32
-    #pragma diagram {"xy":"H33325;V-26775","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H51525;V-34375","wh":"10000;3200"} #end)
     (#21 block Int16to2uint8
-               #pragma diagram {"xy":"H57625;V-9132","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H75825;V-16732","wh":"20000;14000"} #end)
     (#22 group bypos
-    #pragma diagram {"xy":"H78769;V-9390"} #end)
+    #pragma diagram {"xy":"H96969;V-16990"} #end)
     (#23 group bypos
-    #pragma diagram {"xy":"H78769;V-37910"} #end)
+    #pragma diagram {"xy":"H96969;V-45510"} #end)
     (#24 block Int32to4uint8
-               #pragma diagram {"xy":"H57625;V-27791","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H75825;V-35391","wh":"20000;14000"} #end)
     (#25 expr time
-    #pragma diagram {"xy":"H34325;V7958"} #end)
+    #pragma diagram {"xy":"H52525;V358"} #end)
     (#26 group bypos
-    #pragma diagram {"xy":"H78769;V-26738"} #end)
+    #pragma diagram {"xy":"H96969;V-34338"} #end)
     (#27 block Int64to8uint8
-               #pragma diagram {"xy":"H57625;V7958","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H75825;V358","wh":"20000;14000"} #end)
     (#28 group bypos
-    #pragma diagram {"xy":"H78769;V7958"} #end)
+    #pragma diagram {"xy":"H96969;V358"} #end)
     (#29 block CreateFauxCRC
-               #pragma diagram {"xy":"H57625;V34425","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H75825;V26825","wh":"20000;14000"} #end)
     (#30 expr #31 @ #32
       where
         (#31 group)
         (#32 group)
-    #pragma diagram {"xy":"H231050;V-22938"} #end)
-    (#33 expr STOP_BYTE
-    #pragma diagram {"xy":"H32525;V51625","wh":"14000;3200"} #end)
+    #pragma diagram {"xy":"H249250;V-30538"} #end)
+    (#33 expr Definitions::STOP_BYTE
+    #pragma diagram {"xy":"H56725;V44025","wh":"26000;3200"} #end)
     (#34 group bypos
-    #pragma diagram {"xy":"H78769;V51700"} #end)
+    #pragma diagram {"xy":"H96969;V44100"} #end)
     (#35 def msg
-    #pragma diagram {"xy":"H309288;V-4475"} #end)
+    #pragma diagram {"xy":"H327488;V-12075"} #end)
     
     (#36 wire #0 => #1)
     (#37 wire #23 => #3
-    #pragma diagram {"wp":"#23 h47672 v-228 #3"} #end)
+    #pragma diagram {"wp":"#23 h47671 v-228 #3"} #end)
     (#38 wire #2 => #31
     #pragma diagram {"wp":"#2 h17969 v5700 #31"} #end)
     (#39 wire #16 => #15
-    #pragma diagram {"wp":"v-7600|#16 h189384 v-80600 #15"} #end)
+    #pragma diagram {"wp":"v-7600|#16 h147579 v-80600 #15"} #end)
     (#40 wire #18 => #23)
     (#41 wire #19 => #21)
     (#42 wire #21 => #22
     #pragma diagram {"wp":"v-259|#21 #22"} #end)
     (#43 wire #22 => #5
-    #pragma diagram {"wp":"#22 h36629 v-21148 #5"} #end)
+    #pragma diagram {"wp":"#22 h32948 v-21148 #5"} #end)
     (#44 wire #20 => #24)
     (#45 wire #26 => #4
-    #pragma diagram {"wp":"#26 h14543 v-7600 #4"} #end)
+    #pragma diagram {"wp":"#26 h13316 v-7600 #4"} #end)
     (#46 wire #24 => #26
     #pragma diagram {"wp":"v1053|#24 #26"} #end)
     (#47 wire #25 => #27)
     (#48 wire #27 => #28
     #pragma diagram {"wp":"v0|#27 #28"} #end)
     (#49 wire #28 => #6
-    #pragma diagram {"wp":"#28 h58715 v-34696 #6"} #end)
+    #pragma diagram {"wp":"#28 h52579 v-34696 #6"} #end)
     (#50 wire #1 => #7
-    #pragma diagram {"wp":"#1 h80800 v-42585 #7"} #end)
+    #pragma diagram {"wp":"#1 h72211 v-42585 #7"} #end)
     (#51 wire #11 => #10
-    #pragma diagram {"wp":"#11 h113599 v-62432 #10"} #end)
+    #pragma diagram {"wp":"#11 h52712 v-62432 #10"} #end)
     (#52 wire #29 => #32
-    #pragma diagram {"wp":"v5337|#29 h141956 v-60800 #32"} #end)
+    #pragma diagram {"wp":"v0|#29 h127487 v-55463 #32"} #end)
     (#53 wire #33 => #34
-    #pragma diagram {"wp":"#33 h18122 v75 #34"} #end)
+    #pragma diagram {"wp":"#33 h12122 v75 #34"} #end)
     (#54 wire #34 => #12)
     (#55 wire #13 => #35)
     (#56 wire #8 => #14
     #pragma diagram {"wp":"#8 h9355 v6257 #14"} #end)
     (#57 wire #30 => #9
-    #pragma diagram {"wp":"#30 h9079 v8406 #9"} #end)
+    #pragma diagram {"wp":"#30 h9080 v8406 #9"} #end)
     
     (var
         enumInterpreted:uint8;)
-    (activate $ActivateWhen0 when i0 match
-      | Disconnected :
+    (activate $ActivateWhen0 when protiumState match
+      | Definitions::Disconnected :
         {
           diagram
             (#58 expr 1_ui8
@@ -165,7 +156,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             (#60 wire #58 => #59)
         #pragma diagram {"xy":"h0;v-164157","wh":"71103;20000"} #end
         }
-      | SystemOff :
+      | Definitions::SystemOff :
         {
           diagram
             (#61 def enumInterpreted
@@ -176,7 +167,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             (#63 wire #62 => #61)
         #pragma diagram {"xy":"h0;v-140297","wh":"71103;20000"} #end
         }
-      | FirmwareVersion :
+      | Definitions::FirmwareVersion :
         {
           diagram
             (#64 def enumInterpreted
@@ -187,7 +178,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             (#66 wire #65 => #64)
         #pragma diagram {"xy":"h0;v-116438","wh":"71103;20000"} #end
         }
-      | CommandNotFound :
+      | Definitions::CommandNotFound :
         {
           diagram
             (#67 def enumInterpreted
@@ -198,7 +189,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             (#69 wire #68 => #67)
         #pragma diagram {"xy":"h0;v-92578","wh":"71103;20000"} #end
         }
-      | EnteringToStartingPhase :
+      | Definitions::EnteringToStartingPhase :
         {
           diagram
             (#70 def enumInterpreted
@@ -209,7 +200,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             (#72 wire #71 => #70)
         #pragma diagram {"xy":"h0;v-68719","wh":"71103;20000"} #end
         }
-      | EnteringToRunningPhase :
+      | Definitions::EnteringToRunningPhase :
         {
           diagram
             (#73 def enumInterpreted
@@ -221,7 +212,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#74 h2674 v-303 #73"} #end)
         #pragma diagram {"xy":"h0;v-44859","wh":"71103;20000"} #end
         }
-      | AnodeSupplyPressureCheck :
+      | Definitions::AnodeSupplyPressureCheck :
         {
           diagram
             (#76 def enumInterpreted
@@ -233,7 +224,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#77 h2674 v-303 #76"} #end)
         #pragma diagram {"xy":"h0;v-21000","wh":"71103;20000"} #end
         }
-      | TemperatureCheck :
+      | Definitions::TemperatureCheck :
         {
           diagram
             (#79 def enumInterpreted
@@ -245,7 +236,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#80 h2675 v-304 #79"} #end)
         #pragma diagram {"xy":"h0;v2859","wh":"71103;20000"} #end
         }
-      | FCGasSystemCheck :
+      | Definitions::FCGasSystemCheck :
         {
           diagram
             (#82 def enumInterpreted
@@ -257,7 +248,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#83 h2674 v-303 #82"} #end)
         #pragma diagram {"xy":"h0;v26719","wh":"71103;20000"} #end
         }
-      | FCSealingCheck :
+      | Definitions::FCSealingCheck :
         {
           diagram
             (#85 def enumInterpreted
@@ -269,7 +260,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#86 h2675 v-304 #85"} #end)
         #pragma diagram {"xy":"h0;v50578","wh":"71103;20000"} #end
         }
-      | FCVoltageCheck :
+      | Definitions::FCVoltageCheck :
         {
           diagram
             (#88 def enumInterpreted
@@ -281,7 +272,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#89 h2674 v-304 #88"} #end)
         #pragma diagram {"xy":"h0;v74438","wh":"71103;20000"} #end
         }
-      | LowH2Supply :
+      | Definitions::LowH2Supply :
         {
           diagram
             (#91 def enumInterpreted
@@ -293,7 +284,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#92 h2675 v-304 #91"} #end)
         #pragma diagram {"xy":"h0;v98297","wh":"71103;20000"} #end
         }
-      | ShutdownInitiated :
+      | Definitions::ShutdownInitiated :
         {
           diagram
             (#94 def enumInterpreted
@@ -305,7 +296,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#95 h2674 v-304 #94"} #end)
         #pragma diagram {"xy":"h0;v122157","wh":"71103;20000"} #end
         }
-      | AbnormalShutdownInitiated :
+      | Definitions::AbnormalShutdownInitiated :
         {
           diagram
             (#97 def enumInterpreted
@@ -317,7 +308,7 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
             #pragma diagram {"wp":"#98 h2674 v-304 #97"} #end)
         #pragma diagram {"xy":"h0;v146016","wh":"71103;20000"} #end
         }
-      | Running :
+      | Definitions::ProtiumRunning :
         {
           diagram
             (#100 def enumInterpreted
@@ -332,15 +323,9 @@ node EncodingProtiumOperatingState (i0:protiumOperatingState;
       #pragma diagram {"xy":"H-29842;V128982","wh":"74103;362751"} #end)
 }
 
-const START_BYTE: uint8 = 0xFF;
-
-const STOP_BYTE: uint8 = 0xFF;
-
-const ID_PROTIUM_OPERATING_STATE: int16 = 0;
-
 node Int16to2uint8 (int:int16;)
-  returns (MSB:uint8;
-           LSB:uint8;)
+  returns (LSB:uint8;
+           MSB:uint8;)
 {
   diagram
     (#0 expr int
@@ -380,8 +365,8 @@ node Int16to2uint8 (int:int16;)
     (#19 wire #8 => #13)
 }
 
-node TwoUint8toint16 (MSB:uint8;
-                      LSB:uint8;)
+node TwoUint8toint16 (LSB:uint8;
+                      MSB:uint8;)
   returns (out:int16;)
 {
   diagram
@@ -390,10 +375,10 @@ node TwoUint8toint16 (MSB:uint8;
 }
 
 node Int32to4uint8 (int: int32;)
-  returns (MSB: uint8;
-           secondMSB: uint8;
+  returns (LSB: uint8;
+           MSB: uint8;
            secondLSB: uint8;
-           LSB: uint8;)
+           secondMSB: uint8;)
 {
   diagram
     (#0 expr (#1 :> uint8)
@@ -482,14 +467,14 @@ node Int32to4uint8 (int: int32;)
 }
 
 node Int64to8uint8 (int: int64;)
-  returns (MSB: uint8;
-           secondMSB: uint8;
-           thirdMSB:uint8;
-           fourthMSB:uint8;
-           fourthLSB:uint8;
-           thirdLSB:uint8;
+  returns (LSB: uint8;
+           MSB: uint8;
            secondLSB: uint8;
-           LSB: uint8;)
+           secondMSB: uint8;
+           thirdLSB:uint8;
+           thirdMSB:uint8;
+           fourthLSB:uint8;
+           fourthMSB:uint8;)
 {
   diagram
     (#0 expr (#1 :> uint8)
@@ -638,4 +623,38 @@ node CreateFauxCRC ()
     
     (#3 wire #0 => #2
     #pragma diagram {"wp":"v-4700|#0 #2"} #end)
+}
+
+node TelemetryDataReception (i0: int32;)
+  returns (temp : uint8;)
+{
+  diagram
+    (#0 def temp
+    #pragma diagram {"xy":"H-14450;V1350"} #end)
+    (#1 expr 0_ui8
+    #pragma diagram {"xy":"H-37750;V1350","wh":"10000;3200"} #end)
+    
+    (#2 wire #1 => #0)
+}
+
+node TelemetryDataTransmission (i0: int32;)
+  returns ()
+{
+}
+
+node ProtiumDataReception (i0: int32;)
+  returns (temp : uint8;)
+{
+  diagram
+    (#0 expr 0_ui8
+    #pragma diagram {"xy":"H-59300;V-2450","wh":"10000;3200"} #end)
+    (#1 def temp
+    #pragma diagram {"xy":"H-36000;V-2450"} #end)
+    
+    (#2 wire #0 => #1)
+}
+
+node ProtiumDataTransmission (i0: int32;)
+  returns ()
+{
 }

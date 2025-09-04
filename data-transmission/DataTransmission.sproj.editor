@@ -1,0 +1,8 @@
+{
+  "JobsOrder": [],
+  "ModulesOrder": [
+    "assets\\DataTransmissionLogic.swan",
+    "assets\\DataTransmissionDefinitions.swan",
+    "assets\\DataTransmissionTests.swant"
+  ]
+}

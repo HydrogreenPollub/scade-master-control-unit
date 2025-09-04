@@ -1,0 +1,89 @@
+-- version swan: 2025.1 graph: 2.0
+const START_BYTE: uint8 = 0xFF;
+
+const STOP_BYTE: uint8 = 0xFF;
+
+const ID_PROTIUM_OPERATING_STATE: int16 = 0;
+
+type Message = 
+    MasterMeasurementsMsg { MasterMeasurements } | 
+    MasterStatusMsg { MasterStatus} | 
+    ProtiumValuesMsg { ProtiumValues } | 
+    ProtiumOperatingStateMsg { ProtiumOperatingState };
+
+type MasterState = enum {Idle, Running, Shutdown, Failure};
+
+type MasterMeasurements = {
+    ai1:float64, 
+    supercapacitorCurrent:float64, 
+    ai3:float64, 
+    ai4:float64, 
+    ai5:float64, 
+    accelPedalVoltage:float64, 
+    brakePedalVoltage:float64, 
+    accessoryBatteryCurrent:float64, 
+    hydrogenHighPressure:float64, 
+    hydrogenLeakageSensorVoltage:float64, 
+    fuelCellOutputCurrent:float64, 
+    motorControllerSupplyCurrent:float64, 
+    accessoryBatteryVoltage:float64, 
+    fuelCellOutputVoltage:float64, 
+    supercapacitorVoltage:float64, 
+    motorControllerSupplyVoltage:float64, 
+    din:uint8, 
+    rpm:float64, 
+    speed:float64
+};
+
+type MasterStatus = {
+    serialNumber: uint8, 
+    State: MasterState, 
+    mainValveEnableOutput: bool, 
+    motorControllerEnableOutput: bool, 
+    accelOutputVoltage: float64, 
+    brakeOutputVoltage: float64
+};
+
+type ProtiumValues = {
+    FC_V:float64, 
+    FC_A:float64, 
+    FC_W:float64, 
+    Energy:float64, 
+    FCT1:float64, 
+    FAN:float64, 
+    H2P1:float64, 
+    TankP:float64, 
+    TankT:float64, 
+    V_Set:float64, 
+    I_Set:float64, 
+    UCB_V:float64, 
+    Stasic_selector:float64, 
+    STASIS_V1:float64, 
+    STASIS_V2:float64, 
+    Number_of_cell:float64, 
+    FCT2:float64, 
+    BLW:float64, 
+    BattV:float64, 
+    IP:float64, 
+    TP:float64
+};
+
+type ProtiumOperatingState = enum {
+    Disconnected, 
+    SystemOff, 
+    FirmwareVersion, 
+    CommandNotFound, 
+    EnteringToStartingPhase, 
+    EnteringToRunningPhase, 
+    AnodeSupplyPressureCheck, 
+    TemperatureCheck, 
+    FCGasSystemCheck, 
+    FCSealingCheck, 
+    FCVoltageCheck, 
+    LowH2Supply, 
+    ShutdownInitiated, 
+    AbnormalShutdownInitiated, 
+    ProtiumRunning
+};
+
+type EncodedFrame = uint8^256;

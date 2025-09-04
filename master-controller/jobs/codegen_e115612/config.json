@@ -1,0 +1,31 @@
+{
+  "files": [
+    "..\\..\\..\\data-transmission\\assets\\DataTransmissionDefinitions.swan",
+    "..\\..\\..\\data-transmission\\assets\\DataTransmissionLogic.swan",
+    "..\\..\\..\\data-validation\\assets\\DataValidationDefinitions.swan",
+    "..\\..\\..\\data-validation\\assets\\DataValidationLogic.swan",
+    "..\\..\\..\\signal-conditioning\\assets\\SignalConditioningDefinitions.swan",
+    "..\\..\\..\\signal-conditioning\\assets\\SignalConditioningLogic.swan",
+    "..\\..\\assets\\Logic.swan",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Float\\assets\\Float.swan",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Float\\assets\\Float.swani",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Common.swan",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Common.swani",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Complex.swan",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Complex.swani",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Trigo-Common.swan",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Trigo-Cordic.swan",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Trigo-Cordic.swani",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Trigo-StdC.swan",
+    "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Math\\assets\\Math-Trigo-StdC.swani"
+  ],
+  "roots": [
+    "Logic::MasterController"
+  ],
+  "target_dir": "out",
+  "target": "C",
+  "keep_asserts": false,
+  "metadata": {
+    "date": "2025-09-04T03:45:24.2485995Z"
+  }
+}

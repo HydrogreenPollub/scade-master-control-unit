@@ -1,7 +1,7 @@
 -- version swan: 2025.1 graph: 2.0 swant: 1.1
-use SignalConditioning;
+use SignalConditioningLogic as Logic;
 
-_harness TestingLinearMapping
+_harness LinearMappingTests
 {
   diagram
     (#0 expr 0_i16 pre 150_i16 pre 300_i16 pre 500_i16 pre 800_i16
@@ -14,7 +14,7 @@ _harness TestingLinearMapping
     #pragma diagram {"xy":"H6225;V-28377","wh":"12000;3200"} #end)
     (#4 expr 0_i16
     #pragma diagram {"xy":"H7225;V-24677","wh":"10000;3200"} #end)
-    (#5 $mapping #pragma swt under_test #end block SignalConditioning::LinearMapping
+    (#5 $mapping #pragma swt under_test #end block Logic::LinearMapping
                                                    #pragma diagram {"xy":"H44425;V-28377","wh":"20000;14000"} #end)
     
     (#6 wire #4 => #5 .(fromLow))
@@ -26,13 +26,13 @@ _harness TestingLinearMapping
     (#10 wire #2 => #5 .(fromHigh))
 }
 
-_harness TestingDebouncing
+_harness DebouncingTests
 {
   diagram
     (#0 expr true pre true pre true pre false pre true pre true pre true pre true
     #pragma diagram {"xy":"H-13475;V2975","wh":"68000;3200"} #end)
-    (#1 #pragma swt under_test #end block SignalConditioning::Debouncing
-                                          #pragma diagram {"xy":"H46025;V2975","wh":"20000;14000"} #end)
+    (#1 #pragma swt under_test #end block (Logic::Debouncing \ debounceCycles: 500)
+                                          #pragma diagram {"xy":"H46525;V2975","wh":"20000;14000"} #end)
     
-    (#2 wire #0 => #1 .(i0))
+    (#2 wire #0 => #1 .(inputSignal))
 }

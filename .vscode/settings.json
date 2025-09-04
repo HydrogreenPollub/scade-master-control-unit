@@ -1,7 +1,9 @@
 {
     "files.associations": {
         "swan_consts.h": "c",
-        "swan_sensors.h": "c"
+        "swan_sensors.h": "c",
+        "*.conf": "bitbake",
+        "*.inc": "bitbake"
     },
     "python.autoComplete.extraPaths": [
         "${workspaceFolder}/sources/poky/bitbake/lib",

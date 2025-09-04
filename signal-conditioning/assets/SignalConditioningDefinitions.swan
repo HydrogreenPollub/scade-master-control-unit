@@ -1,0 +1,8 @@
+-- version swan: 2025.1 graph: 2.0
+const WHEEL_DIAMETER: float32 = 0.534;
+
+const GEAR_RATIO: float32 = 10.4;
+
+const MPS_TO_KMPH: float32 = 3.6;
+
+const PI: float32 = 3.141592;

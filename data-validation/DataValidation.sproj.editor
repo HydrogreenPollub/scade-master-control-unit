@@ -1,0 +1,8 @@
+{
+  "JobsOrder": [],
+  "ModulesOrder": [
+    "assets\\DataValidationLogic.swan",
+    "assets\\DataValidationDefinitions.swan",
+    "assets\\DataValidationTests.swant"
+  ]
+}
