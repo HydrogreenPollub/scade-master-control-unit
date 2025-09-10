@@ -1,56 +1,65 @@
 -- version swan: 2025.1 graph: 2.0
 use SignalConditioningDefinitions as Definitions;
 
-function LinearMapping (value: int16;
-                        fromLow : int16;
-                        fromHigh : int16;
-                        toHigh : int16;
-                        toLow : int16;)
+function LinearMapping (value: uint16;
+                        fromLow : float32;
+                        fromHigh : float32;
+                        toHigh : float32;
+                        toLow : float32;)
   returns (mapped: float32;)
 {
   diagram
     (#0 def mapped
-    #pragma diagram {"xy":"H58680;V14757","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H44680;V14757","wh":"10000;3200"} #end)
     (#1 expr fromHigh - fromLow
-    #pragma diagram {"xy":"H-41033;V15707","wh":"22000;3200"} #end)
-    (#2 expr value - fromLow
-    #pragma diagram {"xy":"H-74033;V8207","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H-41320;V14757","wh":"22000;3200"} #end)
     (#3 expr #4 + #5
       where
         (#4 group)
         (#5 group)
-    #pragma diagram {"xy":"H8967;V15707"} #end)
+    #pragma diagram {"xy":"H22680;V14757"} #end)
     (#6 expr #7 / #8
       where
         (#7 group)
         (#8 group)
-    #pragma diagram {"xy":"H-13033;V12007"} #end)
+    #pragma diagram {"xy":"H-13320;V11057"} #end)
     (#9 expr toHigh - toLow
-    #pragma diagram {"xy":"H-73033;V12007","wh":"18000;3200"} #end)
+    #pragma diagram {"xy":"H-73320;V12857","wh":"18000;3200"} #end)
     (#10 expr toLow
-    #pragma diagram {"xy":"H-13033;V17607","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H680;V16657","wh":"10000;3200"} #end)
     (#11 expr #12 * #13
       where
         (#12 group)
         (#13 group)
-    #pragma diagram {"xy":"H-35033;V10107"} #end)
-    (#16 expr (#21 :> float32)
+    #pragma diagram {"xy":"H-35320;V9157"} #end)
+    (#2 expr value
+    #pragma diagram {"xy":"H-127320;V5357","wh":"10000;3200"} #end)
+    (#14 expr (#16 :> float32)
       where
-        (#21 group)
-    #pragma diagram {"xy":"H32467;V16657","wh":"16000;7000"} #end)
+        (#16 group)
+    #pragma diagram {"xy":"H-102320;V5357","wh":"16000;7000"} #end)
+    (#21 expr #22 - #23
+      where
+        (#22 group)
+        (#23 group)
+    #pragma diagram {"xy":"H-69320;V7257"} #end)
+    (#24 expr fromLow
+    #pragma diagram {"xy":"H-100320;V10957","wh":"12000;3200"} #end)
     
-    (#14 wire #2 => #12)
     (#15 wire #1 => #8
     #pragma diagram {"wp":"#1 h7500 v-1800 #8"} #end)
     (#17 wire #10 => #5)
     (#18 wire #6 => #4
-    #pragma diagram {"wp":"#6 h7500 v1800 #4"} #end)
-    (#19 wire #9 => #13)
+    #pragma diagram {"wp":"#6 h15000 v1800 #4"} #end)
+    (#19 wire #9 => #13
+    #pragma diagram {"wp":"#9 h8000 v-1800 #13"} #end)
     (#20 wire #11 => #7)
-    (#23 wire #16 => #0
-    #pragma diagram {"wp":"#16 h8106 v-1900 #0"} #end)
-    (#22 wire #3 => #21
-    #pragma diagram {"wp":"#3 h6750 v950 #21"} #end)
+    (#25 wire #21 => #12)
+    (#26 wire #3 => #0)
+    (#27 wire #2 => #16)
+    (#28 wire #14 => #22)
+    (#29 wire #24 => #23
+    #pragma diagram {"wp":"#24 h8000 v-1800 #23"} #end)
 }
 
 node Debouncing (inputSignal: bool;
@@ -128,18 +137,18 @@ node Debouncing (inputSignal: bool;
       #pragma diagram {"xy":"H92180;V-241000","wh":"274038;71000"} #end)
 }
 
-node SignalConditioningIn (supercapacitorCurrentRaw : int16;
-                           accelPedalRaw : int16;
-                           brakePedalRaw : int16;
-                           accessoryBatteryCurrentRaw : int16;
-                           hydrogenHighPressureRaw : int16;
-                           hydrogenLeakageRaw : int16;
-                           fuelCellOutputCurrentRaw : int16;
-                           motorControllerSupplyCurrentRaw : int16;
-                           accessoryBatteryVoltageRaw : int16;
-                           fuelCellOutputVoltageRaw : int16;
-                           supercapacitorVoltageRaw : int16;
-                           motorControllerSupplyVoltageRaw : int16;
+node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
+                           accelPedalRaw : uint16;
+                           brakePedalRaw : uint16;
+                           accessoryBatteryCurrentRaw : uint16;
+                           hydrogenHighPressureRaw : uint16;
+                           hydrogenLeakageRaw : uint16;
+                           fuelCellOutputCurrentRaw : uint16;
+                           motorControllerSupplyCurrentRaw : uint16;
+                           accessoryBatteryVoltageRaw : uint16;
+                           fuelCellOutputVoltageRaw : uint16;
+                           supercapacitorVoltageRaw : uint16;
+                           motorControllerSupplyVoltageRaw : uint16;
                            din1 : bool;
                            din2 : bool;
                            din3 : bool;
@@ -175,21 +184,21 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
   diagram
     (#0 expr supercapacitorCurrentRaw
     #pragma diagram {"xy":"H21912;V-32875","wh":"28000;3200"} #end)
-    (#1 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: -100_i16, toHigh: 100_i16)
+    (#1 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -100, toHigh: 100)
               #pragma diagram {"xy":"H61412;V-32875","wh":"20000;14000"} #end)
     (#2 def supercapacitorCurrent
     #pragma diagram {"xy":"H98912;V-32875","wh":"24000;3200"} #end)
     (#28 expr supercapacitorVoltageRaw
     #pragma diagram {"xy":"H43855;V151512","wh":"28000;3200"} #end)
-    (#4 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 60_i16)
+    (#4 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 60)
               #pragma diagram {"xy":"H60255;V135116","wh":"20000;14000"} #end)
     (#26 expr accessoryBatteryVoltageRaw
     #pragma diagram {"xy":"H43786;V122210","wh":"30000;3200"} #end)
     (#6 expr brakePedalRaw
     #pragma diagram {"xy":"H27481;V2807","wh":"18000;3200"} #end)
-    (#7 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: -50_i16, toHigh: 50_i16)
+    (#7 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -50, toHigh: 50)
               #pragma diagram {"xy":"H57186;V23125","wh":"20000;14000"} #end)
-    (#10 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 60_i16)
+    (#10 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 60)
                #pragma diagram {"xy":"H83355;V151512","wh":"20000;14000"} #end)
     (#11 def accessoryBatteryCurrent
     #pragma diagram {"xy":"H95686;V23125","wh":"26000;3200"} #end)
@@ -205,27 +214,27 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
     #pragma diagram {"xy":"H19686;V107720","wh":"34000;3200"} #end)
     (#20 expr hydrogenHighPressureRaw
     #pragma diagram {"xy":"H18186;V45242","wh":"26000;3200"} #end)
-    (#14 block (LinearMapping \ fromLow: 0_i16, fromHigh: 1638_i16, toLow: 0_i16, toHigh: 20_i16)
+    (#14 block (LinearMapping \ fromLow: 0, fromHigh: 1638, toLow: 0, toHigh: 20)
                #pragma diagram {"xy":"H84286;V122210","wh":"20000;14000"} #end)
     (#27 expr fuelCellOutputVoltageRaw
     #pragma diagram {"xy":"H20755;V135116","wh":"28000;3200"} #end)
-    (#15 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: -30_i16, toHigh: 30_i16)
+    (#15 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -30, toHigh: 30)
                #pragma diagram {"xy":"H60186;V88677","wh":"20000;14000"} #end)
-    (#16 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 60_i16)
+    (#16 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 60)
                #pragma diagram {"xy":"H61755;V168868","wh":"20000;14000"} #end)
-    (#17 block (LinearMapping \ fromLow: 1638_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 5_i16)
+    (#17 block (LinearMapping \ fromLow: 1638, fromHigh: 4095, toLow: 0, toHigh: 5)
                #pragma diagram {"xy":"H56862;V-12975","wh":"20000;14000"} #end)
     (#5 def accelPedalVoltage
     #pragma diagram {"xy":"H92362;V-12975","wh":"20000;3200"} #end)
     (#40 def accessoryBatteryVoltage
     #pragma diagram {"xy":"H122786;V122210","wh":"26000;3200"} #end)
-    (#18 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: -50_i16, toHigh: 50_i16)
+    (#18 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -50, toHigh: 50)
                #pragma diagram {"xy":"H62186;V107720","wh":"20000;14000"} #end)
     (#8 def brakePedalVoltage
     #pragma diagram {"xy":"H97481;V2807","wh":"20000;3200"} #end)
-    (#19 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 5_i16)
+    (#19 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 5)
                #pragma diagram {"xy":"H59686;V67827","wh":"20000;14000"} #end)
-    (#22 block (LinearMapping \ fromLow: 0_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 700_i16)
+    (#22 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 700)
                #pragma diagram {"xy":"H56686;V45242","wh":"20000;14000"} #end)
     (#24 expr fuelCellOutputCurrentRaw
     #pragma diagram {"xy":"H20686;V88677","wh":"28000;3200"} #end)
@@ -233,7 +242,7 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
     #pragma diagram {"xy":"H97755;V135116","wh":"24000;3200"} #end)
     (#38 def fuelCellOutputCurrent
     #pragma diagram {"xy":"H97686;V88677","wh":"24000;3200"} #end)
-    (#30 block (LinearMapping \ fromLow: 1638_i16, fromHigh: 4095_i16, toLow: 0_i16, toHigh: 5_i16)
+    (#30 block (LinearMapping \ fromLow: 1638, fromHigh: 4095, toLow: 0, toHigh: 5)
                #pragma diagram {"xy":"H61981;V2807","wh":"20000;14000"} #end)
     (#21 def hydrogenHighPressure
     #pragma diagram {"xy":"H101074;V43342","wh":"24000;3200"} #end)
@@ -463,27 +472,4 @@ node SignalConditioningIn (supercapacitorCurrentRaw : int16;
 function SignalConditioningOut ()
   returns ()
 {
-}
-
-function SignalChecks (input: float32;
-                       min : float32;
-                       max : float32;)
-  returns (error: bool;)
-{
-  diagram
-    (#0 expr input < min
-    #pragma diagram {"xy":"H-26538;V-1800","wh":"16000;3200"} #end)
-    (#1 expr input > max
-    #pragma diagram {"xy":"H-26538;V2000","wh":"16000;3200"} #end)
-    (#2 expr #3 or #4
-      where
-        (#3 group)
-        (#4 group)
-    #pragma diagram {"xy":"H462;V100"} #end)
-    (#5 def error
-    #pragma diagram {"xy":"H24462;V100","wh":"10000;3200"} #end)
-    
-    (#6 wire #0 => #3)
-    (#7 wire #1 => #4)
-    (#8 wire #2 => #5)
 }
