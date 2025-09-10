@@ -22,22 +22,22 @@ function isInRange (signal: float32;
     (#8 wire #2 => #5)
 }
 
-node CheckAllSignals (supercapacitorCurrent : float32;
-                      accelPedalVoltage : float32;
-                      brakePedalVoltage : float32;
-                      accessoryBatteryCurrent : float32;
-                      hydrogenHighPressure : float32;
-                      hydrogenLeakage : float32;
-                      fuelCellOutputCurrent : float32;
-                      motorControllerSupplyCurrent : float32;
-                      accessoryBatteryVoltage : float32;
-                      fuelCellOutputVoltage : float32;
-                      supercapacitorVoltage : float32;
-                      motorControllerSupplyVoltage : float32;
-                      deadManSwitch : bool;
-                      emergencySwitch : bool;
-                      leakageSensorSwitch : bool;
-                      speed : float32;)
+function CheckAllSignals (supercapacitorCurrent : float32;
+                          accelPedalVoltage : float32;
+                          brakePedalVoltage : float32;
+                          accessoryBatteryCurrent : float32;
+                          hydrogenHighPressure : float32;
+                          hydrogenLeakage : float32;
+                          fuelCellOutputCurrent : float32;
+                          motorControllerSupplyCurrent : float32;
+                          accessoryBatteryVoltage : float32;
+                          fuelCellOutputVoltage : float32;
+                          supercapacitorVoltage : float32;
+                          motorControllerSupplyVoltage : float32;
+                          deadManSwitch : bool;
+                          emergencySwitch : bool;
+                          leakageSensorSwitch : bool;
+                          speed : float32;)
   returns (err_supercapacitorCurrent : bool;
            err_accelPedalVoltage : bool;
            err_brakePedalVoltage : bool;
