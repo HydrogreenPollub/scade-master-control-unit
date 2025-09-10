@@ -1,6 +1,8 @@
 -- version swan: 2025.1 graph: 2.0 swant: 1.1
 use SignalConditioning;
 
+use DataTransmission;
+
 _harness TestingLinearMapping
 {
   diagram
@@ -35,4 +37,19 @@ _harness TestingDebouncing
                                           #pragma diagram {"xy":"H46025;V2975","wh":"20000;14000"} #end)
     
     (#2 wire #0 => #1 .(i0))
+}
+
+_harness TestingInt16to2uint8
+{
+  diagram
+    (#0 block (_oracle Int16to2uint8_outputs)
+    #pragma diagram {"xy":"H0;V0","wh":"12000;7000"} #end)
+    (#1 #pragma swt under_test #end block DataTransmission::Int16to2uint8
+                                          #pragma diagram {"xy":"H-35000;V0","wh":"20000;14000"} #end)
+    (#2 expr  0_i16 pre 0_i16 pre 0_i16 pre 256_i16 pre 1_i16 pre 32000_i16
+    #pragma diagram {"xy":"H-84750;V-450","wh":"64000;3200"} #end)
+    
+    (#3 wire #1 => #0
+    #pragma diagram {"wp":"v0|#1 #0"} #end)
+    (#4 wire #2 => #1 .(i0))
 }

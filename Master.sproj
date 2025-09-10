@@ -4,5 +4,11 @@
   "Dependencies": [
     "$(SCADE_ONE_LIBRARIES_DIR)\\Math\\Math.sproj"
   ],
-  "Resources": []
+  "Resources": [
+    {
+      "Kind": "SimulationData",
+      "Path": "resources\\Int16to2uint8_outputs.sd",
+      "Key": "Int16to2uint8_outputs"
+    }
+  ]
 }
