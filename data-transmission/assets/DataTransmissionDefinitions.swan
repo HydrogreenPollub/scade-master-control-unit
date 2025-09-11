@@ -5,6 +5,10 @@ const STOP_BYTE: uint8 = 0xFF;
 
 const ID_PROTIUM_OPERATING_STATE: int16 = 0;
 
+const ID_MASTER_STATUS: int16 = 0;
+
+const ID_PROTIUM_VALUES: int16 = 0;
+
 type Message = 
     MasterMeasurementsMsg { MasterMeasurements } | 
     MasterStatusMsg { MasterStatus} | 

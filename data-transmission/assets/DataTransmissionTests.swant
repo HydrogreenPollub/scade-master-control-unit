@@ -1,1 +1,14 @@
 -- version swan: 2025.1 graph: 2.0 swant: 1.1
+use DataTransmissionLogic;
+
+_harness harness_Int16to2uint8
+{
+  diagram
+    (#0 #pragma swt under_test #end block DataTransmissionLogic::Int16to2uint8
+                                          #pragma diagram {"xy":"H0;V0","wh":"20000;14000"} #end)
+    (#1 expr 0_i16 pre 0_i16 pre 255_i16 pre 256_i16 pre 3200_i16 pre 30000_i16
+    #pragma diagram {"xy":"H-38775;V14450","wh":"66000;3200"} #end)
+    
+    (#2 wire #1 => #0
+    #pragma diagram {"wp":"#1 h3500 v-4525 h-8225 v-9925 #0"} #end)
+}
