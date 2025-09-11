@@ -30,15 +30,16 @@ function Validation (isEmergencySwitchPressed: bool;
            err_fuelCellOutputVoltage : bool;
            err_supercapacitorVoltage : bool;
            err_motorControllerSupplyVoltage : bool;
-           err_speed : bool;)
+           err_speed : bool;
+           isVehicleAllowedToMove : bool;)
 {
   diagram
     (#0 block ErrorCheck
-              #pragma diagram {"xy":"H-63900;V6350","wh":"20000;14000"} #end)
+              #pragma diagram {"xy":"H-63900;V22025","wh":"20000;14000"} #end)
     (#1 block EmergencyCheck
               #pragma diagram {"xy":"H-63900;V-28150","wh":"20000;14000"} #end)
     (#2 block WarningCheck
-              #pragma diagram {"xy":"H-63900;V57728","wh":"20000;14000"} #end)
+              #pragma diagram {"xy":"H-63900;V73403","wh":"20000;14000"} #end)
     (#3 expr isEmergencySwitchPressed
     #pragma diagram {"xy":"H-144444;V-26295","wh":"28000;3200"} #end)
     (#4 expr isDeadmansSwitchPressed
@@ -48,31 +49,33 @@ function Validation (isEmergencySwitchPressed: bool;
     (#6 expr isLeakageDetected
     #pragma diagram {"xy":"H-140444;V-30742","wh":"20000;3200"} #end)
     (#7 group
-    #pragma diagram {"xy":"H-93444;V6931","wh":"800;47850"} #end)
+    #pragma diagram {"xy":"H-93444;V22606","wh":"800;47850"} #end)
     (#17 expr supercapacitorCurrent
-    #pragma diagram {"xy":"H-146044;V28863","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H-146044;V44538","wh":"24000;3200"} #end)
     (#18 expr accelPedalVoltage
-    #pragma diagram {"xy":"H-144044;V-15000","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H-144044;V675","wh":"20000;3200"} #end)
     (#19 expr brakePedalVoltage
-    #pragma diagram {"xy":"H-144044;V-11012","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H-144044;V4663","wh":"20000;3200"} #end)
     (#20 expr accessoryBatteryCurrent
-    #pragma diagram {"xy":"H-147044;V-7025","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-147044;V8650","wh":"26000;3200"} #end)
     (#21 expr hydrogenHighPressure
-    #pragma diagram {"xy":"H-146044;V-3037","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H-146044;V12638","wh":"24000;3200"} #end)
     (#22 expr fuelCellOutputCurrent
-    #pragma diagram {"xy":"H-146044;V950","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H-146044;V16625","wh":"24000;3200"} #end)
     (#23 expr motorControllerSupplyCurrent
-    #pragma diagram {"xy":"H-150044;V4938","wh":"32000;3200"} #end)
+    #pragma diagram {"xy":"H-150044;V20613","wh":"32000;3200"} #end)
     (#24 expr accessoryBatteryVoltage
-    #pragma diagram {"xy":"H-147044;V8925","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-147044;V24600","wh":"26000;3200"} #end)
     (#25 expr fuelCellOutputVoltage
-    #pragma diagram {"xy":"H-146044;V12913","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H-146044;V28588","wh":"24000;3200"} #end)
     (#26 expr supercapacitorVoltage
-    #pragma diagram {"xy":"H-146044;V16900","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H-146044;V32575","wh":"24000;3200"} #end)
     (#27 expr motorControllerSupplyVoltage
-    #pragma diagram {"xy":"H-150044;V20888","wh":"32000;3200"} #end)
+    #pragma diagram {"xy":"H-150044;V36563","wh":"32000;3200"} #end)
     (#28 expr speed
-    #pragma diagram {"xy":"H-139044;V24875","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H-139044;V40550","wh":"10000;3200"} #end)
+    (#39 block VehicleFaultyCheck
+               #pragma diagram {"xy":"H-17956;V-11254","wh":"20000;14000"} #end)
     (#55 def emg_deadmansSwitch
     #pragma diagram {"xy":"H11784;V-27925","wh":"22000;3200"} #end)
     (#56 def emg_emergencySwitch
@@ -80,37 +83,44 @@ function Validation (isEmergencySwitchPressed: bool;
     (#57 def emg_leakageSensorSwitch
     #pragma diagram {"xy":"H13784;V-42250","wh":"26000;3200"} #end)
     (#58 group
-    #pragma diagram {"xy":"H-38016;V22271","wh":"800;73100"} #end)
+    #pragma diagram {"xy":"H-38016;V37946","wh":"800;73100"} #end)
     (#59 def emg_hydrogenLeakageVoltage
     #pragma diagram {"xy":"H15784;V-35088","wh":"30000;3200"} #end)
     (#60 def err_supercapacitorCurrent
-    #pragma diagram {"xy":"H14784;V55775","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H14784;V71450","wh":"28000;3200"} #end)
     (#61 def err_accelPedalVoltage
-    #pragma diagram {"xy":"H12784;V-11233","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H12784;V4442","wh":"24000;3200"} #end)
     (#62 def err_brakePedalVoltage
-    #pragma diagram {"xy":"H12784;V-5142","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H12784;V10533","wh":"24000;3200"} #end)
     (#63 def err_accessoryBatteryCurrent
-    #pragma diagram {"xy":"H15784;V950","wh":"30000;3200"} #end)
+    #pragma diagram {"xy":"H15784;V16625","wh":"30000;3200"} #end)
     (#64 def err_hydrogenHighPressure
-    #pragma diagram {"xy":"H14784;V7042","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H14784;V22717","wh":"28000;3200"} #end)
     (#65 def err_fuelCellOutputCurrent
-    #pragma diagram {"xy":"H14784;V13133","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H14784;V28808","wh":"28000;3200"} #end)
     (#66 def err_motorControllerSupplyCurrent
-    #pragma diagram {"xy":"H18784;V19225","wh":"36000;3200"} #end)
+    #pragma diagram {"xy":"H18784;V34900","wh":"36000;3200"} #end)
     (#67 def err_accessoryBatteryVoltage
-    #pragma diagram {"xy":"H15784;V25317","wh":"30000;3200"} #end)
+    #pragma diagram {"xy":"H15784;V40992","wh":"30000;3200"} #end)
     (#68 def err_fuelCellOutputVoltage
-    #pragma diagram {"xy":"H14784;V31408","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H14784;V47083","wh":"28000;3200"} #end)
     (#69 def err_supercapacitorVoltage
-    #pragma diagram {"xy":"H14784;V37500","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H14784;V53175","wh":"28000;3200"} #end)
     (#70 def err_motorControllerSupplyVoltage
-    #pragma diagram {"xy":"H18784;V43592","wh":"36000;3200"} #end)
+    #pragma diagram {"xy":"H18784;V59267","wh":"36000;3200"} #end)
     (#71 def err_speed
-    #pragma diagram {"xy":"H7784;V49683","wh":"14000;3200"} #end)
+    #pragma diagram {"xy":"H7784;V65358","wh":"14000;3200"} #end)
     (#72 group
     #pragma diagram {"xy":"H-38016;V-38669","wh":"800;28650"} #end)
     (#8 group
     #pragma diagram {"xy":"H-93444;V-32966","wh":"800;17788"} #end)
+    (#40 def isVehicleAllowedToMove
+    #pragma diagram {"xy":"H17784;V-12525","wh":"26000;3200"} #end)
+    (#41 expr (#42, #44)
+      where
+        (#42 group)
+        (#44 group)
+    #pragma diagram {"xy":"H-38016;V-12138"} #end)
     
     (#9 wire #7 => #0
     #pragma diagram {"wp":"v-581|#7 #0"} #end)
@@ -168,6 +178,14 @@ function Validation (isEmergencySwitchPressed: bool;
     #pragma diagram {"wp":"v21321|#58 #70"} #end)
     (#90 wire #58 .(err_speed) => #71
     #pragma diagram {"wp":"v27412|#58 #71"} #end)
+    (#45 wire #1 => #42
+    #pragma diagram {"wp":"v5403|#1 h7742 v7409 #42"} #end)
+    (#46 wire #41 => #39
+    #pragma diagram {"wp":"v442|#41 #39"} #end)
+    (#43 wire #39 => #40
+    #pragma diagram {"wp":"v-1271|#39 #40"} #end)
+    (#47 wire #0 => #44
+    #pragma diagram {"wp":"v-2303|#0 h7742 v-31260 #44"} #end)
 }
 
 function EmergencyCheck (isEmergencySwitchPressed: bool;
@@ -375,4 +393,80 @@ function IsInRange (signal: float32;
     (#6 wire #0 => #3)
     (#7 wire #1 => #4)
     (#8 wire #2 => #5)
+}
+
+function VehicleFaultyCheck (emg_emergencySwitch : bool;
+                             emg_deadmansSwitch : bool;
+                             emg_leakageSensorSwitch : bool;
+                             emg_hydrogenLeakageVoltage : bool;
+                             err_supercapacitorCurrent : bool;
+                             err_accelPedalVoltage : bool;
+                             err_brakePedalVoltage : bool;
+                             err_accessoryBatteryCurrent : bool;
+                             err_hydrogenHighPressure : bool;
+                             err_fuelCellOutputCurrent : bool;
+                             err_motorControllerSupplyCurrent : bool;
+                             err_accessoryBatteryVoltage : bool;
+                             err_fuelCellOutputVoltage : bool;
+                             err_supercapacitorVoltage : bool;
+                             err_motorControllerSupplyVoltage : bool;
+                             err_speed : bool;)
+  returns (isVehicleAllowedToMove : bool;)
+{
+  diagram
+    (#0 expr not #1
+      where
+        (#1 group)
+    #pragma diagram {"xy":"H-19112;V-27550"} #end)
+    (#2 def isVehicleAllowedToMove
+    #pragma diagram {"xy":"H4012;V-27550","wh":"26000;3200"} #end)
+    (#3 expr emg_emergencySwitch
+    #pragma diagram {"xy":"H-105938;V-49562","wh":"22000;3200"} #end)
+    (#4 expr emg_deadmansSwitch
+    #pragma diagram {"xy":"H-105938;V-42625","wh":"22000;3200"} #end)
+    (#5 expr emg_leakageSensorSwitch
+    #pragma diagram {"xy":"H-105938;V-33225","wh":"26000;3200"} #end)
+    (#6 expr #7 or #8
+      where
+        (#7 group)
+        (#8 group)
+    #pragma diagram {"xy":"H-48588;V-23912"} #end)
+    (#9 expr #10 or #11
+      where
+        (#10 group)
+        (#11 group)
+    #pragma diagram {"xy":"H-64475;V-20558"} #end)
+    (#12 expr #13 or #14
+      where
+        (#13 group)
+        (#14 group)
+    #pragma diagram {"xy":"H-80363;V-16105"} #end)
+    (#15 expr emg_hydrogenLeakageVoltage
+    #pragma diagram {"xy":"H-106725;V-25812","wh":"30000;3200"} #end)
+    (#16 expr err_fuelCellOutputVoltage
+    #pragma diagram {"xy":"H-106725;V-16105","wh":"28000;3200"} #end)
+    (#17 expr #18 or #19
+      where
+        (#18 group)
+        (#19 group)
+    #pragma diagram {"xy":"H-32700;V-27550"} #end)
+    
+    (#20 wire #6 => #19
+    #pragma diagram {"wp":"#6 h3000 v-1738 #19"} #end)
+    (#21 wire #0 => #2)
+    (#22 wire #3 => #18
+    #pragma diagram {"wp":"#3 h47794 v20112 #18"} #end)
+    (#23 wire #17 => #1)
+    (#24 wire #4 => #7
+    #pragma diagram {"wp":"#4 h31962 v16813 #7"} #end)
+    (#25 wire #5 => #10
+    #pragma diagram {"wp":"#5 h14019 v10767 #10"} #end)
+    (#26 wire #15 => #13
+    #pragma diagram {"wp":"#15 h3681 v7807 #13"} #end)
+    (#27 wire #16 => #14
+    #pragma diagram {"wp":"#16 h4181 v1900 #14"} #end)
+    (#28 wire #12 => #11
+    #pragma diagram {"wp":"#12 h3000 v-2553 #11"} #end)
+    (#29 wire #9 => #8
+    #pragma diagram {"wp":"#9 h3000 v-1454 #8"} #end)
 }

@@ -673,7 +673,7 @@ node Debouncing (inputSignal: bool;
         count: int32 last = 0_i32;)
     (automaton $automaton0
       initial state #3 IDLE
-      #pragma diagram {"xy":"h-96319;v15736","wh":"46000;11200"} #end :
+      #pragma diagram {"xy":"h-76920;v15736","wh":"46000;11200"} #end :
         diagram
           (#0 def outputSignal
           #pragma diagram {"xy":"h11000;v0","wh":"16000;3200"} #end)
@@ -682,7 +682,7 @@ node Debouncing (inputSignal: bool;
           
           (#2 wire #1 => #0)
       state #20 WAIT
-      #pragma diagram {"xy":"h-29981;v-10808","wh":"76750;26238"} #end :
+      #pragma diagram {"xy":"h-10582;v-10808","wh":"76750;26238"} #end :
         diagram
           (#4 expr #5 + #6
             where
@@ -713,7 +713,7 @@ node Debouncing (inputSignal: bool;
           (#18 wire #12 => #9)
           (#19 wire #14 => #13)
       state #24 CONFIRMED
-      #pragma diagram {"xy":"h40044;v-6826","wh":"44000;11200"} #end :
+      #pragma diagram {"xy":"h73843;v-6827","wh":"44000;11200"} #end :
         diagram
           (#21 def outputSignal
           #pragma diagram {"xy":"h10000;v0","wh":"16000;3200"} #end)
@@ -726,17 +726,17 @@ node Debouncing (inputSignal: bool;
       #pragma diagram {"tp":"h22639;v-5600|#3 v-500 v-500 v-500 v-3818 h1662;v-3818 h1662 h667 h667 h-38375;v11808|#20"} #end;
       :2: #20 until if (count = debounceCycles)
       restart #24
-      #pragma diagram {"tp":"h38375;v3981|#20 h3217 h3217 h-22000;v0|#24"} #end;
+      #pragma diagram {"tp":"h38375;v3981|#20 h8017 h8017 h-22000;v0|#24"} #end;
       :1: #20 until if (not inputSignal)
       restart #3
       #pragma diagram {"tp":"h-38375;v7308|#20 h-500 h-500 h-500 h-9662 h-9662;v5818 v5818 v667 v667 h7139;v-5600|#3"} #end;
       :1: #24 until if (inputSignal)
       restart #3
-      #pragma diagram {"tp":"h-9723;v5600|#24 v500 v500 v500 v9113 h-18226;v9113 h-18226 h-21729 h-44791 h23000;v2764|#3"} #end;
+      #pragma diagram {"tp":"h-21624;v5600|#24 v500 v500 v500 v7732 h-15463;v7731 h-15463 h-24404 h-50142 h23000;v0|#3"} #end;
       :2: #3 until 
       restart #24
-      #pragma diagram {"tp":"h23000;v-2736|#3 h500 h47791 h23395 h12226 h12226;v-6113 v-6113 v-667 v-667 h-17223;v5600|#24"} #end;
-      #pragma diagram {"xy":"H92180;V-241000","wh":"274038;71000"} #end)
+      #pragma diagram {"tp":"h23000;v3264|#3 h500 h68323 h33662 h25827 h25827;v-10538 v-10537 v-2376 h-1188;v-2376 h-1188 h-667 h-667 h22000;v0|#24"} #end;
+      #pragma diagram {"xy":"H72780;V-241000","wh":"208439;71000"} #end)
 }
 
 function LinearMapping (value: uint16;

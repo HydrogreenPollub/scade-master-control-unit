@@ -4,11 +4,24 @@ use SignalConditioningLogic;
 _harness SignalConditioningInTests
 {
   diagram
-    (#0 block SignalConditioningLogic::SignalConditioningIn
-              #pragma diagram {"xy":"H40744;V-3425","wh":"28862;14000"} #end)
+    (#0 #pragma swt under_test #end block SignalConditioningLogic::SignalConditioningIn
+                                          #pragma diagram {"xy":"H40744;V-3425","wh":"28862;14000"} #end)
     (#1 block (_source DataSignalConditioningIn)
     #pragma diagram {"xy":"H-14350;V-4575","wh":"12000;7000"} #end)
     
     (#2 wire #1 => #0
     #pragma diagram {"wp":"v0|#1 #0"} #end)
+}
+
+_harness DebouncingTests
+{
+  diagram
+    (#0 #pragma swt under_test #end block (SignalConditioningLogic::Debouncing \ debounceCycles: 2)
+                                          #pragma diagram {"xy":"H-1950;V-2950","wh":"20000;14000"} #end)
+    (#1 expr true pre true pre true pre 
+             true pre true pre false pre 
+             true pre false pre false
+    #pragma diagram {"xy":"H-75300;V-1511","wh":"32000;6078"} #end)
+    
+    (#2 wire #1 => #0)
 }
