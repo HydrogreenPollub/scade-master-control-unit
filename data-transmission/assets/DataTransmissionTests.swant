@@ -24,3 +24,39 @@ _harness harness_Int16to2uint8
     (var
         numb:int16;)
 }
+
+_harness harness_Float64to8uint8
+{
+  diagram
+    (#0 #pragma swt under_test #end block DataTransmissionLogic::Float64to8uint8
+                                          #pragma diagram {"xy":"H43500;V-250","wh":"20000;14000"} #end)
+    (#1 expr 0.0_f64 pre 1.0_f64 pre 1.5_f64 pre 1.6_f64 pre 100.0_f64 pre -1.0_f64 pre -1.6_f64 pre -100.0_f64 pre 200000000.0_f64
+    #pragma diagram {"xy":"H-41300;V-250","wh":"116000;3200"} #end)
+    (#2 block DataTransmissionLogic::EightUint8toFloat64
+              #pragma diagram {"xy":"H97700;V-250","wh":"20000;14000"} #end)
+    (#3 def numb
+    #pragma diagram {"xy":"H129400;V-250"} #end)
+    
+    (#4 wire #1 => #0 .(i0))
+    (#5 wire #2 .(out) => #3
+    #pragma diagram {"wp":"v0|#2 #3"} #end)
+    (#6 wire #0 .(LSB) => #2 .(LSB)
+    #pragma diagram {"wp":"v5250|#0 #2"} #end)
+    (#7 wire #0 .(secondLSB) => #2 .(secondLSB)
+    #pragma diagram {"wp":"v3750|#0 #2"} #end)
+    (#8 wire #0 .(thirdLSB) => #2 .(thirdLSB)
+    #pragma diagram {"wp":"v2250|#0 #2"} #end)
+    (#9 wire #0 .(fourthLSB) => #2 .(fourthLSB)
+    #pragma diagram {"wp":"v750|#0 #2"} #end)
+    (#10 wire #0 .(fourthMSB) => #2 .(fourthMSB)
+    #pragma diagram {"wp":"v-750|#0 #2"} #end)
+    (#11 wire #0 .(thirdMSB) => #2 .(thirdMSB)
+    #pragma diagram {"wp":"v-2250|#0 #2"} #end)
+    (#12 wire #0 .(secondMSB) => #2 .(secondMSB)
+    #pragma diagram {"wp":"v-3750|#0 #2"} #end)
+    (#13 wire #0 .(MSB) => #2 .(MSB)
+    #pragma diagram {"wp":"v-5250|#0 #2"} #end)
+    
+    (var
+        numb:float64;)
+}
