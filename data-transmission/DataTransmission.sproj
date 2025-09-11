@@ -1,6 +1,14 @@
 {
   "Version": "1.0",
   "Name": "DataTransmission",
-  "Dependencies": [],
-  "Resources": []
+  "Dependencies": [
+    "$(SCADE_ONE_LIBRARIES_DIR)\\Math\\Math.sproj"
+  ],
+  "Resources": [
+    {
+      "Kind": "SimulationData",
+      "Path": "resources\\Int16to2uint8_outputs.sd",
+      "Key": "Int16to2uint8_outputs"
+    }
+  ]
 }

@@ -55,13 +55,14 @@ type ProtiumValues = {
     Energy:float64, 
     FCT1:float64, 
     FAN:float64, 
-    H2P1:float64, 
+    H2P1:float64,
+    H2P2:float64,  
     TankP:float64, 
     TankT:float64, 
     V_Set:float64, 
     I_Set:float64, 
     UCB_V:float64, 
-    Stasic_selector:float64, 
+    Stasis_selector:float64, 
     STASIS_V1:float64, 
     STASIS_V2:float64, 
     Number_of_cell:float64, 
@@ -91,3 +92,9 @@ type ProtiumOperatingState = enum {
 };
 
 type EncodedFrame = uint8^256;
+
+const TELEMETRY_MSG_TEMPLATE_SIZE: int32 = 20;
+
+const PROTIUM_OPERATING_STATE_PAYLOAD_SIZE: int32 = 1;
+
+const ENCODED_FRAME_SIZE: int32 = 256;

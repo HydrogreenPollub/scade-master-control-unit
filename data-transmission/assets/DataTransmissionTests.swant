@@ -4,11 +4,23 @@ use DataTransmissionLogic;
 _harness harness_Int16to2uint8
 {
   diagram
-    (#0 #pragma swt under_test #end block DataTransmissionLogic::Int16to2uint8
-                                          #pragma diagram {"xy":"H0;V0","wh":"20000;14000"} #end)
-    (#1 expr 0_i16 pre 0_i16 pre 255_i16 pre 256_i16 pre 3200_i16 pre 30000_i16
-    #pragma diagram {"xy":"H-38775;V14450","wh":"66000;3200"} #end)
+    (#0 block DataTransmissionLogic::TwoUint8toint16
+              #pragma diagram {"xy":"H-3350;V0","wh":"20000;14000"} #end)
+    (#1 #pragma swt under_test #end block DataTransmissionLogic::Int16to2uint8
+                                          #pragma diagram {"xy":"H-35000;V0","wh":"20000;14000"} #end)
+    (#2 expr 0_i16 pre 1_i16 pre 255_i16 pre 256_i16 pre 3000_i16 pre 30000_i16
+    #pragma diagram {"xy":"H-84750;V-1250","wh":"66000;3200"} #end)
+    (#6 def numb
+    #pragma diagram {"xy":"H22300;V4050"} #end)
     
-    (#2 wire #1 => #0
-    #pragma diagram {"wp":"#1 h3500 v-4525 h-8225 v-9925 #0"} #end)
+    (#3 wire #1 .(MSB) => #0 .(MSB)
+    #pragma diagram {"wp":"v3000|#1 #0"} #end)
+    (#4 wire #2 => #1)
+    (#5 wire #1 .(LSB) => #0 .(LSB)
+    #pragma diagram {"wp":"v-3000|#1 #0"} #end)
+    (#7 wire #0 .(out) => #6
+    #pragma diagram {"wp":"v4050|#0 #6"} #end)
+    
+    (var
+        numb:int16;)
 }
