@@ -925,25 +925,25 @@ node EncodingProtiumValues (values:protiumValues;
     #pragma diagram {"wp":"v0|#110 #111"} #end)
     (#179 wire #112 => #110)
     (#180 wire #114 => #115
-    #pragma diagram {"wp":"v-0|#114 #115"} #end)
+    #pragma diagram {"wp":"v0|#114 #115"} #end)
     (#181 wire #116 => #114)
     (#182 wire #118 => #119
     #pragma diagram {"wp":"v0|#118 #119"} #end)
     (#183 wire #120 => #118)
     (#184 wire #122 => #123
-    #pragma diagram {"wp":"v-0|#122 #123"} #end)
+    #pragma diagram {"wp":"v0|#122 #123"} #end)
     (#185 wire #124 => #122)
     (#186 wire #126 => #127
     #pragma diagram {"wp":"v0|#126 #127"} #end)
     (#187 wire #128 => #126)
     (#188 wire #130 => #131
-    #pragma diagram {"wp":"v-0|#130 #131"} #end)
+    #pragma diagram {"wp":"v0|#130 #131"} #end)
     (#189 wire #132 => #130)
     (#190 wire #134 => #135
     #pragma diagram {"wp":"v0|#134 #135"} #end)
     (#191 wire #136 => #134)
     (#192 wire #138 => #139
-    #pragma diagram {"wp":"v-0|#138 #139"} #end)
+    #pragma diagram {"wp":"v0|#138 #139"} #end)
     (#193 wire #140 => #138)
     (#194 wire #142 => #143
     #pragma diagram {"wp":"v0|#142 #143"} #end)
@@ -952,7 +952,7 @@ node EncodingProtiumValues (values:protiumValues;
     #pragma diagram {"wp":"v0|#146 #147"} #end)
     (#197 wire #148 => #146)
     (#198 wire #153 => #152
-    #pragma diagram {"wp":"v-0|#153 #152"} #end)
+    #pragma diagram {"wp":"v0|#153 #152"} #end)
     (#199 wire #154 => #153)
     (#200 wire #150 => #156)
     (#201 wire #156 => #157
@@ -965,7 +965,7 @@ node EncodingProtiumValues (values:protiumValues;
     #pragma diagram {"wp":"v0|#164 #165"} #end)
     (#206 wire #166 => #168)
     (#207 wire #168 => #169
-    #pragma diagram {"wp":"v-0|#168 #169"} #end)
+    #pragma diagram {"wp":"v0|#168 #169"} #end)
     (#208 wire #38 => #19
     #pragma diagram {"wp":"#38 h385100 v-87894 #19"} #end)
     (#209 wire #99 => #20

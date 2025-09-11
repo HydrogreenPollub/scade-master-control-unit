@@ -5,9 +5,7 @@ node Encoding (msg: Definitions::Message;)
   returns ()
 {
   diagram
-    (#0 expr -- Add back as output:
-             -- code: Definitions::EncodedFrame
-             0_ui8
+    (#0 expr 0_ui8
     #pragma diagram {"xy":"H-67525;V-14273","wh":"36000;6078"} #end)
     
     (activate when msg match
@@ -625,36 +623,22 @@ node CreateFauxCRC ()
     #pragma diagram {"wp":"v-4700|#0 #2"} #end)
 }
 
-node TelemetryDataReception (i0: int32;)
-  returns (temp : uint8;)
-{
-  diagram
-    (#0 def temp
-    #pragma diagram {"xy":"H-14450;V1350"} #end)
-    (#1 expr 0_ui8
-    #pragma diagram {"xy":"H-37750;V1350","wh":"10000;3200"} #end)
-    
-    (#2 wire #1 => #0)
-}
-
-node TelemetryDataTransmission (i0: int32;)
+node TelemetryDataReception ()
   returns ()
 {
 }
 
-node ProtiumDataReception (i0: int32;)
-  returns (temp : uint8;)
+node TelemetryDataTransmission ()
+  returns ()
 {
-  diagram
-    (#0 expr 0_ui8
-    #pragma diagram {"xy":"H-59300;V-2450","wh":"10000;3200"} #end)
-    (#1 def temp
-    #pragma diagram {"xy":"H-36000;V-2450"} #end)
-    
-    (#2 wire #0 => #1)
 }
 
-node ProtiumDataTransmission (i0: int32;)
+node ProtiumDataReception ()
+  returns ()
+{
+}
+
+node ProtiumDataTransmission ()
   returns ()
 {
 }

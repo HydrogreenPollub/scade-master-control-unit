@@ -5,17 +5,18 @@ use DataValidationLogic as DataValidation;
 
 use DataTransmissionLogic as DataTransmission;
 
-node MasterController (supercapacitorCurrentRaw : int16;
-                       accelPedalRaw : int16;
-                       accessoryBatteryCurrentRaw : int16;
-                       hydrogenHighPressureRaw : int16;
-                       hydrogenLeakageRaw : int16;
-                       fuelCellOutputCurrentRaw : int16;
-                       motorControllerSupplyCurrentRaw : int16;
-                       accessoryBatteryVoltageRaw : int16;
-                       fuelCellOutputVoltageRaw : int16;
-                       supercapacitorVoltageRaw : int16;
-                       motorControllerSupplyVoltageRaw : int16;
+node MasterController (supercapacitorCurrentRaw : uint16;
+                       brakePedalRaw : uint16;
+                       accelPedalRaw : uint16;
+                       accessoryBatteryCurrentRaw : uint16;
+                       hydrogenHighPressureRaw : uint16;
+                       hydrogenLeakageRaw : uint16;
+                       fuelCellOutputCurrentRaw : uint16;
+                       motorControllerSupplyCurrentRaw : uint16;
+                       accessoryBatteryVoltageRaw : uint16;
+                       fuelCellOutputVoltageRaw : uint16;
+                       supercapacitorVoltageRaw : uint16;
+                       motorControllerSupplyVoltageRaw : uint16;
                        din1 : bool;
                        din2 : bool;
                        din3 : bool;
@@ -25,26 +26,33 @@ node MasterController (supercapacitorCurrentRaw : int16;
                        din7 : bool;
                        din8 : bool;
                        rpmHz : float32;)
-  returns (accelerationVoltage : float32;
-           isMainValveOpen : bool;)
+  returns (relay1 : bool;
+           relay2 : bool;
+           relay3 : bool;
+           vcc5vIso1En : bool;
+           vcc5vIso2En : bool;
+           vcc5vEn : bool;
+           vcc10v5En : bool;
+           vee0v23SD : bool;
+           rs485ReDe1 : bool;
+           rs485ReDe2 : bool;
+           testOutput : bool;
+           ao1 : float32;
+           ao2 : float32;
+           ao3 : float32;
+           ao4 : float32;)
 {
   diagram
     (#6 block MainStateMachine
               #pragma diagram {"xy":"H55878;V-6650","wh":"20000;14000"} #end)
-    (#9 def accelerationVoltage
-    #pragma diagram {"xy":"H125950;V-6650","wh":"22000;3200"} #end)
-    (#10 def isMainValveOpen
-    #pragma diagram {"xy":"H126950;V-12050","wh":"20000;3200"} #end)
-    (#1 expr accelPedalRaw
-    #pragma diagram {"xy":"H-79619;V8050","wh":"18000;3200"} #end)
     (#2 expr supercapacitorCurrentRaw
-    #pragma diagram {"xy":"H-88844;V-119875","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-120269;V-87085","wh":"28000;3200"} #end)
     (#0 block DataTransmission::ProtiumDataReception
               #pragma diagram {"xy":"H-21775;V30200","wh":"29750;14000"} #end)
     (#4 expr accessoryBatteryCurrentRaw
-    #pragma diagram {"xy":"H-85619;V-115700","wh":"30000;3200"} #end)
+    #pragma diagram {"xy":"H-121269;V-80177","wh":"30000;3200"} #end)
     (#5 expr hydrogenHighPressureRaw
-    #pragma diagram {"xy":"H-83619;V-108825","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-119269;V-73269","wh":"26000;3200"} #end)
     (#3 block DataTransmission::TelemetryDataTransmission
               #pragma diagram {"xy":"H88262;V14800","wh":"27062;14000"} #end)
     (#27 block DataTransmission::ProtiumDataTransmission
@@ -52,90 +60,147 @@ node MasterController (supercapacitorCurrentRaw : int16;
     (#7 block SignalConditioning::SignalConditioningIn
               #pragma diagram {"xy":"H-21775;V-11100","wh":"22000;14000"} #end)
     (#8 expr hydrogenLeakageRaw
-    #pragma diagram {"xy":"H-81619;V-101950","wh":"22000;3200"} #end)
+    #pragma diagram {"xy":"H-117269;V-66362","wh":"22000;3200"} #end)
     (#11 expr fuelCellOutputCurrentRaw
-    #pragma diagram {"xy":"H-84619;V-95075","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-120269;V-59454","wh":"28000;3200"} #end)
     (#12 expr motorControllerSupplyCurrentRaw
-    #pragma diagram {"xy":"H-87619;V-88200","wh":"34000;3200"} #end)
+    #pragma diagram {"xy":"H-123269;V-52546","wh":"34000;3200"} #end)
     (#13 expr accessoryBatteryVoltageRaw
-    #pragma diagram {"xy":"H-85619;V-81325","wh":"30000;3200"} #end)
+    #pragma diagram {"xy":"H-121269;V-45639","wh":"30000;3200"} #end)
     (#14 expr fuelCellOutputVoltageRaw
-    #pragma diagram {"xy":"H-84619;V-74450","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-120269;V-38731","wh":"28000;3200"} #end)
     (#15 expr supercapacitorVoltageRaw
-    #pragma diagram {"xy":"H-84619;V-67575","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-120269;V-31823","wh":"28000;3200"} #end)
     (#16 expr motorControllerSupplyVoltageRaw
-    #pragma diagram {"xy":"H-87619;V-60700","wh":"34000;3200"} #end)
+    #pragma diagram {"xy":"H-123269;V-24915","wh":"34000;3200"} #end)
     (#17 expr din1
-    #pragma diagram {"xy":"H-74619;V-53825"} #end)
+    #pragma diagram {"xy":"H-110269;V-18008"} #end)
     (#18 expr din2
-    #pragma diagram {"xy":"H-74619;V-46950"} #end)
+    #pragma diagram {"xy":"H-110269;V-11100"} #end)
     (#19 expr din3
-    #pragma diagram {"xy":"H-74619;V-40075"} #end)
+    #pragma diagram {"xy":"H-110269;V-4192"} #end)
     (#20 expr din4
-    #pragma diagram {"xy":"H-74619;V-33200"} #end)
+    #pragma diagram {"xy":"H-110269;V2715"} #end)
     (#21 expr din5
-    #pragma diagram {"xy":"H-74619;V-26325"} #end)
+    #pragma diagram {"xy":"H-110269;V9623"} #end)
     (#22 expr din6
-    #pragma diagram {"xy":"H-74619;V-19450"} #end)
+    #pragma diagram {"xy":"H-110269;V16531"} #end)
     (#23 expr din7
-    #pragma diagram {"xy":"H-74619;V-12575"} #end)
+    #pragma diagram {"xy":"H-110269;V23439"} #end)
     (#24 expr din8
-    #pragma diagram {"xy":"H-74619;V-5700"} #end)
+    #pragma diagram {"xy":"H-110269;V30346"} #end)
     (#25 expr rpmHz
-    #pragma diagram {"xy":"H-75619;V1175","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H-111269;V37254","wh":"10000;3200"} #end)
     (#26 group
-    #pragma diagram {"xy":"H-54719;V-61043","wh":"800;145062"} #end)
+    #pragma diagram {"xy":"H-62969;V-18008","wh":"800;145062"} #end)
     (#29 block DataTransmission::TelemetryDataReception
                #pragma diagram {"xy":"H-21775;V9550","wh":"29750;14000"} #end)
     (#33 block DataValidation::Validation
                #pragma diagram {"xy":"H23494;V-6650","wh":"25450;14000"} #end)
     (#28 block SignalConditioning::SignalConditioningOut
                #pragma diagram {"xy":"H88262;V-6650","wh":"25450;14000"} #end)
+    (#9 def ao1
+    #pragma diagram {"xy":"H163478;V-4787"} #end)
+    (#10 def ao2
+    #pragma diagram {"xy":"H163478;V-86780"} #end)
+    (#1 expr accelPedalRaw
+    #pragma diagram {"xy":"H-115269;V51069","wh":"18000;3200"} #end)
+    (#31 expr brakePedalRaw
+    #pragma diagram {"xy":"H-115269;V44162","wh":"18000;3200"} #end)
+    (#35 def vcc5vIso1En
+    #pragma diagram {"xy":"H159478;V-80923","wh":"16000;3200"} #end)
+    (#36 def vee0v23SD
+    #pragma diagram {"xy":"H160478;V-75067","wh":"14000;3200"} #end)
+    (#63 def vcc5vIso2En
+    #pragma diagram {"xy":"H159478;V-69210","wh":"16000;3200"} #end)
+    (#64 def vcc10v5En
+    #pragma diagram {"xy":"H160478;V-63353","wh":"14000;3200"} #end)
+    (#65 def ao3
+    #pragma diagram {"xy":"H163478;V-57497"} #end)
+    (#66 def ao4
+    #pragma diagram {"xy":"H163478;V-51640"} #end)
+    (#67 group
+    #pragma diagram {"xy":"H114478;V-45783","wh":"800;87850"} #end)
+    (#68 def relay1
+    #pragma diagram {"xy":"H162478;V-45783","wh":"10000;3200"} #end)
+    (#69 def relay2
+    #pragma diagram {"xy":"H162478;V-39927","wh":"10000;3200"} #end)
+    (#70 def relay3
+    #pragma diagram {"xy":"H162478;V-34070","wh":"10000;3200"} #end)
+    (#71 def rs485ReDe1
+    #pragma diagram {"xy":"H160478;V-28213","wh":"14000;3200"} #end)
+    (#72 def rs485ReDe2
+    #pragma diagram {"xy":"H160478;V-22357","wh":"14000;3200"} #end)
+    (#73 def testOutput
+    #pragma diagram {"xy":"H160478;V-16500","wh":"14000;3200"} #end)
+    (#74 def vcc5vEn
+    #pragma diagram {"xy":"H161478;V-10643","wh":"12000;3200"} #end)
     
-    (#54 wire #0 => #33
-    #pragma diagram {"wp":"v0|#0 h13391 v-31075 #33"} #end)
-    (#30 wire #4 => #26)
-    (#31 wire #1 => #26)
-    (#32 wire #5 => #26)
+    (#30 wire #4 => #26 .(accessoryBatteryCurrentRaw))
+    (#32 wire #5 => #26 .(hydrogenHighPressureRaw))
     (#55 wire #33 => #6
     #pragma diagram {"wp":"v0|#33 #6"} #end)
-    (#34 wire #2 => #26)
-    (#35 wire #28 => #10
-    #pragma diagram {"wp":"v-5400|#28 #10"} #end)
-    (#36 wire #28 => #9
-    #pragma diagram {"wp":"v0|#28 #9"} #end)
-    (#37 wire #8 => #26)
-    (#38 wire #11 => #26)
-    (#39 wire #12 => #26)
-    (#40 wire #13 => #26)
-    (#41 wire #14 => #26)
-    (#42 wire #15 => #26)
-    (#43 wire #16 => #26)
-    (#44 wire #17 => #26)
-    (#45 wire #18 => #26)
-    (#46 wire #19 => #26)
-    (#47 wire #20 => #26)
-    (#48 wire #21 => #26)
-    (#49 wire #22 => #26)
-    (#50 wire #23 => #26)
-    (#51 wire #24 => #26)
-    (#52 wire #25 => #26)
+    (#34 wire #2 => #26 .(supercapacitorCurrentRaw))
+    (#37 wire #8 => #26 .(hydrogenLeakageRaw))
+    (#38 wire #11 => #26 .(fuelCellOutputCurrentRaw))
+    (#39 wire #12 => #26 .(motorControllerSupplyCurrentRaw))
+    (#40 wire #13 => #26 .(accessoryBatteryVoltageRaw))
+    (#41 wire #14 => #26 .(fuelCellOutputVoltageRaw))
+    (#42 wire #15 => #26 .(supercapacitorVoltageRaw))
+    (#43 wire #16 => #26 .(motorControllerSupplyVoltageRaw))
+    (#44 wire #17 => #26 .(din1))
+    (#45 wire #18 => #26 .(din2))
+    (#46 wire #19 => #26 .(din3))
+    (#47 wire #20 => #26 .(din4))
+    (#48 wire #21 => #26 .(din5))
+    (#49 wire #22 => #26 .(din6))
+    (#50 wire #23 => #26 .(din7))
+    (#51 wire #24 => #26 .(din8))
+    (#52 wire #25 => #26 .(rpmHz))
     (#53 wire #26 => #7
-    #pragma diagram {"wp":"v49943|#26 #7"} #end)
-    (#56 wire #29 => #33
-    #pragma diagram {"wp":"v0|#29 h5797 v-11908 #33"} #end)
-    (#58 wire #6 => #3
-    #pragma diagram {"wp":"v4000|#6 h4427 v17450 #3"} #end)
+    #pragma diagram {"wp":"v6908|#26 #7"} #end)
     (#59 wire #7 => #33
     #pragma diagram {"wp":"v2225|#7 #33"} #end)
     (#57 wire #6 => #28
     #pragma diagram {"wp":"v0|#6 #28"} #end)
-    (#60 wire #6 => #27
-    #pragma diagram {"wp":"v5333|#6 h2809 v37567 #27"} #end)
+    (#61 wire #1 => #26 .(accelPedalRaw))
+    (#75 wire #67 .(brakeVoltage) => #10
+    #pragma diagram {"wp":"v-40997|#67 #10"} #end)
+    (#76 wire #67 .(unusedOutputAo3) => #65
+    #pragma diagram {"wp":"v-11714|#67 #65"} #end)
+    (#62 wire #31 => #26 .(brakePedalRaw))
+    (#77 wire #67 .(accelerationVoltage) => #9
+    #pragma diagram {"wp":"v40996|#67 #9"} #end)
+    (#78 wire #67 .(unusedOutputAo4) => #66
+    #pragma diagram {"wp":"v-5857|#67 #66"} #end)
+    (#79 wire #28 => #67
+    #pragma diagram {"wp":"v-1104|#28 #67"} #end)
+    (#80 wire #67 .(isMainValveOpen) => #68
+    #pragma diagram {"wp":"v0|#67 #68"} #end)
+    (#81 wire #67 .(isMotorControllerEnabled) => #69
+    #pragma diagram {"wp":"v5856|#67 #69"} #end)
+    (#82 wire #67 .(unusedOutputRelay3) => #70
+    #pragma diagram {"wp":"v11713|#67 #70"} #end)
+    (#83 wire #67 .(vcc5vIso1En) => #35
+    #pragma diagram {"wp":"v-35140|#67 #35"} #end)
+    (#84 wire #67 .(vcc5vIso2En) => #63
+    #pragma diagram {"wp":"v-23427|#67 #63"} #end)
+    (#85 wire #67 .(vcc5vEn) => #74
+    #pragma diagram {"wp":"v35140|#67 #74"} #end)
+    (#86 wire #67 .(vcc10v5En) => #64
+    #pragma diagram {"wp":"v-17570|#67 #64"} #end)
+    (#87 wire #67 .(vee0v23SD) => #36
+    #pragma diagram {"wp":"v-29284|#67 #36"} #end)
+    (#88 wire #67 .(rs485ReDe1) => #71
+    #pragma diagram {"wp":"v17570|#67 #71"} #end)
+    (#89 wire #67 .(rs485ReDe2) => #72
+    #pragma diagram {"wp":"v23426|#67 #72"} #end)
+    (#90 wire #67 .(testOutput) => #73
+    #pragma diagram {"wp":"v29283|#67 #73"} #end)
 }
 
 node MainStateMachine (hasStartButtonTriggered : bool;
-                       isFuelCellBehavingAbnormal : bool;)
+                       isStartButtonPressed : bool;)
   returns (shouldProtiumRun : bool;)
 {
   diagram

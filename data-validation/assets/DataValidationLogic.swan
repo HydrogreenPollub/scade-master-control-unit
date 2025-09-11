@@ -1,20 +1,378 @@
 -- version swan: 2025.1 graph: 2.0
-node Validation (i0: int32;)
+function Validation (isEmergencySwitchPressed: bool;
+                     isDeadmansSwitchPressed : bool;
+                     isLeakageDetected : bool;
+                     hydrogenLeakageVoltage : float32;
+                     supercapacitorCurrent : float32;
+                     accelPedalVoltage : float32;
+                     brakePedalVoltage : float32;
+                     accessoryBatteryCurrent : float32;
+                     hydrogenHighPressure : float32;
+                     fuelCellOutputCurrent : float32;
+                     motorControllerSupplyCurrent : float32;
+                     accessoryBatteryVoltage : float32;
+                     fuelCellOutputVoltage : float32;
+                     supercapacitorVoltage : float32;
+                     motorControllerSupplyVoltage : float32;
+                     speed : float32;)
+  returns (emg_emergencySwitch : bool;
+           emg_deadmansSwitch : bool;
+           emg_leakageSensorSwitch : bool;
+           emg_hydrogenLeakageVoltage : bool;
+           err_supercapacitorCurrent : bool;
+           err_accelPedalVoltage : bool;
+           err_brakePedalVoltage : bool;
+           err_accessoryBatteryCurrent : bool;
+           err_hydrogenHighPressure : bool;
+           err_fuelCellOutputCurrent : bool;
+           err_motorControllerSupplyCurrent : bool;
+           err_accessoryBatteryVoltage : bool;
+           err_fuelCellOutputVoltage : bool;
+           err_supercapacitorVoltage : bool;
+           err_motorControllerSupplyVoltage : bool;
+           err_speed : bool;)
+{
+  diagram
+    (#0 block ErrorCheck
+              #pragma diagram {"xy":"H-63900;V6350","wh":"20000;14000"} #end)
+    (#1 block EmergencyCheck
+              #pragma diagram {"xy":"H-63900;V-28150","wh":"20000;14000"} #end)
+    (#2 block WarningCheck
+              #pragma diagram {"xy":"H-63900;V57728","wh":"20000;14000"} #end)
+    (#3 expr isEmergencySwitchPressed
+    #pragma diagram {"xy":"H-144444;V-26295","wh":"28000;3200"} #end)
+    (#4 expr isDeadmansSwitchPressed
+    #pragma diagram {"xy":"H-143444;V-39636","wh":"26000;3200"} #end)
+    (#5 expr hydrogenLeakageVoltage
+    #pragma diagram {"xy":"H-143444;V-35189","wh":"26000;3200"} #end)
+    (#6 expr isLeakageDetected
+    #pragma diagram {"xy":"H-140444;V-30742","wh":"20000;3200"} #end)
+    (#7 group
+    #pragma diagram {"xy":"H-93444;V6931","wh":"800;47850"} #end)
+    (#17 expr supercapacitorCurrent
+    #pragma diagram {"xy":"H-146044;V28863","wh":"24000;3200"} #end)
+    (#18 expr accelPedalVoltage
+    #pragma diagram {"xy":"H-144044;V-15000","wh":"20000;3200"} #end)
+    (#19 expr brakePedalVoltage
+    #pragma diagram {"xy":"H-144044;V-11012","wh":"20000;3200"} #end)
+    (#20 expr accessoryBatteryCurrent
+    #pragma diagram {"xy":"H-147044;V-7025","wh":"26000;3200"} #end)
+    (#21 expr hydrogenHighPressure
+    #pragma diagram {"xy":"H-146044;V-3037","wh":"24000;3200"} #end)
+    (#22 expr fuelCellOutputCurrent
+    #pragma diagram {"xy":"H-146044;V950","wh":"24000;3200"} #end)
+    (#23 expr motorControllerSupplyCurrent
+    #pragma diagram {"xy":"H-150044;V4938","wh":"32000;3200"} #end)
+    (#24 expr accessoryBatteryVoltage
+    #pragma diagram {"xy":"H-147044;V8925","wh":"26000;3200"} #end)
+    (#25 expr fuelCellOutputVoltage
+    #pragma diagram {"xy":"H-146044;V12913","wh":"24000;3200"} #end)
+    (#26 expr supercapacitorVoltage
+    #pragma diagram {"xy":"H-146044;V16900","wh":"24000;3200"} #end)
+    (#27 expr motorControllerSupplyVoltage
+    #pragma diagram {"xy":"H-150044;V20888","wh":"32000;3200"} #end)
+    (#28 expr speed
+    #pragma diagram {"xy":"H-139044;V24875","wh":"10000;3200"} #end)
+    (#55 def emg_deadmansSwitch
+    #pragma diagram {"xy":"H11784;V-27925","wh":"22000;3200"} #end)
+    (#56 def emg_emergencySwitch
+    #pragma diagram {"xy":"H11784;V-49413","wh":"22000;3200"} #end)
+    (#57 def emg_leakageSensorSwitch
+    #pragma diagram {"xy":"H13784;V-42250","wh":"26000;3200"} #end)
+    (#58 group
+    #pragma diagram {"xy":"H-38016;V22271","wh":"800;73100"} #end)
+    (#59 def emg_hydrogenLeakageVoltage
+    #pragma diagram {"xy":"H15784;V-35088","wh":"30000;3200"} #end)
+    (#60 def err_supercapacitorCurrent
+    #pragma diagram {"xy":"H14784;V55775","wh":"28000;3200"} #end)
+    (#61 def err_accelPedalVoltage
+    #pragma diagram {"xy":"H12784;V-11233","wh":"24000;3200"} #end)
+    (#62 def err_brakePedalVoltage
+    #pragma diagram {"xy":"H12784;V-5142","wh":"24000;3200"} #end)
+    (#63 def err_accessoryBatteryCurrent
+    #pragma diagram {"xy":"H15784;V950","wh":"30000;3200"} #end)
+    (#64 def err_hydrogenHighPressure
+    #pragma diagram {"xy":"H14784;V7042","wh":"28000;3200"} #end)
+    (#65 def err_fuelCellOutputCurrent
+    #pragma diagram {"xy":"H14784;V13133","wh":"28000;3200"} #end)
+    (#66 def err_motorControllerSupplyCurrent
+    #pragma diagram {"xy":"H18784;V19225","wh":"36000;3200"} #end)
+    (#67 def err_accessoryBatteryVoltage
+    #pragma diagram {"xy":"H15784;V25317","wh":"30000;3200"} #end)
+    (#68 def err_fuelCellOutputVoltage
+    #pragma diagram {"xy":"H14784;V31408","wh":"28000;3200"} #end)
+    (#69 def err_supercapacitorVoltage
+    #pragma diagram {"xy":"H14784;V37500","wh":"28000;3200"} #end)
+    (#70 def err_motorControllerSupplyVoltage
+    #pragma diagram {"xy":"H18784;V43592","wh":"36000;3200"} #end)
+    (#71 def err_speed
+    #pragma diagram {"xy":"H7784;V49683","wh":"14000;3200"} #end)
+    (#72 group
+    #pragma diagram {"xy":"H-38016;V-38669","wh":"800;28650"} #end)
+    (#8 group
+    #pragma diagram {"xy":"H-93444;V-32966","wh":"800;17788"} #end)
+    
+    (#9 wire #7 => #0
+    #pragma diagram {"wp":"v-581|#7 #0"} #end)
+    (#10 wire #28 => #7 .(speed))
+    (#11 wire #27 => #7 .(motorControllerSupplyVoltage))
+    (#12 wire #26 => #7 .(supercapacitorVoltage))
+    (#13 wire #25 => #7 .(fuelCellOutputVoltage))
+    (#14 wire #24 => #7 .(accessoryBatteryVoltage))
+    (#15 wire #23 => #7 .(motorControllerSupplyCurrent))
+    (#16 wire #22 => #7 .(fuelCellOutputCurrent))
+    (#29 wire #21 => #7 .(hydrogenHighPressure))
+    (#30 wire #20 => #7 .(accessoryBatteryCurrent))
+    (#31 wire #19 => #7 .(brakePedalVoltage))
+    (#32 wire #18 => #7 .(accelPedalVoltage))
+    (#33 wire #17 => #7 .(supercapacitorCurrent))
+    (#34 wire #8 => #1
+    #pragma diagram {"wp":"v3355|#8 #1"} #end)
+    (#35 wire #5 => #8 .(hydrogenLeakageVoltage))
+    (#36 wire #6 => #8 .(isLeakageDetected))
+    (#37 wire #4 => #8 .(isDeadmansSwitchPressed))
+    (#38 wire #3 => #8 .(isEmergencySwitchPressed))
+    (#73 wire #72 .(emg_emergencySwitch) => #56
+    #pragma diagram {"wp":"v-10744|#72 #56"} #end)
+    (#74 wire #72 .(emg_leakageSensorSwitch) => #57
+    #pragma diagram {"wp":"v-3581|#72 #57"} #end)
+    (#75 wire #1 => #72
+    #pragma diagram {"wp":"v-1597|#1 #72"} #end)
+    (#76 wire #72 .(emg_hydrogenLeakageVoltage) => #59
+    #pragma diagram {"wp":"v3581|#72 #59"} #end)
+    (#77 wire #72 .(emg_deadmansSwitch) => #55
+    #pragma diagram {"wp":"v10744|#72 #55"} #end)
+    (#78 wire #58 .(err_supercapacitorCurrent) => #60
+    #pragma diagram {"wp":"v33504|#58 #60"} #end)
+    (#79 wire #0 => #58
+    #pragma diagram {"wp":"v5092|#0 #58"} #end)
+    (#80 wire #58 .(err_accelPedalVoltage) => #61
+    #pragma diagram {"wp":"v-33504|#58 #61"} #end)
+    (#81 wire #58 .(err_brakePedalVoltage) => #62
+    #pragma diagram {"wp":"v-27413|#58 #62"} #end)
+    (#82 wire #58 .(err_accessoryBatteryCurrent) => #63
+    #pragma diagram {"wp":"v-21321|#58 #63"} #end)
+    (#83 wire #58 .(err_hydrogenHighPressure) => #64
+    #pragma diagram {"wp":"v-15229|#58 #64"} #end)
+    (#84 wire #58 .(err_fuelCellOutputCurrent) => #65
+    #pragma diagram {"wp":"v-9138|#58 #65"} #end)
+    (#85 wire #58 .(err_motorControllerSupplyCurrent) => #66
+    #pragma diagram {"wp":"v-3046|#58 #66"} #end)
+    (#86 wire #58 .(err_accessoryBatteryVoltage) => #67
+    #pragma diagram {"wp":"v3046|#58 #67"} #end)
+    (#87 wire #58 .(err_fuelCellOutputVoltage) => #68
+    #pragma diagram {"wp":"v9137|#58 #68"} #end)
+    (#88 wire #58 .(err_supercapacitorVoltage) => #69
+    #pragma diagram {"wp":"v15229|#58 #69"} #end)
+    (#89 wire #58 .(err_motorControllerSupplyVoltage) => #70
+    #pragma diagram {"wp":"v21321|#58 #70"} #end)
+    (#90 wire #58 .(err_speed) => #71
+    #pragma diagram {"wp":"v27412|#58 #71"} #end)
+}
+
+function EmergencyCheck (isEmergencySwitchPressed: bool;
+                         isDeadmansSwitchPressed : bool;
+                         isLeakageDetected : bool;
+                         hydrogenLeakageVoltage : float32;)
+  returns (emg_emergencySwitch : bool;
+           emg_deadmansSwitch : bool;
+           emg_leakageSensorSwitch : bool;
+           emg_hydrogenLeakageVoltage : bool;)
+{
+  diagram
+    (#0 def emg_emergencySwitch
+    #pragma diagram {"xy":"H-51909;V-45225","wh":"22000;3200"} #end)
+    (#1 expr isEmergencySwitchPressed
+    #pragma diagram {"xy":"H-117591;V-45225","wh":"28000;3200"} #end)
+    (#2 expr not #3
+      where
+        (#3 group)
+    #pragma diagram {"xy":"H-83250;V-29850"} #end)
+    (#5 def emg_deadmansSwitch
+    #pragma diagram {"xy":"H-51909;V-29850","wh":"22000;3200"} #end)
+    (#6 expr isLeakageDetected
+    #pragma diagram {"xy":"H-113591;V-14475","wh":"20000;3200"} #end)
+    (#7 def emg_leakageSensorSwitch
+    #pragma diagram {"xy":"H-49909;V-14475","wh":"26000;3200"} #end)
+    (#12 def emg_hydrogenLeakageVoltage
+    #pragma diagram {"xy":"H-47909;V900","wh":"30000;3200"} #end)
+    (#13 expr hydrogenLeakageVoltage
+    #pragma diagram {"xy":"H-116591;V900","wh":"26000;3200"} #end)
+    (#14 block (IsInRange \ minValue: 0, maxValue: 1.1)
+               #pragma diagram {"xy":"H-83250;V900","wh":"20000;14000"} #end)
+    (#4 expr isDeadmansSwitchPressed
+    #pragma diagram {"xy":"H-116591;V-29850","wh":"26000;3200"} #end)
+    
+    (#8 wire #4 => #3)
+    (#9 wire #2 => #5)
+    (#10 wire #6 => #7)
+    (#11 wire #1 => #0)
+    (#15 wire #14 => #12
+    #pragma diagram {"wp":"v0|#14 #12"} #end)
+    (#16 wire #13 => #14)
+}
+
+function ErrorCheck (supercapacitorCurrent : float32;
+                     accelPedalVoltage : float32;
+                     brakePedalVoltage : float32;
+                     accessoryBatteryCurrent : float32;
+                     hydrogenHighPressure : float32;
+                     fuelCellOutputCurrent : float32;
+                     motorControllerSupplyCurrent : float32;
+                     accessoryBatteryVoltage : float32;
+                     fuelCellOutputVoltage : float32;
+                     supercapacitorVoltage : float32;
+                     motorControllerSupplyVoltage : float32;
+                     speed : float32;)
+  returns (err_supercapacitorCurrent : bool;
+           err_accelPedalVoltage : bool;
+           err_brakePedalVoltage : bool;
+           err_accessoryBatteryCurrent : bool;
+           err_hydrogenHighPressure : bool;
+           err_fuelCellOutputCurrent : bool;
+           err_motorControllerSupplyCurrent : bool;
+           err_accessoryBatteryVoltage : bool;
+           err_fuelCellOutputVoltage : bool;
+           err_supercapacitorVoltage : bool;
+           err_motorControllerSupplyVoltage : bool;
+           err_speed : bool;)
+{
+  diagram
+    (#0 expr supercapacitorCurrent
+    #pragma diagram {"xy":"H183363;V-117950","wh":"24000;3200"} #end)
+    (#1 block (IsInRange \ minValue: -120, maxValue: 120)
+              #pragma diagram {"xy":"H219863;V-117950","wh":"20000;14000"} #end)
+    (#2 def err_supercapacitorCurrent
+    #pragma diagram {"xy":"H260363;V-117950","wh":"28000;3200"} #end)
+    (#3 expr accelPedalVoltage
+    #pragma diagram {"xy":"H340238;V-253100","wh":"20000;3200"} #end)
+    (#4 block (IsInRange \ minValue: 2, maxValue: 5)
+              #pragma diagram {"xy":"H376063;V-253100","wh":"20000;14000"} #end)
+    (#5 def err_accelPedalVoltage
+    #pragma diagram {"xy":"H413563;V-253100","wh":"24000;3200"} #end)
+    (#6 expr brakePedalVoltage
+    #pragma diagram {"xy":"H340238;V-233350","wh":"20000;3200"} #end)
+    (#7 block (IsInRange \ minValue: 2, maxValue: 5)
+              #pragma diagram {"xy":"H376063;V-233350","wh":"20000;14000"} #end)
+    (#8 def err_brakePedalVoltage
+    #pragma diagram {"xy":"H413563;V-233350","wh":"24000;3200"} #end)
+    (#9 expr accessoryBatteryCurrent
+    #pragma diagram {"xy":"H181363;V-158850","wh":"26000;3200"} #end)
+    (#10 def err_accessoryBatteryCurrent
+    #pragma diagram {"xy":"H260363;V-158850","wh":"30000;3200"} #end)
+    (#11 block (IsInRange \ minValue: -60, maxValue: 60)
+               #pragma diagram {"xy":"H219863;V-158850","wh":"20000;14000"} #end)
+    (#12 expr hydrogenHighPressure
+    #pragma diagram {"xy":"H338563;V-158850","wh":"24000;3200"} #end)
+    (#13 block (IsInRange \ minValue: 0, maxValue: 700)
+               #pragma diagram {"xy":"H376063;V-158850","wh":"20000;14000"} #end)
+    (#14 def err_hydrogenHighPressure
+    #pragma diagram {"xy":"H415563;V-158850","wh":"28000;3200"} #end)
+    (#18 expr fuelCellOutputCurrent
+    #pragma diagram {"xy":"H183363;V-138400","wh":"24000;3200"} #end)
+    (#19 block (IsInRange \ minValue: -40, maxValue: 40)
+               #pragma diagram {"xy":"H219863;V-138400","wh":"20000;14000"} #end)
+    (#20 def err_fuelCellOutputCurrent
+    #pragma diagram {"xy":"H260363;V-138400","wh":"28000;3200"} #end)
+    (#21 expr motorControllerSupplyCurrent
+    #pragma diagram {"xy":"H181138;V-97500","wh":"32000;3200"} #end)
+    (#22 block (IsInRange \ minValue: -60, maxValue: 60)
+               #pragma diagram {"xy":"H219863;V-97500","wh":"20000;14000"} #end)
+    (#23 def err_motorControllerSupplyCurrent
+    #pragma diagram {"xy":"H264363;V-97500","wh":"36000;3200"} #end)
+    (#24 expr accessoryBatteryVoltage
+    #pragma diagram {"xy":"H181363;V-253100","wh":"26000;3200"} #end)
+    (#25 def err_accessoryBatteryVoltage
+    #pragma diagram {"xy":"H260363;V-253100","wh":"30000;3200"} #end)
+    (#26 block (IsInRange \ minValue: 10, maxValue: 20)
+               #pragma diagram {"xy":"H219863;V-253100","wh":"20000;14000"} #end)
+    (#27 expr fuelCellOutputVoltage
+    #pragma diagram {"xy":"H182363;V-233350","wh":"24000;3200"} #end)
+    (#28 def err_fuelCellOutputVoltage
+    #pragma diagram {"xy":"H259363;V-233350","wh":"28000;3200"} #end)
+    (#29 block (IsInRange \ minValue: 0, maxValue: 60)
+               #pragma diagram {"xy":"H219863;V-233350","wh":"20000;14000"} #end)
+    (#30 expr supercapacitorVoltage
+    #pragma diagram {"xy":"H182363;V-213600","wh":"24000;3200"} #end)
+    (#31 block (IsInRange \ minValue: 0, maxValue: 58)
+               #pragma diagram {"xy":"H219863;V-213600","wh":"20000;14000"} #end)
+    (#32 def err_supercapacitorVoltage
+    #pragma diagram {"xy":"H259363;V-213600","wh":"28000;3200"} #end)
+    (#33 expr motorControllerSupplyVoltage
+    #pragma diagram {"xy":"H178363;V-193850","wh":"32000;3200"} #end)
+    (#34 block (IsInRange \ minValue: 0, maxValue: 60)
+               #pragma diagram {"xy":"H219863;V-193850","wh":"20000;14000"} #end)
+    (#35 def err_motorControllerSupplyVoltage
+    #pragma diagram {"xy":"H263363;V-193850","wh":"36000;3200"} #end)
+    (#36 expr speed
+    #pragma diagram {"xy":"H345563;V-138400","wh":"10000;3200"} #end)
+    (#37 block (IsInRange \ minValue: -100, maxValue: 100)
+               #pragma diagram {"xy":"H376063;V-138400","wh":"20000;14000"} #end)
+    (#38 def err_speed
+    #pragma diagram {"xy":"H408563;V-138400","wh":"14000;3200"} #end)
+    
+    (#47 wire #0 => #1)
+    (#48 wire #1 => #2
+    #pragma diagram {"wp":"v0|#1 #2"} #end)
+    (#49 wire #3 => #4)
+    (#50 wire #4 => #5
+    #pragma diagram {"wp":"v0|#4 #5"} #end)
+    (#51 wire #6 => #7)
+    (#52 wire #7 => #8
+    #pragma diagram {"wp":"v0|#7 #8"} #end)
+    (#53 wire #9 => #11)
+    (#54 wire #11 => #10
+    #pragma diagram {"wp":"v0|#11 #10"} #end)
+    (#55 wire #12 => #13)
+    (#56 wire #13 => #14
+    #pragma diagram {"wp":"v0|#13 #14"} #end)
+    (#59 wire #18 => #19)
+    (#60 wire #19 => #20
+    #pragma diagram {"wp":"v0|#19 #20"} #end)
+    (#61 wire #21 => #22)
+    (#62 wire #22 => #23
+    #pragma diagram {"wp":"v0|#22 #23"} #end)
+    (#63 wire #24 => #26)
+    (#64 wire #26 => #25
+    #pragma diagram {"wp":"v0|#26 #25"} #end)
+    (#65 wire #27 => #29)
+    (#66 wire #29 => #28
+    #pragma diagram {"wp":"v0|#29 #28"} #end)
+    (#67 wire #30 => #31)
+    (#68 wire #31 => #32
+    #pragma diagram {"wp":"v0|#31 #32"} #end)
+    (#69 wire #33 => #34)
+    (#70 wire #34 => #35
+    #pragma diagram {"wp":"v0|#34 #35"} #end)
+    (#71 wire #36 => #37)
+    (#72 wire #37 => #38
+    #pragma diagram {"wp":"v0|#37 #38"} #end)
+}
+
+function WarningCheck ()
   returns ()
 {
 }
 
-node EmergencyCheck (i0: int32;)
-  returns ()
+function IsInRange (signal: float32;
+                    minValue : float32;
+                    maxValue : float32;)
+  returns (outOfRange: bool;)
 {
-}
-
-node ErrorCheck (i0: int32;)
-  returns ()
-{
-}
-
-node WarningCheck (i0: int32;)
-  returns ()
-{
+  diagram
+    (#0 expr signal < minValue
+    #pragma diagram {"xy":"H-24538;V-1800","wh":"20000;3200"} #end)
+    (#1 expr signal > maxValue
+    #pragma diagram {"xy":"H-24538;V2000","wh":"20000;3200"} #end)
+    (#2 expr #3 or #4
+      where
+        (#3 group)
+        (#4 group)
+    #pragma diagram {"xy":"H462;V100"} #end)
+    (#5 def outOfRange
+    #pragma diagram {"xy":"H26462;V100","wh":"14000;3200"} #end)
+    
+    (#6 wire #0 => #3)
+    (#7 wire #1 => #4)
+    (#8 wire #2 => #5)
 }

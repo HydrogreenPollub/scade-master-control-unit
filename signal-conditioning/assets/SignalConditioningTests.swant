@@ -1,38 +1,14 @@
 -- version swan: 2025.1 graph: 2.0 swant: 1.1
-use SignalConditioningLogic as Logic;
+use SignalConditioningLogic;
 
-_harness LinearMappingTests
+_harness SignalConditioningInTests
 {
   diagram
-    (#0 expr 0 pre 150 pre 300 pre 500 pre 800
-    #pragma diagram {"xy":"H-23775;V-20977","wh":"36000;3200"} #end)
-    (#1 expr 30
-    #pragma diagram {"xy":"H6225;V-35777"} #end)
-    (#2 expr 1023
-    #pragma diagram {"xy":"H4225;V-32077"} #end)
-    (#3 expr -30
-    #pragma diagram {"xy":"H4225;V-28377"} #end)
-    (#4 expr 0
-    #pragma diagram {"xy":"H6225;V-24677"} #end)
-    (#5 $mapping #pragma swt under_test #end block Logic::LinearMapping
-                                                   #pragma diagram {"xy":"H44425;V-28377","wh":"20000;14000"} #end)
+    (#0 block SignalConditioningLogic::SignalConditioningIn
+              #pragma diagram {"xy":"H40744;V-3425","wh":"28862;14000"} #end)
+    (#1 block (_source DataSignalConditioningIn)
+    #pragma diagram {"xy":"H-14350;V-4575","wh":"12000;7000"} #end)
     
-    (#6 wire #4 => #5 .(fromLow))
-    (#7 wire #0 => #5 .(value)
-    #pragma diagram {"wp":"#0 h35150 v-2167 #5"} #end)
-    (#8 wire #1 => #5 .(toHigh)
-    #pragma diagram {"wp":"#1 h10050 v2167 #5"} #end)
-    (#9 wire #3 => #5 .(toLow))
-    (#10 wire #2 => #5 .(fromHigh))
-}
-
-_harness DebouncingTests
-{
-  diagram
-    (#0 expr true pre true pre true pre false pre true pre true pre true pre true
-    #pragma diagram {"xy":"H-13475;V2975","wh":"68000;3200"} #end)
-    (#1 #pragma swt under_test #end block (Logic::Debouncing \ debounceCycles: 500)
-                                          #pragma diagram {"xy":"H46525;V2975","wh":"20000;14000"} #end)
-    
-    (#2 wire #0 => #1 .(inputSignal))
+    (#2 wire #1 => #0
+    #pragma diagram {"wp":"v0|#1 #0"} #end)
 }

@@ -46,7 +46,7 @@ _harness TestingInt16to2uint8
     #pragma diagram {"xy":"H0;V0","wh":"12000;7000"} #end)
     (#1 #pragma swt under_test #end block DataTransmission::Int16to2uint8
                                           #pragma diagram {"xy":"H-35000;V0","wh":"20000;14000"} #end)
-    (#2 expr  0_i16 pre 0_i16 pre 0_i16 pre 256_i16 pre 1_i16 pre 32000_i16
+    (#2 expr 0_i16 pre 0_i16 pre 0_i16 pre 256_i16 pre 1_i16 pre 32000_i16
     #pragma diagram {"xy":"H-84750;V-450","wh":"64000;3200"} #end)
     
     (#3 wire #1 => #0
