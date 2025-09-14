@@ -1350,11 +1350,6 @@ node Float64to8uint8 (i0:float64;)
         (#10 group)
         (#11 group)
     #pragma diagram {"xy":"H399386;V89810"} #end)
-    (#12 expr #13 * #14
-      where
-        (#13 group)
-        (#14 group)
-    #pragma diagram {"xy":"H154550;V18710"} #end)
     (#15 expr #16 * #17
       where
         (#16 group)
@@ -1402,13 +1397,6 @@ node Float64to8uint8 (i0:float64;)
         (#40 group)
         (#41 group)
     #pragma diagram {"xy":"H212535;V36250"} #end)
-    (#42 expr 16.0_f64
-    #pragma diagram {"xy":"H148874;V31350","wh":"12000;3200"} #end)
-    (#43 expr #44 * #45
-      where
-        (#44 group)
-        (#45 group)
-    #pragma diagram {"xy":"H231142;V36902"} #end)
     (#46 expr 12.0_f64
     #pragma diagram {"xy":"H87400;V32445","wh":"12000;3200"} #end)
     (#47 expr #48 + #49
@@ -1416,14 +1404,10 @@ node Float64to8uint8 (i0:float64;)
         (#48 group)
         (#49 group)
     #pragma diagram {"xy":"H276858;V1250"} #end)
-    (#50 block Common::Floor
-               #pragma diagram {"xy":"H179125;V18710","wh":"20000;14000"} #end)
     (#51 expr 1.0_f64
     #pragma diagram {"xy":"H87400;V22460","wh":"12000;3200"} #end)
     (#52 expr 256.0_f64
     #pragma diagram {"xy":"H413316;V103102","wh":"14000;3200"} #end)
-    (#53 expr 256.0_f64
-    #pragma diagram {"xy":"H226465;V49542","wh":"14000;3200"} #end)
     (#54 block Common::Floor
                #pragma diagram {"xy":"H251275;V36902","wh":"20000;14000"} #end)
     (#55 expr i0
@@ -1580,17 +1564,28 @@ node Float64to8uint8 (i0:float64;)
         (#141 group)
         (#142 group)
     #pragma diagram {"xy":"H539740;V129995"} #end)
-    (#157 expr (#221 :> uint16)
+    (#12 expr 256.0_f64
+    #pragma diagram {"xy":"H184597;V29000","wh":"14000;3200"} #end)
+    (#13 expr #119 * #121
       where
-        (#221 group)
-    #pragma diagram {"xy":"H205050;V18710","wh":"16000;7000"} #end)
+        (#119 group)
+        (#121 group)
+    #pragma diagram {"xy":"H220025;V20400"} #end)
+    (#148 expr (#156 :> float64)
+      where
+        (#156 group)
+    #pragma diagram {"xy":"H184597;V22295","wh":"16000;7000"} #end)
+    (#14 expr (#42 :> uint16)
+      where
+        (#42 group)
+    #pragma diagram {"xy":"H167685;V5050","wh":"16000;7000"} #end)
     (#222 expr #223 lsr #224
       where
         (#223 group)
         (#224 group)
     #pragma diagram {"xy":"H235050;V5050"} #end)
-    (#225 expr 12_i16
-    #pragma diagram {"xy":"H221825;V20976","wh":"10000;3200"} #end)
+    (#225 expr 8_i16
+    #pragma diagram {"xy":"H217535;V10251","wh":"10000;3200"} #end)
     
     (#143 wire #5 => #8
     #pragma diagram {"wp":"v0|#5 h6837 v-9340 #8"} #end)
@@ -1602,7 +1597,8 @@ node Float64to8uint8 (i0:float64;)
     #pragma diagram {"wp":"v1600|#70 #7"} #end)
     (#147 wire #71 => #5 .(y)
     #pragma diagram {"wp":"v4000|#71 h6614 v53650 #5"} #end)
-    (#149 wire #28 => #49)
+    (#149 wire #28 => #49, #156
+    #pragma diagram {"wp":"#28 h3500[#49, v11021 h-87260 v8124 #156]"} #end)
     (#150 wire #108 => #122, #101
     #pragma diagram {"wp":"#108 h4066[#122, v13220 #101]"} #end)
     (#151 wire #35 => #16)
@@ -1612,20 +1608,13 @@ node Float64to8uint8 (i0:float64;)
     (#154 wire #55 => #57, #69, #3
     #pragma diagram {"wp":"#55 h16144[h25287[#57, v39100 #69], v85010 #3]"} #end)
     (#155 wire #38 => #5 .(x))
-    (#156 wire #50 => #41
-    #pragma diagram {"wp":"v5250|#50 h14955 v14190 #41"} #end)
     (#158 wire #30 => #17
     #pragma diagram {"wp":"v0|#30 h5553 v-19135 #17"} #end)
-    (#159 wire #42 => #14
-    #pragma diagram {"wp":"#42 h3500 v-4445 h-9324 v-6295 #14"} #end)
     (#160 wire #6 => #36)
     (#161 wire #4 => #20
     #pragma diagram {"wp":"#4 h3500 v-5370 h-11324 v-5370 #20"} #end)
     (#162 wire #52 => #25
     #pragma diagram {"wp":"#52 h3500 v-5370 h-11323 v-5370 #25"} #end)
-    (#163 wire #12 => #50, #40
-    #pragma diagram {"wp":"#12 h6288[#50, v15640 #40]"} #end)
-    (#164 wire #15 => #13)
     (#165 wire #2 => #30 .(x))
     (#166 wire #59 => #58)
     (#167 wire #64 => #62)
@@ -1665,8 +1654,6 @@ node Float64to8uint8 (i0:float64;)
     (#186 wire #89 => #93)
     (#187 wire #92 => #94)
     (#188 wire #86 => #96)
-    (#189 wire #53 => #45
-    #pragma diagram {"wp":"#53 h3500 v-5370 h-11323 v-5370 #45"} #end)
     (#190 wire #54 => #105
     #pragma diagram {"wp":"v4000|#54 h4191 v14371 #105"} #end)
     (#191 wire #97 => #99
@@ -1676,16 +1663,12 @@ node Float64to8uint8 (i0:float64;)
     (#193 wire #21 => #123)
     (#194 wire #122 => #22
     #pragma diagram {"wp":"v0|#122 #22"} #end)
-    (#195 wire #39 => #44
-    #pragma diagram {"wp":"#39 h5803 v-1248 #44"} #end)
     (#196 wire #103 => #109
     #pragma diagram {"wp":"#103 h5803 v-1248 #109"} #end)
     (#197 wire #23 => #97, #127
     #pragma diagram {"wp":"#23 h4067[#97, v17797 #127]"} #end)
-    (#198 wire #43 => #54, #104
-    #pragma diagram {"wp":"#43 h4066[#54, v14571 #104]"} #end)
-    (#199 wire #129 => #114, #138, #139
-    #pragma diagram {"wp":"#129 h3634[h1000[#114, v16631 #138], v20431 #139]"} #end)
+    (#199 wire #129 => #114, #138
+    #pragma diagram {"wp":"#129 h3634 h1000[#114, v16631 #138]"} #end)
     (#200 wire #126 => #130
     #pragma diagram {"wp":"#126 h5804 v-1247 #130"} #end)
     (#201 wire #114 => #27
@@ -1717,16 +1700,26 @@ node Float64to8uint8 (i0:float64;)
     (#219 wire #134 => #133
     #pragma diagram {"wp":"v0|#134 #133"} #end)
     (#220 wire #132 => #136)
+    (#43 wire #39 => #54, #104
+    #pragma diagram {"wp":"#39 h17127[#54, v15223 #104]"} #end)
     (#118 wire #95 => #48
     #pragma diagram {"wp":"#95 h45823 v25750 #48"} #end)
-    (#226 wire #50 => #221
-    #pragma diagram {"wp":"v0|#50 #221"} #end)
-    (#227 wire #157 => #223
-    #pragma diagram {"wp":"#157 h3888 v-15560 #223"} #end)
+    (#50 wire #15 => #42, #40
+    #pragma diagram {"wp":"#15 h6965[v-11760 #42, h6930 v17540 #40]"} #end)
+    (#157 wire #148 => #119
+    #pragma diagram {"wp":"#148 h12714 v-3795 #119"} #end)
+    (#159 wire #13 => #41
+    #pragma diagram {"wp":"#13 h3500 v10433 h-21490 v7317 #41"} #end)
+    (#44 wire #114 => #139
+    #pragma diagram {"wp":"v4000|#114 h3398 v16431 #139"} #end)
+    (#163 wire #12 => #121
+    #pragma diagram {"wp":"#12 h19183 v-6700 #121"} #end)
+    (#120 wire #14 => #223
+    #pragma diagram {"wp":"#14 h52411 v-1900 #223"} #end)
     (#228 wire #222 => #29
     #pragma diagram {"wp":"#222 h3904 v-1900 #29"} #end)
     (#229 wire #225 => #224
-    #pragma diagram {"wp":"#225 h1725 v-14026 #224"} #end)
+    #pragma diagram {"wp":"#225 h5561 v-3301 #224"} #end)
 }
 
 node EightUint8toFloat64 (MSB: uint8;
@@ -1914,20 +1907,18 @@ node EightUint8toFloat64 (MSB: uint8;
       where
         (#96 group)
     #pragma diagram {"xy":"H208534;V-44735","wh":"14000;7000"} #end)
-    (#97 expr 64_i16
+    (#97 expr 16_i16
     #pragma diagram {"xy":"H210534;V-37332","wh":"10000;3200"} #end)
     (#98 expr (#99 :> int16)
       where
         (#99 group)
     #pragma diagram {"xy":"H208534;V-24750","wh":"14000;7000"} #end)
-    (#100 block Common::Pow
-                #pragma diagram {"xy":"H319225;V-16975","wh":"20000;14000"} #end)
-    (#101 expr 2_i64
-    #pragma diagram {"xy":"H281321;V-13435","wh":"10000;3200"} #end)
-    (#102 expr (#103 :> int64)
+    (#101 expr 2.0_f64
+    #pragma diagram {"xy":"H289941;V-35807","wh":"12000;3200"} #end)
+    (#102 expr (#103 :> float64)
       where
         (#103 group)
-    #pragma diagram {"xy":"H288941;V-24531","wh":"14000;7000"} #end)
+    #pragma diagram {"xy":"H289941;V-24531","wh":"16000;7000"} #end)
     (#104 expr (#105 :> float64)
       where
         (#105 group)
@@ -1970,6 +1961,8 @@ node EightUint8toFloat64 (MSB: uint8;
     #pragma diagram {"xy":"H411550;V-22675"} #end)
     (#127 def out
     #pragma diagram {"xy":"H432850;V-22675"} #end)
+    (#100 block Common::Pow
+                #pragma diagram {"xy":"H317575;V-28031","wh":"20000;14000"} #end)
     
     (#128 wire #6 => #3
     #pragma diagram {"wp":"#6 h12375 v-1400 #3"} #end)
@@ -2052,11 +2045,6 @@ node EightUint8toFloat64 (MSB: uint8;
     (#175 wire #76 => #99)
     (#176 wire #84 => #96)
     (#177 wire #80 => #103)
-    (#178 wire #102 => #100 .(y)
-    #pragma diagram {"wp":"#102 h8142 v3028 #100"} #end)
-    (#179 wire #101 => #100 .(x))
-    (#180 wire #100 => #105
-    #pragma diagram {"wp":"v0|#100 #105"} #end)
     (#181 wire #104 => #107
     #pragma diagram {"wp":"#104 h16096 v17875 #107"} #end)
     (#182 wire #71 => #108
@@ -2077,6 +2065,11 @@ node EightUint8toFloat64 (MSB: uint8;
     (#191 wire #106 => #126
     #pragma diagram {"wp":"#106 h8475 v-23575 #126"} #end)
     (#192 wire #124 => #127)
+    (#178 wire #100 => #105
+    #pragma diagram {"wp":"v0|#100 h4917 v11056 #105"} #end)
+    (#179 wire #101 => #100 .(x)
+    #pragma diagram {"wp":"#101 h7317 v4943 #100"} #end)
+    (#180 wire #102 => #100 .(y))
 }
 
 node BoolToUint8 (i0:bool;)

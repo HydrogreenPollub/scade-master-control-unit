@@ -30,8 +30,8 @@ _harness harness_Float64to8uint8
   diagram
     (#0 #pragma swt under_test #end block DataTransmissionLogic::Float64to8uint8
                                           #pragma diagram {"xy":"H43500;V-250","wh":"20000;14000"} #end)
-    (#1 expr 0.0_f64 pre 1.0_f64 pre 1.5_f64 pre 1.6_f64 pre 100.0_f64 pre -1.0_f64 pre -1.6_f64 pre -100.0_f64 pre 200000000.0_f64
-    #pragma diagram {"xy":"H-41300;V-250","wh":"116000;3200"} #end)
+    (#1 expr 0.0_f64 pre 1.0_f64 pre 1.5_f64 pre 1.6_f64 pre 100.0_f64 pre -1.0_f64 pre -1.6_f64 pre -100.0_f64 pre 200000000.0_f64 pre 1.3664235 pre -1.3664235 pre 15135211.124214
+    #pragma diagram {"xy":"H-72125;V-250","wh":"162000;3200"} #end)
     (#2 block DataTransmissionLogic::EightUint8toFloat64
               #pragma diagram {"xy":"H97700;V-250","wh":"20000;14000"} #end)
     (#3 def numb
