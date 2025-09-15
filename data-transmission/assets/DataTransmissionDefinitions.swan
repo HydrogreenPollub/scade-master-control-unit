@@ -9,6 +9,8 @@ const ID_MASTER_STATUS: int16 = 0;
 
 const ID_PROTIUM_VALUES: int16 = 0;
 
+const ID_MASTER_MEASUREMENTS: int16 = 0;
+
 type Message = 
     MasterMeasurementsMsg { MasterMeasurements } | 
     MasterStatusMsg { MasterStatus} | 

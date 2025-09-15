@@ -5,7 +5,7 @@ use Math::Common as Common;
 
 node Encoding (msg: Definitions::Message;
                time:int64;)
-  returns ()
+  returns (encodedMsg:Definitions::EncodedFrame;)
 {
   diagram
     (activate when msg match
@@ -18,21 +18,67 @@ node Encoding (msg: Definitions::Message;
             #pragma diagram {"xy":"h-20712;v-2900"} #end)
             (#0 expr time
             #pragma diagram {"xy":"h-20712;v3350"} #end)
+            (#5 def encodedMsg
+            #pragma diagram {"xy":"h25912;v0","wh":"14000;3200"} #end)
             
             (#3 wire #2 => #1 .(protiumState))
             (#4 wire #0 => #1 .(time))
+            (#6 wire #1 .(msg) => #5
+            #pragma diagram {"wp":"v0|#1 #5"} #end)
         #pragma diagram {"xy":"h0;v-32930","wh":"68675;20000"} #end
         }
       | Definitions::MasterStatusMsg {x} :
         {
+          diagram
+            (#7 block EncodingMasterStatus
+                      #pragma diagram {"xy":"h0;v0","wh":"20000;14000"} #end)
+            (#8 expr x
+            #pragma diagram {"xy":"h-26900;v-2900"} #end)
+            (#9 expr time
+            #pragma diagram {"xy":"h-26900;v3350"} #end)
+            (#10 def encodedMsg
+            #pragma diagram {"xy":"h21393;v-287","wh":"14000;3200"} #end)
+            
+            (#11 wire #9 => #7 .(time))
+            (#12 wire #8 => #7 .(status))
+            (#13 wire #7 .(msg) => #10
+            #pragma diagram {"wp":"v-287|#7 #10"} #end)
         #pragma diagram {"xy":"h0;v-9070","wh":"68675;20000"} #end
         }
       | Definitions::MasterMeasurementsMsg {x} :
         {
+          diagram
+            (#14 expr time
+            #pragma diagram {"xy":"h-26015;v2211"} #end)
+            (#15 def encodedMsg
+            #pragma diagram {"xy":"h22279;v-1426","wh":"14000;3200"} #end)
+            (#16 expr x
+            #pragma diagram {"xy":"h-26015;v-4039"} #end)
+            (#17 block EncodingMasterMeasurements
+                       #pragma diagram {"xy":"h-2463;v0","wh":"20000;14000"} #end)
+            
+            (#18 wire #16 => #17 .(measurements))
+            (#19 wire #14 => #17 .(time))
+            (#20 wire #17 .(msg) => #15
+            #pragma diagram {"wp":"v-1426|#17 #15"} #end)
         #pragma diagram {"xy":"h0;v14789","wh":"68675;20000"} #end
         }
       | Definitions::ProtiumValuesMsg {x} :
         {
+          diagram
+            (#21 def encodedMsg
+            #pragma diagram {"xy":"h19020;v-1843","wh":"14000;3200"} #end)
+            (#22 expr x
+            #pragma diagram {"xy":"h-29273;v-4455"} #end)
+            (#23 expr time
+            #pragma diagram {"xy":"h-29273;v1795"} #end)
+            (#24 block EncodingProtiumValues
+                       #pragma diagram {"xy":"h-5213;v0","wh":"20000;14000"} #end)
+            
+            (#25 wire #22 => #24 .(values))
+            (#26 wire #23 => #24 .(time))
+            (#27 wire #24 .(msg) => #21
+            #pragma diagram {"wp":"v-1842|#24 #21"} #end)
         #pragma diagram {"xy":"h0;v38649","wh":"68675;20000"} #end
         }
       #pragma diagram {"xy":"H-17162;V6105","wh":"71675;100297"} #end)
@@ -379,7 +425,7 @@ node EncodingMasterStatus (status:Definitions::MasterStatus;
     #pragma diagram {"xy":"H145995;V-41126"} #end)
     (#15 group bypos
     #pragma diagram {"xy":"H-89288;V25437"} #end)
-    (#16 expr Definitions::TELEMETRY_MSG_TEMPLATE_SIZE 
+    (#16 expr Definitions::TELEMETRY_MSG_TEMPLATE_SIZE
     #pragma diagram {"xy":"H-200032;V-59184","wh":"44000;3200"} #end)
     (#17 group bypos
     #pragma diagram {"xy":"H-89588;V-23436"} #end)
@@ -1005,6 +1051,385 @@ node EncodingProtiumValues (values:Definitions::ProtiumValues;
     (#234 wire #24 => #232)
     (#235 wire #140 => #233)
     (#236 wire #231 => #18)
+}
+
+node EncodingMasterMeasurements (measurements:Definitions::MasterMeasurements;
+                                 time:int64;)
+  returns (msg:Definitions::EncodedFrame;)
+{
+  diagram
+    (#0 expr #1 . ai3
+      where
+        (#1 group)
+    #pragma diagram {"xy":"H-109561;V9788","wh":"12000;7000"} #end)
+    (#2 group bypos
+    #pragma diagram {"xy":"H-65117;V9788"} #end)
+    (#3 group bypos
+    #pragma diagram {"xy":"H-60615;V405979"} #end)
+    (#4 expr Definitions::STOP_BYTE
+    #pragma diagram {"xy":"H-110980;V405979","wh":"26000;3200"} #end)
+    (#5 group bypos
+    #pragma diagram {"xy":"H-65117;V-77786"} #end)
+    (#6 expr Definitions::START_BYTE
+    #pragma diagram {"xy":"H-118561;V-88958","wh":"26000;3200"} #end)
+    (#7 expr forward
+      <<Definitions::ENCODED_FRAME_SIZE - Definitions::TELEMETRY_MSG_TEMPLATE_SIZE - Definitions::MASTER_MEASUREMENTS_PAYLOAD_SIZE>>
+      diagram
+        (let op = 0_ui8;
+        #pragma diagram {"xy":"h-5225;v-2137","wh":"20000;3200"} #end)
+      returns ([op])
+      #pragma diagram {"xy":"H-96859;V425029","wh":"48600;19600"} #end)
+    (#9 block Float64to8uint8
+              #pragma diagram {"xy":"H-86261;V-7838","wh":"20000;14000"} #end)
+    (#10 expr #11 @ #12
+      where
+        (#11 group)
+        (#12 group)
+    #pragma diagram {"xy":"H431234;V-59923"} #end)
+    (#13 block Float64to8uint8
+               #pragma diagram {"xy":"H-86261;V-25464","wh":"20000;14000"} #end)
+    (#14 expr #15 @ #16
+      where
+        (#15 group)
+        (#16 group)
+    #pragma diagram {"xy":"H380365;V-78386"} #end)
+    (#17 block Int64to8uint8
+               #pragma diagram {"xy":"H-86261;V-43090","wh":"20000;14000"} #end)
+    (#18 block Int32to4uint8
+               #pragma diagram {"xy":"H-86261;V-78838","wh":"20000;14000"} #end)
+    (#19 block Float64to8uint8
+               #pragma diagram {"xy":"H-86261;V9788","wh":"20000;14000"} #end)
+    (#20 block Float64to8uint8
+               #pragma diagram {"xy":"H-86061;V27414","wh":"20000;14000"} #end)
+    (#21 expr #22 @ #23
+      where
+        (#22 group)
+        (#23 group)
+    #pragma diagram {"xy":"H402866;V-68080"} #end)
+    (#24 expr Definitions::PROTIUM_VALUES_PAYLOAD_SIZE
+    #pragma diagram {"xy":"H-154286;V-79800","wh":"42000;3200"} #end)
+    (#25 group bypos
+    #pragma diagram {"xy":"H-65117;V-60438"} #end)
+    (#26 expr [#27, #28, #29, #30, #31, #32, #33, #34, #35, #36, #37, #38, #39, #40, #41, #42, #43, #44, #45, #46, #47, #48, #49]
+      where
+        (#27 group)
+        (#28 group)
+        (#29 group)
+        (#30 group)
+        (#31 group)
+        (#32 group)
+        (#33 group)
+        (#34 group)
+        (#35 group)
+        (#36 group)
+        (#37 group)
+        (#38 group)
+        (#39 group)
+        (#40 group)
+        (#41 group)
+        (#42 group)
+        (#43 group)
+        (#44 group)
+        (#45 group)
+        (#46 group)
+        (#47 group)
+        (#48 group)
+        (#49 group)
+    #pragma diagram {"xy":"H349683;V-45280"} #end)
+    (#50 group bypos
+    #pragma diagram {"xy":"H-65117;V-88958"} #end)
+    (#51 group bypos
+    #pragma diagram {"xy":"H-65117;V-43090"} #end)
+    (#52 group bypos
+    #pragma diagram {"xy":"H-64917;V27414"} #end)
+    (#53 expr #54 . ai4
+      where
+        (#54 group)
+    #pragma diagram {"xy":"H-109561;V27414","wh":"12000;7000"} #end)
+    (#55 expr #56 . supercapacitorCurrent
+      where
+        (#56 group)
+    #pragma diagram {"xy":"H-117561;V-7838","wh":"28000;7000"} #end)
+    (#57 expr Definitions::ID_MASTER_MEASUREMENTS
+    #pragma diagram {"xy":"H-124111;V-60180","wh":"38000;3200"} #end)
+    (#58 group bypos
+    #pragma diagram {"xy":"H-65117;V-7838"} #end)
+    (#59 def msg
+    #pragma diagram {"xy":"H458603;V-59923"} #end)
+    (#60 expr [#61]
+      where
+        (#61 group)
+    #pragma diagram {"xy":"H-23484;V405979"} #end)
+    (#62 expr time
+    #pragma diagram {"xy":"H-109561;V-43090"} #end)
+    (#63 block CreateFauxCRC
+               #pragma diagram {"xy":"H-81459;V396034","wh":"20000;14000"} #end)
+    (#64 block Int16to2uint8
+               #pragma diagram {"xy":"H-86261;V-60180","wh":"20000;14000"} #end)
+    (#65 group bypos
+    #pragma diagram {"xy":"H-65117;V-25464"} #end)
+    (#66 expr #67 . ai1
+      where
+        (#67 group)
+    #pragma diagram {"xy":"H-109561;V-25464","wh":"12000;7000"} #end)
+    (#68 expr measurements
+    #pragma diagram {"xy":"H-262975;V-25464","wh":"16000;3200"} #end)
+    (#69 block Float64to8uint8
+               #pragma diagram {"xy":"H-86061;V45040","wh":"20000;14000"} #end)
+    (#70 group bypos
+    #pragma diagram {"xy":"H-64917;V45040"} #end)
+    (#71 expr #72 . ai5
+      where
+        (#72 group)
+    #pragma diagram {"xy":"H-109561;V45040","wh":"12000;7000"} #end)
+    (#73 block Float64to8uint8
+               #pragma diagram {"xy":"H-86061;V62666","wh":"20000;14000"} #end)
+    (#74 group bypos
+    #pragma diagram {"xy":"H-64917;V62666"} #end)
+    (#75 expr #76 . accelPedalVoltage
+      where
+        (#76 group)
+    #pragma diagram {"xy":"H-115414;V62666","wh":"24000;7000"} #end)
+    (#77 block Float64to8uint8
+               #pragma diagram {"xy":"H-85983;V80847","wh":"20000;14000"} #end)
+    (#78 group bypos
+    #pragma diagram {"xy":"H-64839;V80847"} #end)
+    (#79 expr #80 . brakePedalVoltage
+      where
+        (#80 group)
+    #pragma diagram {"xy":"H-115414;V80847","wh":"24000;7000"} #end)
+    (#81 block Float64to8uint8
+               #pragma diagram {"xy":"H-85983;V99028","wh":"20000;14000"} #end)
+    (#82 group bypos
+    #pragma diagram {"xy":"H-64839;V99028"} #end)
+    (#83 expr #84 . accessoryBatteryCurrent
+      where
+        (#84 group)
+    #pragma diagram {"xy":"H-118414;V99028","wh":"30000;7000"} #end)
+    (#85 block Float64to8uint8
+               #pragma diagram {"xy":"H-84914;V117195","wh":"20000;14000"} #end)
+    (#86 group bypos
+    #pragma diagram {"xy":"H-63770;V117195"} #end)
+    (#87 expr #88 . hydrogenHighPressure
+      where
+        (#88 group)
+    #pragma diagram {"xy":"H-117414;V117195","wh":"28000;7000"} #end)
+    (#89 block Float64to8uint8
+               #pragma diagram {"xy":"H-84914;V135363","wh":"20000;14000"} #end)
+    (#90 group bypos
+    #pragma diagram {"xy":"H-63770;V135363"} #end)
+    (#91 expr #92 . hydrogenLeakageSensorVoltage
+      where
+        (#92 group)
+    #pragma diagram {"xy":"H-121414;V135363","wh":"36000;7000"} #end)
+    (#93 block Float64to8uint8
+               #pragma diagram {"xy":"H-84914;V153530","wh":"20000;14000"} #end)
+    (#94 group bypos
+    #pragma diagram {"xy":"H-63770;V153530"} #end)
+    (#95 expr #96 . fuelCellOutputCurrent
+      where
+        (#96 group)
+    #pragma diagram {"xy":"H-116292;V153530","wh":"28000;7000"} #end)
+    (#97 block Float64to8uint8
+               #pragma diagram {"xy":"H-86592;V171698","wh":"20000;14000"} #end)
+    (#98 group bypos
+    #pragma diagram {"xy":"H-63770;V171698"} #end)
+    (#99 expr #100 . motorControllerSupplyCurrent
+      where
+        (#100 group)
+    #pragma diagram {"xy":"H-120292;V171698","wh":"36000;7000"} #end)
+    (#101 block Float64to8uint8
+                #pragma diagram {"xy":"H-84914;V189865","wh":"20000;14000"} #end)
+    (#102 group bypos
+    #pragma diagram {"xy":"H-63770;V189865"} #end)
+    (#103 expr #104 . accessoryBatteryVoltage
+      where
+        (#104 group)
+    #pragma diagram {"xy":"H-117292;V189865","wh":"30000;7000"} #end)
+    (#105 block Float64to8uint8
+                #pragma diagram {"xy":"H-84914;V208033","wh":"20000;14000"} #end)
+    (#106 group bypos
+    #pragma diagram {"xy":"H-63770;V208033"} #end)
+    (#107 expr #108 . fuelCellOutputVoltage
+      where
+        (#108 group)
+    #pragma diagram {"xy":"H-116292;V208032","wh":"28000;7000"} #end)
+    (#109 block Float64to8uint8
+                #pragma diagram {"xy":"H-84914;V226200","wh":"20000;14000"} #end)
+    (#110 group bypos
+    #pragma diagram {"xy":"H-63770;V226200"} #end)
+    (#111 expr #112 . supercapacitorVoltage
+      where
+        (#112 group)
+    #pragma diagram {"xy":"H-116292;V226200","wh":"28000;7000"} #end)
+    (#113 block Float64to8uint8
+                #pragma diagram {"xy":"H-84914;V244368","wh":"20000;14000"} #end)
+    (#114 group bypos
+    #pragma diagram {"xy":"H-63770;V244368"} #end)
+    (#115 expr #116 . motorControllerSupplyVoltage
+      where
+        (#116 group)
+    #pragma diagram {"xy":"H-118058;V244368","wh":"36000;7000"} #end)
+    (#117 group bypos
+    #pragma diagram {"xy":"H-63584;V263285"} #end)
+    (#118 expr #119 . din
+      where
+        (#119 group)
+    #pragma diagram {"xy":"H-106058;V263285","wh":"12000;7000"} #end)
+    (#120 expr #121 . speed
+      where
+        (#121 group)
+    #pragma diagram {"xy":"H-107058;V301476","wh":"14000;7000"} #end)
+    (#122 group bypos
+    #pragma diagram {"xy":"H-63577;V282202"} #end)
+    (#123 block Float64to8uint8
+                #pragma diagram {"xy":"H-84721;V282202","wh":"20000;14000"} #end)
+    (#124 expr #125 . rpm
+      where
+        (#125 group)
+    #pragma diagram {"xy":"H-106058;V282202","wh":"12000;7000"} #end)
+    (#126 block Float64to8uint8
+                #pragma diagram {"xy":"H-82728;V301120","wh":"20000;14000"} #end)
+    (#127 group bypos
+    #pragma diagram {"xy":"H-61584;V301120"} #end)
+    (#128 expr Definitions::TELEMETRY_MSG_TEMPLATE_SIZE
+    #pragma diagram {"xy":"H-154286;V-76000","wh":"42000;3200"} #end)
+    (#129 expr #130 + #131
+      where
+        (#130 group)
+        (#131 group)
+    #pragma diagram {"xy":"H-106400;V-77900"} #end)
+    
+    (#132 wire #25 => #29
+    #pragma diagram {"wp":"#25 h30555 v-19042 #29"} #end)
+    (#133 wire #50 => #27
+    #pragma diagram {"wp":"#50 h201900 v1878 #27"} #end)
+    (#134 wire #9 => #58
+    #pragma diagram {"wp":"v0|#9 #58"} #end)
+    (#135 wire #21 => #11
+    #pragma diagram {"wp":"#21 h10684 v6257 #11"} #end)
+    (#136 wire #64 => #25
+    #pragma diagram {"wp":"v-258|#64 #25"} #end)
+    (#137 wire #17 => #51
+    #pragma diagram {"wp":"v0|#17 #51"} #end)
+    (#138 wire #10 => #59)
+    (#139 wire #3 => #61)
+    (#140 wire #4 => #3)
+    (#141 wire #53 => #20)
+    (#142 wire #60 => #23
+    #pragma diagram {"wp":"#60 h384196 v-472159 #23"} #end)
+    (#143 wire #57 => #64)
+    (#144 wire #58 => #32
+    #pragma diagram {"wp":"#58 h84664 v-60242 #32"} #end)
+    (#145 wire #65 => #31
+    #pragma diagram {"wp":"#65 h66627 v-46416 #31"} #end)
+    (#146 wire #18 => #5
+    #pragma diagram {"wp":"v1052|#18 #5"} #end)
+    (#147 wire #51 => #30
+    #pragma diagram {"wp":"#51 h48591 v-32590 #30"} #end)
+    (#148 wire #13 => #65
+    #pragma diagram {"wp":"v0|#13 #65"} #end)
+    (#149 wire #14 => #22
+    #pragma diagram {"wp":"#14 h7751 v8406 #22"} #end)
+    (#150 wire #63 => #16
+    #pragma diagram {"wp":"v-428|#63 h434569 v-472092 #16"} #end)
+    (#151 wire #0 => #19)
+    (#152 wire #2 => #33
+    #pragma diagram {"wp":"#2 h102700 v-74068 #33"} #end)
+    (#153 wire #55 => #9)
+    (#154 wire #5 => #28
+    #pragma diagram {"wp":"#5 h12518 v-5494 #28"} #end)
+    (#155 wire #26 => #15
+    #pragma diagram {"wp":"#26 h4642 v-35006 #15"} #end)
+    (#156 wire #6 => #50)
+    (#157 wire #20 => #52
+    #pragma diagram {"wp":"v0|#20 #52"} #end)
+    (#158 wire #7 => #12
+    #pragma diagram {"wp":"v-7600|#7 h443873 v-475452 #12"} #end)
+    (#159 wire #19 => #2
+    #pragma diagram {"wp":"v0|#19 #2"} #end)
+    (#160 wire #62 => #17)
+    (#161 wire #66 => #13)
+    (#162 wire #68 => #67, #56, #1, #54, #72, #76, #80, #84, #88, #92, #96, #100, #104, #108, #112, #116, #119, #125, #121
+    #pragma diagram {"wp":"#68 h6817[h6634[h6634[h6634[h6634[h6635[h6634[h6634[h6634[h6634[h6634[h6634[h6634[h6635[h6634[h6634[h6634[h6634[#67, v17626 #56], v35252 #1], v52878 #54], v70504 #72], v88130 #76], v106311 #80], v124492 #84], v142659 #88], v160827 #92], v178994 #96], v197162 #100], v215329 #104], v233496 #108], v251664 #112], v269832 #116], v288749 #119], v307666 #125], v326940 #121]"} #end)
+    (#163 wire #69 => #70
+    #pragma diagram {"wp":"v0|#69 #70"} #end)
+    (#164 wire #71 => #69)
+    (#165 wire #73 => #74
+    #pragma diagram {"wp":"v0|#73 #74"} #end)
+    (#166 wire #75 => #73)
+    (#167 wire #77 => #78
+    #pragma diagram {"wp":"v0|#77 #78"} #end)
+    (#168 wire #79 => #77)
+    (#169 wire #81 => #82
+    #pragma diagram {"wp":"v0|#81 #82"} #end)
+    (#170 wire #83 => #81)
+    (#171 wire #85 => #86
+    #pragma diagram {"wp":"v0|#85 #86"} #end)
+    (#172 wire #87 => #85)
+    (#173 wire #89 => #90
+    #pragma diagram {"wp":"v0|#89 #90"} #end)
+    (#174 wire #91 => #89)
+    (#175 wire #93 => #94
+    #pragma diagram {"wp":"v0|#93 #94"} #end)
+    (#176 wire #95 => #93)
+    (#177 wire #97 => #98
+    #pragma diagram {"wp":"v1|#97 #98"} #end)
+    (#178 wire #99 => #97)
+    (#179 wire #101 => #102
+    #pragma diagram {"wp":"v0|#101 #102"} #end)
+    (#180 wire #103 => #101)
+    (#181 wire #105 => #106
+    #pragma diagram {"wp":"v0|#105 #106"} #end)
+    (#182 wire #107 => #105)
+    (#183 wire #109 => #110
+    #pragma diagram {"wp":"v0|#109 #110"} #end)
+    (#184 wire #111 => #109)
+    (#185 wire #113 => #114
+    #pragma diagram {"wp":"v0|#113 #114"} #end)
+    (#186 wire #115 => #113)
+    (#187 wire #118 => #117)
+    (#188 wire #123 => #122
+    #pragma diagram {"wp":"v0|#123 #122"} #end)
+    (#189 wire #124 => #123)
+    (#190 wire #120 => #126)
+    (#191 wire #126 => #127
+    #pragma diagram {"wp":"v0|#126 #127"} #end)
+    (#192 wire #52 => #34
+    #pragma diagram {"wp":"#52 h120536 v-87894 #34"} #end)
+    (#193 wire #70 => #35
+    #pragma diagram {"wp":"#70 h138573 v-101720 #35"} #end)
+    (#194 wire #74 => #36
+    #pragma diagram {"wp":"#74 h156609 v-115546 #36"} #end)
+    (#195 wire #78 => #37
+    #pragma diagram {"wp":"#78 h174567 v-129927 #37"} #end)
+    (#196 wire #82 => #38
+    #pragma diagram {"wp":"#82 h192604 v-144308 #38"} #end)
+    (#197 wire #86 => #39
+    #pragma diagram {"wp":"#86 h209571 v-158675 #39"} #end)
+    (#198 wire #90 => #40
+    #pragma diagram {"wp":"#90 h227608 v-173043 #40"} #end)
+    (#199 wire #94 => #41
+    #pragma diagram {"wp":"#94 h245644 v-187410 #41"} #end)
+    (#200 wire #98 => #42
+    #pragma diagram {"wp":"#98 h263680 v-201778 #42"} #end)
+    (#201 wire #102 => #43
+    #pragma diagram {"wp":"#102 h281717 v-216145 #43"} #end)
+    (#202 wire #106 => #44
+    #pragma diagram {"wp":"#106 h299753 v-230513 #44"} #end)
+    (#203 wire #110 => #45
+    #pragma diagram {"wp":"#110 h317789 v-244880 #45"} #end)
+    (#204 wire #114 => #46
+    #pragma diagram {"wp":"#114 h335826 v-259248 #46"} #end)
+    (#205 wire #117 => #47
+    #pragma diagram {"wp":"#117 h353676 v-274365 #47"} #end)
+    (#206 wire #122 => #48
+    #pragma diagram {"wp":"#122 h371705 v-289482 #48"} #end)
+    (#207 wire #127 => #49
+    #pragma diagram {"wp":"#127 h387749 v-304600 #49"} #end)
+    (#208 wire #24 => #130)
+    (#209 wire #128 => #131)
+    (#210 wire #129 => #18)
 }
 
 node Int16to2uint8 (i0:int16;)
