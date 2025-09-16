@@ -670,50 +670,55 @@ node Debouncing (inputSignal: bool;
 {
   diagram
     (var
-        count: int32 last = 0_i32;)
+        count: int32;)
     (automaton $automaton0
       initial state #3 IDLE
-      #pragma diagram {"xy":"h-76920;v15736","wh":"46000;11200"} #end :
+      #pragma diagram {"xy":"h-90488;v-3762","wh":"54184;20850"} #end :
         diagram
           (#0 def outputSignal
-          #pragma diagram {"xy":"h11000;v0","wh":"16000;3200"} #end)
+          #pragma diagram {"xy":"h12142;v-3250","wh":"16000;3200"} #end)
           (#1 expr false
-          #pragma diagram {"xy":"h-14000;v0","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-13525;v-3250","wh":"10000;3200"} #end)
+          (#16 expr 0_i32
+          #pragma diagram {"xy":"h-14600;v6175","wh":"10000;3200"} #end)
+          (#17 def count
+          #pragma diagram {"xy":"h7400;v6175","wh":"10000;3200"} #end)
           
           (#2 wire #1 => #0)
-      state #20 WAIT
-      #pragma diagram {"xy":"h-10582;v-10808","wh":"76750;26238"} #end :
+          (#25 wire #16 => #17)
+      state #20 CountingUp
+      #pragma diagram {"xy":"h11806;v-27731","wh":"82888;33163"} #end :
         diagram
           (#4 expr #5 + #6
             where
               (#5 group)
               (#6 group)
-          #pragma diagram {"xy":"h3375;v-19"} #end)
+          #pragma diagram {"xy":"h-5660;v-1982"} #end)
           (#7 def count
-          #pragma diagram {"xy":"h27375;v-19","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h18340;v-1982","wh":"10000;3200"} #end)
           (#8 expr #9 pre #10
             where
               (#9 group)
               (#10 group)
-          #pragma diagram {"xy":"h26375;v-5619"} #end)
+          #pragma diagram {"xy":"h17340;v-7582"} #end)
           (#11 expr 1_i32
-          #pragma diagram {"xy":"h-18625;v-1919","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-27660;v-82","wh":"10000;3200"} #end)
           (#12 expr 0_i32
-          #pragma diagram {"xy":"h3375;v-7519","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-5660;v-9482","wh":"10000;3200"} #end)
           (#13 def outputSignal
-          #pragma diagram {"xy":"h-4375;v6519","wh":"16000;3200"} #end)
+          #pragma diagram {"xy":"h-1119;v11082","wh":"16000;3200"} #end)
           (#14 expr false
-          #pragma diagram {"xy":"h-29375;v6519","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-26119;v11082","wh":"10000;3200"} #end)
           
           (#15 wire #4 => #7, #10
           #pragma diagram {"wp":"#4 h7500[#7, v-3700 #10]"} #end)
-          (#16 wire #8 => #6
-          #pragma diagram {"wp":"#8 h3500 v14738 h-48750 v-7238 #6"} #end)
-          (#17 wire #11 => #5)
           (#18 wire #12 => #9)
           (#19 wire #14 => #13)
+          (#26 wire #8 => #5
+          #pragma diagram {"wp":"#8 h3500 v-4500 h-38000 v8200 #5"} #end)
+          (#27 wire #11 => #6)
       state #24 CONFIRMED
-      #pragma diagram {"xy":"h73843;v-6827","wh":"44000;11200"} #end :
+      #pragma diagram {"xy":"h98438;v-9762","wh":"44000;11200"} #end :
         diagram
           (#21 def outputSignal
           #pragma diagram {"xy":"h10000;v0","wh":"16000;3200"} #end)
@@ -721,22 +726,56 @@ node Debouncing (inputSignal: bool;
           #pragma diagram {"xy":"h-14000;v0"} #end)
           
           (#23 wire #22 => #21)
+      state #44 CountingDown
+      #pragma diagram {"xy":"h14279;v28732","wh":"87458;36551"} #end :
+        diagram
+          (#28 expr debounceCycles
+          #pragma diagram {"xy":"h-26133;v-8500","wh":"18000;3200"} #end)
+          (#29 expr #30 pre #31
+            where
+              (#30 group)
+              (#31 group)
+          #pragma diagram {"xy":"h-7133;v-6600"} #end)
+          (#32 expr 1_i32
+          #pragma diagram {"xy":"h-9271;v800","wh":"10000;3200"} #end)
+          (#42 def count
+          #pragma diagram {"xy":"h34729;v-1100","wh":"10000;3200"} #end)
+          (#34 def outputSignal
+          #pragma diagram {"xy":"h-3591;v12675","wh":"16000;3200"} #end)
+          (#35 expr true
+          #pragma diagram {"xy":"h-29591;v12675"} #end)
+          (#36 expr #37 - #38
+            where
+              (#37 group)
+              (#38 group)
+          #pragma diagram {"xy":"h12729;v-1100"} #end)
+          
+          (#39 wire #32 => #38)
+          (#33 wire #29 => #37
+          #pragma diagram {"wp":"#29 h5771 v3600 #37"} #end)
+          (#40 wire #36 => #31, #42
+          #pragma diagram {"wp":"#36 h3500[v4500 h-35000 v-8100 #31, #42]"} #end)
+          (#41 wire #28 => #30)
+          (#43 wire #35 => #34)
       :1: #3 until if (inputSignal)
       restart #20
-      #pragma diagram {"tp":"h22639;v-5600|#3 v-500 v-500 v-500 v-3818 h1662;v-3818 h1662 h667 h667 h-38375;v11808|#20"} #end;
-      :2: #20 until if (count = debounceCycles)
+      #pragma diagram {"tp":"h27092;v-8906|#3 h11253 h11253 h-41444;v15062|#20"} #end;
+      :2: #20 until if (count >= debounceCycles)
       restart #24
-      #pragma diagram {"tp":"h38375;v3981|#20 h8017 h8017 h-22000;v0|#24"} #end;
+      #pragma diagram {"tp":"h41444;v14475|#20 h7729 h7729 h-22000;v-3493|#24"} #end;
       :1: #20 until if (not inputSignal)
       restart #3
-      #pragma diagram {"tp":"h-38375;v7308|#20 h-500 h-500 h-500 h-9662 h-9662;v5818 v5818 v667 v667 h7139;v-5600|#3"} #end;
-      :1: #24 until if (inputSignal)
+      #pragma diagram {"tp":"h-41444;v6893|#20 h-500 h-34367 h-16683 h-4650 h-4650;v2325 v2325 v667 v667 h0;v-10425|#3"} #end;
+      :1: #44 until if (count <= 0)
       restart #3
-      #pragma diagram {"tp":"h-21624;v5600|#24 v500 v500 v500 v7732 h-15463;v7731 h-15463 h-24404 h-50142 h23000;v0|#3"} #end;
-      :2: #3 until 
+      #pragma diagram {"tp":"h-41009;v-18275|#44 v-500 v-500 v-500 v-6360 h-8666;v-6360 h-8666 h-5778 h-12889 h27092;v0|#3"} #end;
+      :1: #24 until if (not inputSignal)
+      restart #44
+      #pragma diagram {"tp":"h-21668;v5600|#24 v500 v500 v500 v15697 h-8381;v15697 h-8381 h-667 h-667 h43729;v0|#44"} #end;
+      :2: #44 until if (inputSignal)
       restart #24
-      #pragma diagram {"tp":"h23000;v3264|#3 h500 h68323 h33662 h25827 h25827;v-10538 v-10537 v-2376 h-1188;v-2376 h-1188 h-667 h-667 h22000;v0|#24"} #end;
-      #pragma diagram {"xy":"H72780;V-241000","wh":"208439;71000"} #end)
+      #pragma diagram {"tp":"h43729;v3430|#44 h500 h500 h500 h19465 h19465;v-17162 v-17162 v-667 v-667 h0;v5600|#24"} #end;
+      #pragma diagram {"xy":"H50230;V-207662","wh":"245375;105875"} #end)
 }
 
 function LinearMapping (value: uint16;
