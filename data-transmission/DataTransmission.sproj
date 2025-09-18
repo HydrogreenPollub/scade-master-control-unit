@@ -9,6 +9,11 @@
       "Kind": "SimulationData",
       "Path": "resources\\Int16to2uint8_outputs.sd",
       "Key": "Int16to2uint8_outputs"
+    },
+    {
+      "Kind": "HeaderFile",
+      "Path": "resources\\imp.c",
+      "Key": ""
     }
   ]
 }

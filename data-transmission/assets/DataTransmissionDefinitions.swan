@@ -11,13 +11,18 @@ const ID_PROTIUM_VALUES: int16 = 0;
 
 const ID_MASTER_MEASUREMENTS: int16 = 0;
 
+const ID_TELEMETRY_STATUS: int16 = 0;
+
 type Message = 
     MasterMeasurementsMsg { MasterMeasurements } | 
     MasterStatusMsg { MasterStatus} | 
     ProtiumValuesMsg { ProtiumValues } | 
-    ProtiumOperatingStateMsg { ProtiumOperatingState };
+    ProtiumOperatingStateMsg { ProtiumOperatingState } |
+    TelemetryStatusMsg { TelemetryStatus };
 
 type MasterState = enum {Idle, Running, Shutdown, Failure};
+
+type TelemetryState = enum {TelemetryIdle, TelemetryRunning, TelemetryShutdown, TelemetryFailure};
 
 type MasterMeasurements = {
     ai1:float64, 
@@ -46,8 +51,8 @@ type MasterStatus = {
     State: MasterState, 
     mainValveEnableOutput: bool, 
     motorControllerEnableOutput: bool, 
-    accelOutputVoltage: float64, 
-    brakeOutputVoltage: float64
+    accelOutputVoltage: float32, 
+    brakeOutputVoltage: float32
 };
 
 type ProtiumValues = {
@@ -93,6 +98,12 @@ type ProtiumOperatingState = enum {
     ProtiumRunning
 };
 
+type TelemetryStatus = {
+ State: TelemetryState,
+ isEmergency: bool
+}
+;
+
 type EncodedFrame = uint8^256;
 
 const TELEMETRY_MSG_TEMPLATE_SIZE: int32 = 20;
@@ -101,8 +112,10 @@ const PROTIUM_OPERATING_STATE_PAYLOAD_SIZE: int32 = 1;
 
 const ENCODED_FRAME_SIZE: int32 = 256;
 
-const MASTER_STATUS_PAYLOAD_SIZE: int32 = 20;
+const MASTER_STATUS_PAYLOAD_SIZE: int32 = 12;
 
 const PROTIUM_VALUES_PAYLOAD_SIZE: int32 = 176;
 
 const MASTER_MEASUREMENTS_PAYLOAD_SIZE: int32 = 145;
+
+const TELEMETRY_STATUS_PAYLOAD_SIZE: int32 = 2;

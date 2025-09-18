@@ -13,75 +13,92 @@ node Encoding (msg: Definitions::Message;
         {
           diagram
             (#1 block EncodingProtiumOperatingState
-                      #pragma diagram {"xy":"h4262;v0","wh":"20000;14000"} #end)
+                      #pragma diagram {"xy":"h11215;v0","wh":"20000;14000"} #end)
             (#2 expr x
-            #pragma diagram {"xy":"h-20712;v-2900"} #end)
+            #pragma diagram {"xy":"h-13759;v-2900"} #end)
             (#0 expr time
-            #pragma diagram {"xy":"h-20712;v3350"} #end)
+            #pragma diagram {"xy":"h-13759;v3350"} #end)
             (#5 def encodedMsg
-            #pragma diagram {"xy":"h25912;v0","wh":"14000;3200"} #end)
+            #pragma diagram {"xy":"h32865;v0","wh":"14000;3200"} #end)
             
             (#3 wire #2 => #1 .(protiumState))
             (#4 wire #0 => #1 .(time))
             (#6 wire #1 .(msg) => #5
             #pragma diagram {"wp":"v0|#1 #5"} #end)
-        #pragma diagram {"xy":"h0;v-32930","wh":"68675;20000"} #end
+        #pragma diagram {"xy":"h0;v-51170","wh":"82581;20000"} #end
         }
       | Definitions::MasterStatusMsg {x} :
         {
           diagram
             (#7 block EncodingMasterStatus
-                      #pragma diagram {"xy":"h0;v0","wh":"20000;14000"} #end)
+                      #pragma diagram {"xy":"h6953;v0","wh":"20000;14000"} #end)
             (#8 expr x
-            #pragma diagram {"xy":"h-26900;v-2900"} #end)
+            #pragma diagram {"xy":"h-19947;v-2900"} #end)
             (#9 expr time
-            #pragma diagram {"xy":"h-26900;v3350"} #end)
+            #pragma diagram {"xy":"h-19947;v3350"} #end)
             (#10 def encodedMsg
-            #pragma diagram {"xy":"h21393;v-287","wh":"14000;3200"} #end)
+            #pragma diagram {"xy":"h28346;v-287","wh":"14000;3200"} #end)
             
             (#11 wire #9 => #7 .(time))
             (#12 wire #8 => #7 .(status))
             (#13 wire #7 .(msg) => #10
             #pragma diagram {"wp":"v-287|#7 #10"} #end)
-        #pragma diagram {"xy":"h0;v-9070","wh":"68675;20000"} #end
+        #pragma diagram {"xy":"h0;v-27311","wh":"82581;20000"} #end
         }
       | Definitions::MasterMeasurementsMsg {x} :
         {
           diagram
             (#14 expr time
-            #pragma diagram {"xy":"h-26015;v2211"} #end)
+            #pragma diagram {"xy":"h-19062;v2211"} #end)
             (#15 def encodedMsg
-            #pragma diagram {"xy":"h22279;v-1426","wh":"14000;3200"} #end)
+            #pragma diagram {"xy":"h29232;v-1426","wh":"14000;3200"} #end)
             (#16 expr x
-            #pragma diagram {"xy":"h-26015;v-4039"} #end)
+            #pragma diagram {"xy":"h-19062;v-4039"} #end)
             (#17 block EncodingMasterMeasurements
-                       #pragma diagram {"xy":"h-2463;v0","wh":"20000;14000"} #end)
+                       #pragma diagram {"xy":"h4490;v0","wh":"20000;14000"} #end)
             
             (#18 wire #16 => #17 .(measurements))
             (#19 wire #14 => #17 .(time))
             (#20 wire #17 .(msg) => #15
             #pragma diagram {"wp":"v-1426|#17 #15"} #end)
-        #pragma diagram {"xy":"h0;v14789","wh":"68675;20000"} #end
+        #pragma diagram {"xy":"h0;v-3451","wh":"82581;20000"} #end
         }
       | Definitions::ProtiumValuesMsg {x} :
         {
           diagram
             (#21 def encodedMsg
-            #pragma diagram {"xy":"h19020;v-1843","wh":"14000;3200"} #end)
+            #pragma diagram {"xy":"h25973;v-1843","wh":"14000;3200"} #end)
             (#22 expr x
-            #pragma diagram {"xy":"h-29273;v-4455"} #end)
+            #pragma diagram {"xy":"h-22320;v-4455"} #end)
             (#23 expr time
-            #pragma diagram {"xy":"h-29273;v1795"} #end)
+            #pragma diagram {"xy":"h-22320;v1795"} #end)
             (#24 block EncodingProtiumValues
-                       #pragma diagram {"xy":"h-5213;v0","wh":"20000;14000"} #end)
+                       #pragma diagram {"xy":"h1740;v0","wh":"20000;14000"} #end)
             
             (#25 wire #22 => #24 .(values))
             (#26 wire #23 => #24 .(time))
             (#27 wire #24 .(msg) => #21
             #pragma diagram {"wp":"v-1842|#24 #21"} #end)
-        #pragma diagram {"xy":"h0;v38649","wh":"68675;20000"} #end
+        #pragma diagram {"xy":"h0;v20408","wh":"82581;20000"} #end
         }
-      #pragma diagram {"xy":"H-17162;V6105","wh":"71675;100297"} #end)
+      | Definitions::TelemetryStatusMsg {x} :
+        {
+          diagram
+            (#30 expr forward
+              <<Definitions::ENCODED_FRAME_SIZE>>
+              diagram
+                (let op = 0_ui8;
+                #pragma diagram {"xy":"h-5225;v-2137","wh":"20000;3200"} #end)
+              returns ([op])
+              #pragma diagram {"xy":"h-14765;v-2313","wh":"48600;19600"} #end)
+            (#32 def encodedMsg
+            #pragma diagram {"xy":"h27334;v-2313","wh":"14000;3200"} #end)
+            
+            (#33 wire #30 => #32
+            #pragma diagram {"wp":"v0|#30 #32"} #end)
+        #pragma diagram {"xy":"h0;v50578","wh":"82581;32622"} #end
+        }
+      #pragma diagram {"xy":"H-24115;V11724","wh":"85581;136779"} #end)
 }
 
 node EncodingProtiumOperatingState (protiumState: Definitions::ProtiumOperatingState;
@@ -442,7 +459,7 @@ node EncodingMasterStatus (status:Definitions::MasterStatus;
     #pragma diagram {"xy":"H-140132;V108490","wh":"26000;3200"} #end)
     (#24 group bypos
     #pragma diagram {"xy":"H-89588;V108490"} #end)
-    (#25 expr [#26, #27, #28, #29, #30, #31, #32, #33, #34, #35]
+    (#25 expr [#26, #27, #28, #29, #30, #31, #32, #33]
       where
         (#26 group)
         (#27 group)
@@ -452,9 +469,7 @@ node EncodingMasterStatus (status:Definitions::MasterStatus;
         (#31 group)
         (#32 group)
         (#33 group)
-        (#34 group)
-        (#35 group)
-    #pragma diagram {"xy":"H92137;V-52432"} #end)
+    #pragma diagram {"xy":"H74937;V-41016"} #end)
     (#36 group bypos
     #pragma diagram {"xy":"H-89588;V-58132"} #end)
     (#37 expr #38 @ #39
@@ -472,20 +487,12 @@ node EncodingMasterStatus (status:Definitions::MasterStatus;
                #pragma diagram {"xy":"H-110432;V42527","wh":"20000;14000"} #end)
     (#44 group bypos
     #pragma diagram {"xy":"H-89287;V42527"} #end)
-    (#45 block Float64to8uint8
-               #pragma diagram {"xy":"H-110432;V59617","wh":"20000;14000"} #end)
-    (#46 group bypos
-    #pragma diagram {"xy":"H-89288;V59617"} #end)
-    (#47 block Float64to8uint8
-               #pragma diagram {"xy":"H-110432;V76707","wh":"20000;14000"} #end)
-    (#48 group bypos
-    #pragma diagram {"xy":"H-89288;V76707"} #end)
     (#49 group bypos
     #pragma diagram {"xy":"H-89612;V-2310"} #end)
     (#50 expr #51 . brakeOutputVoltage
       where
         (#51 group)
-    #pragma diagram {"xy":"H-141532;V75850","wh":"26000;7000"} #end)
+    #pragma diagram {"xy":"H-142732;V78350","wh":"26000;7000"} #end)
     (#52 expr #53 . motorControllerEnableOutput
       where
         (#53 group)
@@ -511,20 +518,32 @@ node EncodingMasterStatus (status:Definitions::MasterStatus;
         (#111 group)
         (#112 group)
     #pragma diagram {"xy":"H-143100;V-57375"} #end)
+    (#34 block Float32to4uint8
+               #pragma diagram {"xy":"H-108000;V78350","wh":"20000;14000"} #end)
+    (#35 expr #45 @ #46
+      where
+        (#45 group)
+        (#46 group)
+    #pragma diagram {"xy":"H102231;V-16046"} #end)
+    (#47 block Float32to4uint8
+               #pragma diagram {"xy":"H-110432;V60521","wh":"20000;14000"} #end)
+    (#48 expr #62 @ #86
+      where
+        (#62 group)
+        (#86 group)
+    #pragma diagram {"xy":"H80231;V-17946"} #end)
     
     (#61 wire #22 => #17
     #pragma diagram {"wp":"v0|#22 #17"} #end)
-    (#62 wire #25 => #38
-    #pragma diagram {"wp":"#25 h10678 v-900 #38"} #end)
     (#63 wire #21 => #39
     #pragma diagram {"wp":"v-428|#21 h209748 v-147649 #39"} #end)
     (#64 wire #24 => #5)
     (#65 wire #12 => #19
     #pragma diagram {"wp":"#12 h10684 v6257 #19"} #end)
     (#66 wire #2 => #28
-    #pragma diagram {"wp":"#2 h58075 v-21148 #28"} #end)
+    #pragma diagram {"wp":"#2 h15710 v-5932 #28"} #end)
     (#67 wire #36 => #27
-    #pragma diagram {"wp":"#36 h21692 v-7600 #27"} #end)
+    #pragma diagram {"wp":"#36 h40131 v7616 #27"} #end)
     (#68 wire #4 => #14
     #pragma diagram {"wp":"#4 h171576 v-147716 #14"} #end)
     (#69 wire #7 => #36
@@ -537,46 +556,47 @@ node EncodingMasterStatus (status:Definitions::MasterStatus;
     (#75 wire #8 => #20
     #pragma diagram {"wp":"v-7600|#8 h245402 v-151009 #20"} #end)
     (#76 wire #11 => #26
-    #pragma diagram {"wp":"#11 h85363 v-228 #26"} #end)
+    #pragma diagram {"wp":"#11 h113394 v14988 #26"} #end)
     (#77 wire #40 => #2
     #pragma diagram {"wp":"v-258|#40 #2"} #end)
     (#78 wire #10 => #31
-    #pragma diagram {"wp":"#10 h130542 v-62414 #31"} #end)
+    #pragma diagram {"wp":"#10 h88673 v-47198 #31"} #end)
     (#79 wire #3 => #11)
     (#80 wire #18 => #0)
     (#81 wire #17 => #29
-    #pragma diagram {"wp":"#17 h94459 v-34696 #29"} #end)
+    #pragma diagram {"wp":"#17 h40131 v-19480 #29"} #end)
     (#82 wire #42 => #15
     #pragma diagram {"wp":"v0|#42 #15"} #end)
     (#83 wire #15 => #32
-    #pragma diagram {"wp":"#15 h166925 v-72169 #32"} #end)
+    #pragma diagram {"wp":"#15 h113094 v-56953 #32"} #end)
     (#84 wire #43 => #44
     #pragma diagram {"wp":"v0|#43 #44"} #end)
     (#85 wire #44 => #33
-    #pragma diagram {"wp":"#44 h166924 v-85459 #33"} #end)
-    (#86 wire #45 => #46
-    #pragma diagram {"wp":"v0|#45 #46"} #end)
-    (#87 wire #47 => #48
-    #pragma diagram {"wp":"v0|#47 #48"} #end)
-    (#88 wire #46 => #34
-    #pragma diagram {"wp":"#46 h166925 v-98749 #34"} #end)
-    (#89 wire #48 => #35
-    #pragma diagram {"wp":"#48 h166925 v-112039 #35"} #end)
+    #pragma diagram {"wp":"#44 h137514 v-70243 #33"} #end)
     (#90 wire #49 => #30
-    #pragma diagram {"wp":"#49 h112674 v-52022 #30"} #end)
+    #pragma diagram {"wp":"#49 h64576 v-36806 #30"} #end)
     (#91 wire #55 => #42)
     (#92 wire #52 => #43)
     (#93 wire #57 => #49)
     (#94 wire #6 => #10)
-    (#95 wire #50 => #47)
-    (#96 wire #59 => #45)
     (#97 wire #54 => #58, #56, #53, #60, #51
-    #pragma diagram {"wp":"#54 h9249[h5333[h5334[h5333[#58, v27747 #56], v44745 #53], v62831 #60], v78160 #51]"} #end)
+    #pragma diagram {"wp":"#54 h5056[h3111[h3111[h3111[#58, v27747 #56], v44745 #53], v62831 #60], v80660 #51]"} #end)
     (#113 wire #16 => #111
     #pragma diagram {"wp":"#16 h24466 v-91 #111"} #end)
     (#114 wire #70 => #112
     #pragma diagram {"wp":"#70 h24466 v-560 #112"} #end)
     (#115 wire #110 => #7)
+    (#87 wire #25 => #62
+    #pragma diagram {"wp":"#25 h3500 v18335 h-11706 v2835 #62"} #end)
+    (#88 wire #35 => #38
+    #pragma diagram {"wp":"#35 h8370 v-37286 #38"} #end)
+    (#89 wire #47 => #86
+    #pragma diagram {"wp":"v0|#47 h161299 v-76567 #86"} #end)
+    (#95 wire #59 => #47)
+    (#96 wire #48 => #45)
+    (#116 wire #50 => #34)
+    (#117 wire #34 => #46
+    #pragma diagram {"wp":"v0|#34 h189231 v-92496 #46"} #end)
     
     (var
         enumInterpreted:uint8;)
@@ -1430,6 +1450,128 @@ node EncodingMasterMeasurements (measurements:Definitions::MasterMeasurements;
     (#208 wire #24 => #130)
     (#209 wire #128 => #131)
     (#210 wire #129 => #18)
+}
+
+node Decoding (encodedMsg: Definitions::EncodedFrame;)
+  returns (msg: Definitions::Message;)
+{
+  diagram
+    (var
+        extractedId: int16;)
+    (automaton
+      initial state #21 MsgType_st
+      #pragma diagram {"xy":"h-51854;v4623","wh":"103951;25900"} #end :
+        diagram
+          (#0 expr (#1 :>  int16)
+            where
+              (#1 group)
+          #pragma diagram {"xy":"h-16988;v5450","wh":"16000;7000"} #end)
+          (#2 expr (#3 :>  int16)
+            where
+              (#3 group)
+          #pragma diagram {"xy":"h-16988;v-3023","wh":"16000;7000"} #end)
+          (#4 expr #5 * #6
+            where
+              (#5 group)
+              (#6 group)
+          #pragma diagram {"xy":"h12101;v-1123"} #end)
+          (#7 expr encodedMsg[5]
+          #pragma diagram {"xy":"h-38976;v-3023","wh":"18000;3200"} #end)
+          (#8 expr encodedMsg[6]
+          #pragma diagram {"xy":"h-38976;v5450","wh":"18000;3200"} #end)
+          (#9 expr 256_i16
+          #pragma diagram {"xy":"h-944;v777","wh":"12000;3200"} #end)
+          (#10 expr #11 + #12
+            where
+              (#11 group)
+              (#12 group)
+          #pragma diagram {"xy":"h25560;v2600"} #end)
+          (#13 def extractedId
+          #pragma diagram {"xy":"h42020;v2600","wh":"16000;3200"} #end)
+          
+          (#14 wire #2 => #5)
+          (#15 wire #9 => #6)
+          (#16 wire #7 => #3)
+          (#17 wire #8 => #1)
+          (#18 wire #4 => #11
+          #pragma diagram {"wp":"#4 h3000 v1823 #11"} #end)
+          (#19 wire #0 => #12
+          #pragma diagram {"wp":"#0 h16274 v-950 #12"} #end)
+          (#20 wire #10 => #13)
+      state #27 DecodeAlarm_st
+      #pragma diagram {"xy":"h71692;v-327","wh":"64275;22100"} #end :
+        diagram
+          (#22 block DecodingTelemetryStatus
+                     #pragma diagram {"xy":"h-2495;v-50","wh":"20000;14000"} #end)
+          (#23 def msg
+          #pragma diagram {"xy":"h18655;v-2223"} #end)
+          (#24 expr encodedMsg
+          #pragma diagram {"xy":"h-21138;v-50","wh":"14000;3200"} #end)
+          
+          (#25 wire #24 => #22)
+          (#26 wire #22 .(msg) => #23
+          #pragma diagram {"wp":"v-2173|#22 #23"} #end)
+      :1: #21 until if (extractedId = Definitions::ID_TELEMETRY_STATUS)
+      restart #27
+      #pragma diagram {"tp":"h51976;v-5000|#21 h13144 h13144 h-32138;v-50|#27"} #end;
+      #pragma diagram {"xy":"H-97221;V-25500","wh":"215659;65000"} #end)
+}
+
+node DecodingTelemetryStatus (encodedMsg: Definitions::EncodedFrame;)
+  returns (msg: Definitions::Message;)
+{
+  diagram
+    (#0 expr encodedMsg[15]
+    #pragma diagram {"xy":"H-59321;V-3500","wh":"18000;3200"} #end)
+    (#1 expr encodedMsg[16]
+    #pragma diagram {"xy":"H-51136;V30202","wh":"18000;3200"} #end)
+    (#2 expr Definitions::TelemetryIdle
+    #pragma diagram {"xy":"H-65321;V4059","wh":"30000;3200"} #end)
+    (#3 block Uint8toBool
+              #pragma diagram {"xy":"H-18236;V30202","wh":"20000;14000"} #end)
+    (#4 expr
+      (case #5 of
+        | 0 : #6
+        | 1 : #7
+        | 2 : #8
+        | 3 : #9
+        | default : #10)
+          where
+            (#5 group)
+            (#6 group)
+            (#7 group)
+            (#8 group)
+            (#9 group)
+            (#10 group)
+        #pragma diagram {"xy":"H-29950;V9759","wh":"16000;22200"} #end)
+    (#11 expr Definitions::TelemetryRunning
+    #pragma diagram {"xy":"H-66321;V7859","wh":"32000;3200"} #end)
+    (#12 expr Definitions::TelemetryShutdown
+    #pragma diagram {"xy":"H-67321;V11659","wh":"34000;3200"} #end)
+    (#13 expr Definitions::TelemetryFailure
+    #pragma diagram {"xy":"H-66321;V15459","wh":"32000;3200"} #end)
+    (#14 expr Definitions::TelemetryIdle
+    #pragma diagram {"xy":"H-65321;V19259","wh":"30000;3200"} #end)
+    (#15 def msg
+    #pragma diagram {"xy":"H73800;V20250"} #end)
+    (#16 expr Definitions::TelemetryStatusMsg {#17}
+      where
+        (#17 group)
+    #pragma diagram {"xy":"H41788;V20250","wh":"28000;10000"} #end)
+    
+    (#18 wire #3 .(o0) => #17 .(isEmergency)
+    #pragma diagram {"wp":"v-5976|#3 #17"} #end)
+    (#19 wire #1 => #3 .(i0))
+    (#20 wire #11 => #7)
+    (#21 wire #0 => #5
+    #pragma diagram {"wp":"#0 h21871 #5"} #end)
+    (#22 wire #2 => #6)
+    (#23 wire #12 => #8)
+    (#24 wire #4 => #17 .(State)
+    #pragma diagram {"wp":"#4 h26369 v14995 #17"} #end)
+    (#25 wire #13 => #9)
+    (#26 wire #14 => #10)
+    (#27 wire #16 => #15)
 }
 
 node Int16to2uint8 (i0:int16;)
@@ -2388,6 +2530,14 @@ node EightUint8toFloat64 (MSB: uint8;
     #pragma diagram {"xy":"H432850;V-22675"} #end)
     (#100 block Common::Pow
                 #pragma diagram {"xy":"H317575;V-28031","wh":"20000;14000"} #end)
+    (#193 block Float32to4uint8
+                #pragma diagram {"xy":"H116136;V65000","wh":"20000;14000"} #end)
+    (#194 block FourUint8toFloat32
+                #pragma diagram {"xy":"H156436;V65000","wh":"20000;14000"} #end)
+    (#195 def temp
+    #pragma diagram {"xy":"H185936;V65000"} #end)
+    (#196 expr 0.0_f32
+    #pragma diagram {"xy":"H84636;V65000","wh":"12000;3200"} #end)
     
     (#128 wire #6 => #3
     #pragma diagram {"wp":"#6 h12375 v-1400 #3"} #end)
@@ -2495,7 +2645,21 @@ node EightUint8toFloat64 (MSB: uint8;
     (#179 wire #101 => #100 .(x)
     #pragma diagram {"wp":"#101 h7317 v4943 #100"} #end)
     (#180 wire #102 => #100 .(y))
+    (#197 wire #193 .(o0) => #194
+    #pragma diagram {"wp":"v0|#193 #194"} #end)
+    (#198 wire #194 => #195
+    #pragma diagram {"wp":"v0|#194 #195"} #end)
+    (#199 wire #196 => #193)
+    
+    (var
+        temp: float32;)
 }
+
+node Float32to4uint8 (i0: float32;)
+  returns (o0: uint8^4;);
+
+node FourUint8toFloat32 (i0: uint8^4;)
+  returns (o0: float32;);
 
 node BoolToUint8 (i0:bool;)
   returns (o0:uint8;)
@@ -2521,6 +2685,41 @@ node BoolToUint8 (i0:bool;)
     (#9 wire #5 => #3)
     (#10 wire #6 => #4)
     (#11 wire #1 => #7)
+}
+
+node Uint8toBool (i0: uint8;)
+  returns (o0: bool;)
+{
+  diagram
+    (#0 expr i0
+    #pragma diagram {"xy":"H-44700;V7975"} #end)
+    (#1 expr if #2 then #3 else #4
+      where
+        (#2 group)
+        (#3 group)
+        (#4 group)
+    #pragma diagram {"xy":"H-11375;V24550"} #end)
+    (#5 expr #6 = #7
+      where
+        (#6 group)
+        (#7 group)
+    #pragma diagram {"xy":"H-21425;V9875"} #end)
+    (#8 expr 1_ui8
+    #pragma diagram {"xy":"H-43700;V11775","wh":"10000;3200"} #end)
+    (#9 expr true
+    #pragma diagram {"xy":"H-28829;V22650"} #end)
+    (#10 expr false
+    #pragma diagram {"xy":"H-27829;V26450","wh":"10000;3200"} #end)
+    (#11 def o0
+    #pragma diagram {"xy":"H8275;V24550"} #end)
+    
+    (#12 wire #0 => #6)
+    (#13 wire #8 => #7)
+    (#14 wire #5 => #2
+    #pragma diagram {"wp":"#5 h6550 #2"} #end)
+    (#15 wire #9 => #3)
+    (#16 wire #10 => #4)
+    (#17 wire #1 => #11)
 }
 
 node CreateFauxCRC ()
