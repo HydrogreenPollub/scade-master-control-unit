@@ -2741,8 +2741,16 @@ node CreateFauxCRC ()
 }
 
 node TelemetryDataReception ()
-  returns ()
+  returns (message : Definitions::Message;)
 {
+  diagram
+    (#0 def message
+    #pragma diagram {"xy":"H-9106;V3950","wh":"12000;3200"} #end)
+    (#1 block Decoding
+              #pragma diagram {"xy":"H-42894;V3950","wh":"20000;14000"} #end)
+    
+    (#2 wire #1 => #0
+    #pragma diagram {"wp":"v0|#1 #0"} #end)
 }
 
 node TelemetryDataTransmission ()

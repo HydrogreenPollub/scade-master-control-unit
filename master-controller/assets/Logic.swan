@@ -43,8 +43,8 @@ node MasterController (supercapacitorCurrentRaw : uint16;
            ao4 : float32;)
 {
   diagram
-    (#6 block MainStateMachine
-              #pragma diagram {"xy":"H55878;V-6650","wh":"20000;14000"} #end)
+    (#6 block (MainStateMachine \ transitionCycles: 5000)
+              #pragma diagram {"xy":"H69200;V-7600","wh":"20000;14000"} #end)
     (#2 expr supercapacitorCurrentRaw
     #pragma diagram {"xy":"H-120269;V-87085","wh":"28000;3200"} #end)
     (#0 block DataTransmission::ProtiumDataReception
@@ -54,9 +54,9 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     (#5 expr hydrogenHighPressureRaw
     #pragma diagram {"xy":"H-119269;V-73269","wh":"26000;3200"} #end)
     (#3 block DataTransmission::TelemetryDataTransmission
-              #pragma diagram {"xy":"H88262;V14800","wh":"27062;14000"} #end)
+              #pragma diagram {"xy":"H153638;V15200","wh":"27062;14000"} #end)
     (#27 block DataTransmission::ProtiumDataTransmission
-               #pragma diagram {"xy":"H88262;V36250","wh":"27062;14000"} #end)
+               #pragma diagram {"xy":"H153638;V35325","wh":"27062;14000"} #end)
     (#7 block SignalConditioning::SignalConditioningIn
               #pragma diagram {"xy":"H-21775;V-11100","wh":"22000;14000"} #end)
     (#8 expr hydrogenLeakageRaw
@@ -96,54 +96,110 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     (#29 block DataTransmission::TelemetryDataReception
                #pragma diagram {"xy":"H-21775;V9550","wh":"29750;14000"} #end)
     (#33 block DataValidation::Validation
-               #pragma diagram {"xy":"H23494;V-6650","wh":"25450;14000"} #end)
+               #pragma diagram {"xy":"H23911;V-7600","wh":"25450;14000"} #end)
     (#28 block SignalConditioning::SignalConditioningOut
-               #pragma diagram {"xy":"H88262;V-6650","wh":"25450;14000"} #end)
+               #pragma diagram {"xy":"H114291;V-6650","wh":"25450;14000"} #end)
     (#9 def ao1
-    #pragma diagram {"xy":"H163478;V-4787"} #end)
+    #pragma diagram {"xy":"H189507;V-4787"} #end)
     (#10 def ao2
-    #pragma diagram {"xy":"H163478;V-86780"} #end)
+    #pragma diagram {"xy":"H189507;V-86780"} #end)
     (#1 expr accelPedalRaw
     #pragma diagram {"xy":"H-115269;V51069","wh":"18000;3200"} #end)
     (#31 expr brakePedalRaw
     #pragma diagram {"xy":"H-115269;V44162","wh":"18000;3200"} #end)
     (#35 def vcc5vIso1En
-    #pragma diagram {"xy":"H159478;V-80923","wh":"16000;3200"} #end)
+    #pragma diagram {"xy":"H185507;V-80923","wh":"16000;3200"} #end)
     (#36 def vee0v23SD
-    #pragma diagram {"xy":"H160478;V-75067","wh":"14000;3200"} #end)
+    #pragma diagram {"xy":"H186507;V-75067","wh":"14000;3200"} #end)
     (#63 def vcc5vIso2En
-    #pragma diagram {"xy":"H159478;V-69210","wh":"16000;3200"} #end)
+    #pragma diagram {"xy":"H185507;V-69210","wh":"16000;3200"} #end)
     (#64 def vcc10v5En
-    #pragma diagram {"xy":"H160478;V-63353","wh":"14000;3200"} #end)
+    #pragma diagram {"xy":"H186507;V-63353","wh":"14000;3200"} #end)
     (#65 def ao3
-    #pragma diagram {"xy":"H163478;V-57497"} #end)
+    #pragma diagram {"xy":"H189507;V-57497"} #end)
     (#66 def ao4
-    #pragma diagram {"xy":"H163478;V-51640"} #end)
+    #pragma diagram {"xy":"H189507;V-51640"} #end)
     (#67 group
-    #pragma diagram {"xy":"H114478;V-45783","wh":"800;87850"} #end)
+    #pragma diagram {"xy":"H140507;V-45783","wh":"800;87850"} #end)
     (#68 def relay1
-    #pragma diagram {"xy":"H162478;V-45783","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H188507;V-45783","wh":"10000;3200"} #end)
     (#69 def relay2
-    #pragma diagram {"xy":"H162478;V-39927","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H188507;V-39927","wh":"10000;3200"} #end)
     (#70 def relay3
-    #pragma diagram {"xy":"H162478;V-34070","wh":"10000;3200"} #end)
+    #pragma diagram {"xy":"H188507;V-34070","wh":"10000;3200"} #end)
     (#71 def rs485ReDe1
-    #pragma diagram {"xy":"H160478;V-28213","wh":"14000;3200"} #end)
+    #pragma diagram {"xy":"H186507;V-28213","wh":"14000;3200"} #end)
     (#72 def rs485ReDe2
-    #pragma diagram {"xy":"H160478;V-22357","wh":"14000;3200"} #end)
+    #pragma diagram {"xy":"H186507;V-22357","wh":"14000;3200"} #end)
     (#73 def testOutput
-    #pragma diagram {"xy":"H160478;V-16500","wh":"14000;3200"} #end)
+    #pragma diagram {"xy":"H186507;V-16500","wh":"14000;3200"} #end)
     (#74 def vcc5vEn
-    #pragma diagram {"xy":"H161478;V-10643","wh":"12000;3200"} #end)
-    (#91 expr #92.()
+    #pragma diagram {"xy":"H187507;V-10643","wh":"12000;3200"} #end)
+    (#54 expr (#56, #55)
+      where
+        (#55 group)
+        (#56 group)
+    #pragma diagram {"xy":"H47918;V-13054"} #end)
+    (#59 expr #60.( 
+    emergencySwitch:isEmergencySwitchPressed,
+    deadManSwitch:isDeadmansSwitchPressed,
+    leakageSensorSwitch:isLeakageDetected,
+    hydrogenLeakage:hydrogenLeakageVoltage,
+    supercapacitorCurrent:supercapacitorCurrent,
+    accelPedalVoltage:accelPedalVoltage,
+    brakePedalVoltage:brakePedalVoltage,
+    accessoryBatteryCurrent:accessoryBatteryCurrent,
+    hydrogenHighPressure:hydrogenHighPressure,
+    fuelCellOutputCurrent:fuelCellOutputCurrent,
+    motorControllerSupplyCurrent:motorControllerSupplyCurrent,
+    accessoryBatteryVoltage:accessoryBatteryVoltage,
+    fuelCellOutputVoltage:fuelCellOutputVoltage,
+    supercapacitorVoltage:supercapacitorVoltage,
+    motorControllerSupplyVoltage:motorControllerSupplyVoltage,
+    speed:speed,
+    message:telemetryMessage
+    )
+      where
+        (#60 group)
+    #pragma diagram {"IsGraphicalVariant":true,"xy":"H5448;V-7600"} #end)
+    (#91 expr #92.(
+    isVehicleAllowedToMove:isVehicleAllowedToDrive,
+    startBtn:isStartButtonPressed,
+    resetBtn:isResetButtonPressed,
+    brakePedalVoltage:brakePedalVoltage,
+    accelPedalVoltage:accelerationPedalVoltage
+    )
       where
         (#92 group)
-    #pragma diagram {"IsGraphicalVariant":true,"xy":"H45314;V-29662"} #end)
+    #pragma diagram {"IsGraphicalVariant":true,"xy":"H53759;V-7600"} #end)
+    (#93 expr (#94, #95)
+      where
+        (#94 group)
+        (#95 group)
+    #pragma diagram {"xy":"H-3;V-13054"} #end)
+    (#57 expr #58.(
+    shouldProtiumRun:shouldProtiumRun,
+    canAccelerate:canAccelerate,
+    canRecuperate:canRecuperate,
+    accelerationValueRaw:accelerationValueRaw,
+    recuperationValueRaw:recuperationValueRaw
+    )
+      where
+        (#58 group)
+    #pragma diagram {"IsGraphicalVariant":true,"xy":"H96224;V-8825"} #end)
+    (#79 expr (#105, #104)
+      where
+        (#104 group)
+        (#105 group)
+    #pragma diagram {"xy":"H133561;V-13054"} #end)
+    (#107 expr (#109, #110)
+      where
+        (#109 group)
+        (#110 group)
+    #pragma diagram {"xy":"H90482;V-13054"} #end)
     
     (#30 wire #4 => #26 .(accessoryBatteryCurrentRaw))
     (#32 wire #5 => #26 .(hydrogenHighPressureRaw))
-    (#55 wire #33 => #6
-    #pragma diagram {"wp":"v0|#33 #6"} #end)
     (#34 wire #2 => #26 .(supercapacitorCurrentRaw))
     (#37 wire #8 => #26 .(hydrogenLeakageRaw))
     (#38 wire #11 => #26 .(fuelCellOutputCurrentRaw))
@@ -163,10 +219,6 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     (#52 wire #25 => #26 .(rpmHz))
     (#53 wire #26 => #7
     #pragma diagram {"wp":"v6908|#26 #7"} #end)
-    (#59 wire #7 => #33
-    #pragma diagram {"wp":"v2225|#7 #33"} #end)
-    (#57 wire #6 => #28
-    #pragma diagram {"wp":"v0|#6 #28"} #end)
     (#61 wire #1 => #26 .(accelPedalRaw))
     (#75 wire #67 .(brakeVoltage) => #10
     #pragma diagram {"wp":"v-40997|#67 #10"} #end)
@@ -177,8 +229,6 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"wp":"v40996|#67 #9"} #end)
     (#78 wire #67 .(unusedOutputAo4) => #66
     #pragma diagram {"wp":"v-5857|#67 #66"} #end)
-    (#79 wire #28 => #67
-    #pragma diagram {"wp":"v-1104|#28 #67"} #end)
     (#80 wire #67 .(isMainValveOpen) => #68
     #pragma diagram {"wp":"v0|#67 #68"} #end)
     (#81 wire #67 .(isMotorControllerEnabled) => #69
@@ -201,141 +251,356 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"wp":"v23426|#67 #72"} #end)
     (#90 wire #67 .(testOutput) => #73
     #pragma diagram {"wp":"v29283|#67 #73"} #end)
-    (#54 wire #29 => #33
-    #pragma diagram {"wp":"v0|#29 h8835 v-12942 #33"} #end)
-    (#56 wire #0 => #33
-    #pragma diagram {"wp":"v0|#0 h13391 v-31764 #33"} #end)
-    (#58 wire #6 => #3
-    #pragma diagram {"wp":"v4000|#6 h4426 v17450 #3"} #end)
-    (#60 wire #6 => #27
-    #pragma diagram {"wp":"v5333|#6 h2809 v37567 #27"} #end)
-    (#93 wire #33 => #92
-    #pragma diagram {"wp":"v-4000|#33 h2547 v-19012 #92"} #end)
-    (#94 wire #91 => #6
-    #pragma diagram {"wp":"#91 h3500 v4602 h-7436 v14410 #6"} #end)
+    (#96 wire #91 => #6)
+    (#97 wire #93 => #56
+    #pragma diagram {"wp":"v-3200|#93 #56"} #end)
+    (#111 wire #107 => #58
+    #pragma diagram {"wp":"v4229|#107 #58"} #end)
+    (#112 wire #57 => #28)
+    (#106 wire #28 => #104
+    #pragma diagram {"wp":"v-5804|#28 #104"} #end)
+    (#98 wire #59 => #33)
+    (#99 wire #33 => #55
+    #pragma diagram {"wp":"v-4854|#33 #55"} #end)
+    (#100 wire #54 => #92
+    #pragma diagram {"wp":"v5454|#54 #92"} #end)
+    (#101 wire #93 => #60
+    #pragma diagram {"wp":"v5454|#93 #60"} #end)
+    (#102 wire #7 => #94
+    #pragma diagram {"wp":"v-5154|#7 #94"} #end)
+    (#103 wire #29 => #95
+    #pragma diagram {"wp":"v0|#29 h3248 v-22004 #95"} #end)
+    (#113 wire #107 => #105
+    #pragma diagram {"wp":"v-3200|#107 #105"} #end)
+    (#108 wire #79 => #67
+    #pragma diagram {"wp":"v0|#79 #67"} #end)
+    (#114 wire #54 => #109
+    #pragma diagram {"wp":"v-3200|#54 #109"} #end)
+    (#115 wire #6 => #110
+    #pragma diagram {"wp":"v-4854|#6 #110"} #end)
 }
 
-node MainStateMachine (isVehicleAllowedToDrive : bool;
+node MainStateMachine (transitionCycles : uint32;
+                       isVehicleAllowedToDrive : bool;
                        isStartButtonPressed : bool;
-                       isResetButtonPressed : bool;)
+                       isResetButtonPressed : bool;
+                       brakePedalVoltage : float32;
+                       accelerationPedalVoltage : float32;)
   returns (shouldProtiumRun : bool;
            isMainValveOpen : bool;
            isMotorControllerEnabled : bool;
            canAccelerate : bool;
-           canRecuperate : bool;)
+           canRecuperate : bool;
+           accelerationValueRaw : uint16;
+           recuperationValueRaw : uint16;)
 {
   diagram
+    (var
+        cyclesCounted: uint32;)
     (automaton $mainAutomaton
       state #1 Starting
-      #pragma diagram {"xy":"h21673;v-15348","wh":"54300;37325"} #end :
+      #pragma diagram {"xy":"h-16288;v-35725","wh":"53500;57196"} #end :
         diagram
           (#0 def isMainValveOpen
-          #pragma diagram {"xy":"h11927;v-1425","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h12550;v-144","wh":"20000;3200"} #end)
           (#4 def isMotorControllerEnabled
-          #pragma diagram {"xy":"h7927;v-6254","wh":"28000;3200"} #end)
+          #pragma diagram {"xy":"h8550;v-4973","wh":"28000;3200"} #end)
           (#5 expr false
-          #pragma diagram {"xy":"h-18373;v13062","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-17750;v14343","wh":"10000;3200"} #end)
           (#6 def shouldProtiumRun
-          #pragma diagram {"xy":"h11927;v3404","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h12550;v4685","wh":"20000;3200"} #end)
           (#7 def canRecuperate
-          #pragma diagram {"xy":"h12927;v13062","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h13550;v14343","wh":"18000;3200"} #end)
           (#8 def canAccelerate
-          #pragma diagram {"xy":"h12927;v8234","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h13550;v9515","wh":"18000;3200"} #end)
           (#9 expr true
-          #pragma diagram {"xy":"h-19373;v-6254"} #end)
+          #pragma diagram {"xy":"h-18750;v-4973"} #end)
+          (#42 def cyclesCounted
+          #pragma diagram {"xy":"h13750;v-14498","wh":"18000;3200"} #end)
+          (#43 expr #44 + #45
+            where
+              (#44 group)
+              (#45 group)
+          #pragma diagram {"xy":"h-6475;v-14498"} #end)
+          (#46 expr 1
+          #pragma diagram {"xy":"h-18750;v-12598"} #end)
+          (#47 expr #48 pre #49
+            where
+              (#48 group)
+              (#49 group)
+          #pragma diagram {"xy":"h14225;v-20098"} #end)
+          (#50 expr 0
+          #pragma diagram {"xy":"h-9775;v-21998"} #end)
+          (#76 def recuperationValueRaw
+          #pragma diagram {"xy":"h10750;v22998","wh":"24000;3200"} #end)
+          (#77 def accelerationValueRaw
+          #pragma diagram {"xy":"h10750;v18670","wh":"24000;3200"} #end)
+          (#78 expr 0
+          #pragma diagram {"xy":"h-18750;v18670"} #end)
+          (#79 expr 0
+          #pragma diagram {"xy":"h-18750;v22998"} #end)
           
           (#10 wire #5 => #8, #7
           #pragma diagram {"wp":"#5 h15800[v-4829 #8, #7]"} #end)
           (#11 wire #9 => #4, #0, #6
           #pragma diagram {"wp":"#9 h4825[h2650[#4, v4829 #0], v9658 #6]"} #end)
+          (#51 wire #50 => #48)
+          (#52 wire #47 => #44
+          #pragma diagram {"wp":"#47 h3500 v-4500 h-37000 v8200 #44"} #end)
+          (#53 wire #43 => #42, #49
+          #pragma diagram {"wp":"#43 h4612[#42, v-3700 #49]"} #end)
+          (#54 wire #46 => #45)
+          (#80 wire #79 => #76)
+          (#81 wire #78 => #77)
       state #2 Running
-      #pragma diagram {"xy":"h106362;v-17123","wh":"64523;35725"} #end :
+      #pragma diagram {"xy":"h117262;v-1954","wh":"149600;60661"} #end :
         diagram
           (#12 def isMotorControllerEnabled
-          #pragma diagram {"xy":"h10938;v-7054","wh":"28000;3200"} #end)
+          #pragma diagram {"xy":"h16886;v-19394","wh":"28000;3200"} #end)
           (#13 def isMainValveOpen
-          #pragma diagram {"xy":"h14938;v-2225","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h20886;v-14565","wh":"20000;3200"} #end)
           (#14 expr true
-          #pragma diagram {"xy":"h-15362;v2604"} #end)
+          #pragma diagram {"xy":"h-41551;v-9736"} #end)
           (#15 def shouldProtiumRun
-          #pragma diagram {"xy":"h14938;v2604","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h20886;v-9736","wh":"20000;3200"} #end)
           (#16 def canRecuperate
-          #pragma diagram {"xy":"h15938;v12263","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h21886;v-77","wh":"18000;3200"} #end)
           (#17 def canAccelerate
-          #pragma diagram {"xy":"h15938;v7434","wh":"18000;3200"} #end)
-          ({syntax%Execute CalculateDrivingParameters here?%syntax}
-          #pragma diagram {"xy":"h2793;v-11883","wh":"42000;3200"} #end)
+          #pragma diagram {"xy":"h21886;v-4906","wh":"18000;3200"} #end)
+          (#55 def cyclesCounted
+          #pragma diagram {"xy":"h21886;v-24731","wh":"18000;3200"} #end)
+          (#56 expr 0
+          #pragma diagram {"xy":"h-42140;v-24731"} #end)
+          (#59 def recuperationValueRaw
+          #pragma diagram {"xy":"h58800;v20132","wh":"24000;3200"} #end)
+          (#58 def accelerationValueRaw
+          #pragma diagram {"xy":"h58800;v13132","wh":"24000;3200"} #end)
+          (#57 block ControlAlgorithm
+                     #pragma diagram {"xy":"h3800;v16632","wh":"20000;14000"} #end)
+          (#61 expr accelerationPedalVoltage
+          #pragma diagram {"xy":"h-56800;v20132","wh":"28000;3200"} #end)
+          (#60 expr brakePedalVoltage
+          #pragma diagram {"xy":"h-52800;v13132","wh":"20000;3200"} #end)
           
           (#18 wire #14 => #15, #13, #12, #17, #16
-          #pragma diagram {"wp":"#14 h4037[h1075[h1075[h1075[#15, v-4828 #13], v-9658 #12], v4830 #17], v9659 #16]"} #end)
+          #pragma diagram {"wp":"#14 h8055[h9109[h9110[h9109[#15, v4830 #17], v-4829 #13], v-9658 #12], v9659 #16]"} #end)
+          (#62 wire #56 => #55)
+          (#66 wire #57 .(recuperationValueRaw) => #59
+          #pragma diagram {"wp":"v3500|#57 #59"} #end)
+          (#65 wire #57 .(accelerationValueRaw) => #58
+          #pragma diagram {"wp":"v-3500|#57 #58"} #end)
+          (#64 wire #60 => #57 .(brakePedalVoltage))
+          (#63 wire #61 => #57 .(accelerationPedalVoltage))
       state #3 Idle
-      #pragma diagram {"xy":"h-45336;v-15994","wh":"66700;36358"} #end :
+      #pragma diagram {"xy":"h-101801;v-10940","wh":"58037;41506"} #end :
         diagram
           (#19 def isMainValveOpen
-          #pragma diagram {"xy":"h10650;v8879","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h15000;v4011","wh":"20000;3200"} #end)
           (#21 def isMotorControllerEnabled
-          #pragma diagram {"xy":"h6650;v5179","wh":"28000;3200"} #end)
+          #pragma diagram {"xy":"h11000;v311","wh":"28000;3200"} #end)
           (#22 expr false
-          #pragma diagram {"xy":"h-24350;v5179","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-20000;v311","wh":"10000;3200"} #end)
           (#23 def shouldProtiumRun
-          #pragma diagram {"xy":"h10650;v12579","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h15000;v7711","wh":"20000;3200"} #end)
           (#24 def canRecuperate
-          #pragma diagram {"xy":"h11650;v1479","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h16000;v-3389","wh":"18000;3200"} #end)
           (#25 def canAccelerate
-          #pragma diagram {"xy":"h11650;v-2221","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h16000;v-7089","wh":"18000;3200"} #end)
+          (#67 def cyclesCounted
+          #pragma diagram {"xy":"h16000;v-13343","wh":"18000;3200"} #end)
+          (#68 expr 0
+          #pragma diagram {"xy":"h-21000;v-13343"} #end)
+          (#82 expr 0
+          #pragma diagram {"xy":"h-15281;v16359"} #end)
+          (#83 def recuperationValueRaw
+          #pragma diagram {"xy":"h13019;v16359","wh":"24000;3200"} #end)
+          (#84 def accelerationValueRaw
+          #pragma diagram {"xy":"h13019;v12031","wh":"24000;3200"} #end)
+          (#85 expr 0
+          #pragma diagram {"xy":"h-15281;v12031"} #end)
           
           (#26 wire #22 => #23, #19, #21, #24, #25
           #pragma diagram {"wp":"#22 h4500[v7400 #23, h2000[v3700 #19, h2000[h2000[#21, v-3700 #24], v-7400 #25]]]"} #end)
+          (#69 wire #68 => #67)
+          (#86 wire #85 => #84)
+          (#87 wire #82 => #83)
       state #20 ShuttingDown
-      #pragma diagram {"xy":"h23487;v27462","wh":"57927;30846"} #end :
+      #pragma diagram {"xy":"h-16275;v26542","wh":"53525;56245"} #end :
         diagram
           (#27 def isMotorControllerEnabled
-          #pragma diagram {"xy":"h7188;v-5664","wh":"28000;3200"} #end)
+          #pragma diagram {"xy":"h7538;v-5559","wh":"28000;3200"} #end)
           (#28 def isMainValveOpen
-          #pragma diagram {"xy":"h11188;v-835","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h11538;v-730","wh":"20000;3200"} #end)
           (#29 expr false
-          #pragma diagram {"xy":"h-18112;v3994","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-17762;v4099","wh":"10000;3200"} #end)
           (#34 def shouldProtiumRun
-          #pragma diagram {"xy":"h11188;v3994","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h11538;v4099","wh":"20000;3200"} #end)
           (#35 def canRecuperate
-          #pragma diagram {"xy":"h12188;v13652","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h12538;v13757","wh":"18000;3200"} #end)
           (#36 def canAccelerate
-          #pragma diagram {"xy":"h12188;v8823","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h12538;v8928","wh":"18000;3200"} #end)
+          (#70 expr 1
+          #pragma diagram {"xy":"h-18762;v-12122"} #end)
+          (#71 def cyclesCounted
+          #pragma diagram {"xy":"h12762;v-14022","wh":"18000;3200"} #end)
+          (#88 def recuperationValueRaw
+          #pragma diagram {"xy":"h9538;v22522","wh":"24000;3200"} #end)
+          (#89 expr 0
+          #pragma diagram {"xy":"h-18762;v18195"} #end)
+          (#90 def accelerationValueRaw
+          #pragma diagram {"xy":"h9538;v18195","wh":"24000;3200"} #end)
+          (#91 expr 0
+          #pragma diagram {"xy":"h-18762;v22522"} #end)
+          (#72 expr #100 pre #101
+            where
+              (#100 group)
+              (#101 group)
+          #pragma diagram {"xy":"h13238;v-19622"} #end)
+          (#102 expr #103 + #104
+            where
+              (#103 group)
+              (#104 group)
+          #pragma diagram {"xy":"h-7462;v-14022"} #end)
+          (#105 expr 0
+          #pragma diagram {"xy":"h-10762;v-21522"} #end)
           
           (#37 wire #29 => #34, #28, #27, #36, #35
           #pragma diagram {"wp":"#29 h3500[h1000[h1000[h250[#34, v-4829 #28], v-9658 #27], v4829 #36], v9658 #35]"} #end)
+          (#106 wire #105 => #100)
+          (#92 wire #89 => #90)
+          (#93 wire #91 => #88)
+          (#107 wire #70 => #104)
+          (#108 wire #72 => #103
+          #pragma diagram {"wp":"#72 h3500 v-4500 h-37000 v8200 #103"} #end)
+          (#109 wire #102 => #71, #101
+          #pragma diagram {"wp":"#102 h4612[#71, v-3700 #101]"} #end)
       initial state #30 Init
-      #pragma diagram {"xy":"h-109623;v-16048","wh":"58000;35587"} #end :
+      #pragma diagram {"xy":"h-171812;v-10445","wh":"58000;41026"} #end :
         diagram
           (#31 expr false
-          #pragma diagram {"xy":"h-20000;v2536","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-20000;v-184","wh":"10000;3200"} #end)
           (#32 def shouldProtiumRun
-          #pragma diagram {"xy":"h15000;v9936","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h15000;v7216","wh":"20000;3200"} #end)
           (#38 def isMainValveOpen
-          #pragma diagram {"xy":"h15000;v6236","wh":"20000;3200"} #end)
+          #pragma diagram {"xy":"h15000;v3516","wh":"20000;3200"} #end)
           (#39 def isMotorControllerEnabled
-          #pragma diagram {"xy":"h11000;v2536","wh":"28000;3200"} #end)
+          #pragma diagram {"xy":"h11000;v-184","wh":"28000;3200"} #end)
           (#40 def canAccelerate
-          #pragma diagram {"xy":"h16000;v-1164","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h16000;v-3884","wh":"18000;3200"} #end)
           (#41 def canRecuperate
-          #pragma diagram {"xy":"h16000;v-4864","wh":"18000;3200"} #end)
+          #pragma diagram {"xy":"h16000;v-7584","wh":"18000;3200"} #end)
+          (#73 def cyclesCounted
+          #pragma diagram {"xy":"h16000;v-14636","wh":"18000;3200"} #end)
+          (#74 expr 0
+          #pragma diagram {"xy":"h-21000;v-14636"} #end)
+          (#94 expr 0
+          #pragma diagram {"xy":"h-15300;v16838"} #end)
+          (#95 def recuperationValueRaw
+          #pragma diagram {"xy":"h13000;v16838","wh":"24000;3200"} #end)
+          (#96 def accelerationValueRaw
+          #pragma diagram {"xy":"h13000;v12511","wh":"24000;3200"} #end)
+          (#97 expr 0
+          #pragma diagram {"xy":"h-15300;v12511"} #end)
           
           (#33 wire #31 => #32, #38, #39, #40, #41
           #pragma diagram {"wp":"#31 h4500[v7400 #32, h2000[v3700 #38, h2000[h2000[#39, v-3700 #40], v-7400 #41]]]"} #end)
-      :1: #1 until if (isVehicleAllowedToDrive and isStartupComplete)
+          (#75 wire #74 => #73)
+          (#98 wire #97 => #96)
+          (#99 wire #94 => #95)
+      :1: #1 until if (isVehicleAllowedToDrive and 
+                       cyclesCounted > transitionCycles)
       restart #2
-      #pragma diagram {"tp":"h27150;v-1287|#1 h8426 h8426 h-32262;v487|#2"} #end;
+      #pragma diagram {"tp":"h26750;v16019|#1 h10667 h10667 h-74800;v-17751|#2"} #end;
       :1: #3 until if (isStartButtonPressed)
       restart #1
-      #pragma diagram {"tp":"h33350;v81|#3 h2170 h2170 h-27150;v-564|#1"} #end;
-      :1: #20 until if (shutdownComplete)
+      #pragma diagram {"tp":"h29019;v-8470|#3 h9915 h9915 h-26750;v16315|#1"} #end;
+      :1: #20 until if (cyclesCounted > transitionCycles)
       restart #3
-      #pragma diagram {"tp":"h-28963;v-13047|#20 h-500 h-13786 h-6393 h-9590 h-9590;v-5115 v-5115 v-667 v-667 h0;v18179|#3"} #end;
+      #pragma diagram {"tp":"h-26762;v-22426|#20 h-9915 h-9915 h29019;v15057|#3"} #end;
       :1: #2 until if (not isVehicleAllowedToDrive)
       restart #20
-      #pragma diagram {"tp":"h-27244;v17862|#2 v500 v500 v500 v12611 h-12334;v12611 h-12334 h-667 h-667 h28963;v0|#20"} #end;
+      #pragma diagram {"tp":"h-74800;v15352|#2 h-10658 h-10658 h26762;v-13144|#20"} #end;
       :1: #30 until 
       restart #3
-      #pragma diagram {"tp":"h29000;v0|#30 h646 h645 h-33350;v-54|#3"} #end;
-      #pragma diagram {"xy":"H-47617;V6085","wh":"285246;93770"} #end)
+      #pragma diagram {"tp":"h29000;v-128|#30 h3997 h3997 h-29019;v367|#3"} #end;
+      #pragma diagram {"xy":"H-19077;V3256","wh":"409625;136645"} #end)
+}
+
+function ControlAlgorithm (brakePedalVoltage : float32;
+                           accelerationPedalVoltage : float32;)
+  returns (accelerationValueRaw : uint16;
+           recuperationValueRaw : uint16;)
+{
+  diagram
+    (#0 expr if #1 then #2 else #3
+      where
+        (#1 group)
+        (#2 group)
+        (#3 group)
+    #pragma diagram {"xy":"H7962;V11588"} #end)
+    (#4 expr brakePedalVoltage
+    #pragma diagram {"xy":"H-22250;V-5612","wh":"20000;3200"} #end)
+    (#5 expr #6 >= #7
+      where
+        (#6 group)
+        (#7 group)
+    #pragma diagram {"xy":"H-1250;V-3712"} #end)
+    (#8 expr 1
+    #pragma diagram {"xy":"H-16250;V-1812"} #end)
+    (#9 expr brakePedalVoltage
+    #pragma diagram {"xy":"H-93325;V40950","wh":"20000;3200"} #end)
+    (#10 expr accelerationPedalVoltage
+    #pragma diagram {"xy":"H-89325;V21100","wh":"28000;3200"} #end)
+    (#11 expr (#12 :> uint16)
+      where
+        (#12 group)
+    #pragma diagram {"xy":"H-12250;V21100","wh":"16000;7000"} #end)
+    (#13 def accelerationValueRaw
+    #pragma diagram {"xy":"H50138;V11588","wh":"24000;3200"} #end)
+    (#14 def recuperationValueRaw
+    #pragma diagram {"xy":"H29450;V42050","wh":"24000;3200"} #end)
+    (#15 expr 0
+    #pragma diagram {"xy":"H-16250;V9688"} #end)
+    (#16 block (SignalConditioning::LinerMappingFloat \ fromLow: 0, fromHigh: 5, toLow: 0, toHigh: 4095)
+               #pragma diagram {"xy":"H-57788;V42050","wh":"20000;14000"} #end)
+    (#17 expr #23 * #27
+      where
+        (#23 group)
+        (#27 group)
+    #pragma diagram {"xy":"H-29325;V42050"} #end)
+    (#28 block (SignalConditioning::LinerMappingFloat \ fromLow: 0, fromHigh: 5, toLow: 0, toHigh: 4095)
+               #pragma diagram {"xy":"H-57788;V22150","wh":"20000;14000"} #end)
+    (#18 expr (#19 :> uint16)
+      where
+        (#19 group)
+    #pragma diagram {"xy":"H-12250;V42050","wh":"16000;7000"} #end)
+    (#29 expr #31 * #32
+      where
+        (#31 group)
+        (#32 group)
+    #pragma diagram {"xy":"H-29325;V21100"} #end)
+    (#33 expr 1/5
+    #pragma diagram {"xy":"H-42406;V43950"} #end)
+    (#34 expr 1/5
+    #pragma diagram {"xy":"H-42406;V23000"} #end)
+    
+    (#20 wire #4 => #6)
+    (#21 wire #8 => #7)
+    (#22 wire #5 => #1
+    #pragma diagram {"wp":"#5 h5712 #1"} #end)
+    (#35 wire #33 => #27)
+    (#24 wire #0 => #13)
+    (#25 wire #15 => #2)
+    (#26 wire #11 => #3
+    #pragma diagram {"wp":"#11 h5106 v-7612 #3"} #end)
+    (#36 wire #16 => #23
+    #pragma diagram {"wp":"v-1900|#16 #23"} #end)
+    (#37 wire #9 => #16 .(value))
+    (#38 wire #10 => #28 .(value))
+    (#30 wire #18 => #14)
+    (#39 wire #17 => #19)
+    (#40 wire #28 => #31
+    #pragma diagram {"wp":"v-2950|#28 #31"} #end)
+    (#41 wire #34 => #32)
+    (#42 wire #29 => #12)
 }

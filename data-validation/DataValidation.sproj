@@ -1,6 +1,8 @@
 {
   "Version": "1.0",
   "Name": "DataValidation",
-  "Dependencies": [],
+  "Dependencies": [
+    "..\\data-transmission\\DataTransmission.sproj"
+  ],
   "Resources": []
 }
