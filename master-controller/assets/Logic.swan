@@ -135,6 +135,10 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"xy":"H160478;V-16500","wh":"14000;3200"} #end)
     (#74 def vcc5vEn
     #pragma diagram {"xy":"H161478;V-10643","wh":"12000;3200"} #end)
+    (#91 expr #92.()
+      where
+        (#92 group)
+    #pragma diagram {"IsGraphicalVariant":true,"xy":"H45314;V-29662"} #end)
     
     (#30 wire #4 => #26 .(accessoryBatteryCurrentRaw))
     (#32 wire #5 => #26 .(hydrogenHighPressureRaw))
@@ -205,6 +209,10 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"wp":"v4000|#6 h4426 v17450 #3"} #end)
     (#60 wire #6 => #27
     #pragma diagram {"wp":"v5333|#6 h2809 v37567 #27"} #end)
+    (#93 wire #33 => #92
+    #pragma diagram {"wp":"v-4000|#33 h2547 v-19012 #92"} #end)
+    (#94 wire #91 => #6
+    #pragma diagram {"wp":"#91 h3500 v4602 h-7436 v14410 #6"} #end)
 }
 
 node MainStateMachine (isVehicleAllowedToDrive : bool;

@@ -35,7 +35,7 @@ function Validation (isEmergencySwitchPressed: bool;
 {
   diagram
     (#0 block ErrorCheck
-              #pragma diagram {"xy":"H-63900;V22025","wh":"20000;14000"} #end)
+              #pragma diagram {"xy":"H-63900;V22606","wh":"20000;14000"} #end)
     (#1 block EmergencyCheck
               #pragma diagram {"xy":"H-63900;V-28150","wh":"20000;14000"} #end)
     (#2 block WarningCheck
@@ -115,7 +115,7 @@ function Validation (isEmergencySwitchPressed: bool;
     (#8 group
     #pragma diagram {"xy":"H-93444;V-32966","wh":"800;17788"} #end)
     (#40 def isVehicleAllowedToMove
-    #pragma diagram {"xy":"H17784;V-12525","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H13784;V-12525","wh":"26000;3200"} #end)
     (#41 expr (#42, #44)
       where
         (#42 group)
@@ -123,7 +123,7 @@ function Validation (isEmergencySwitchPressed: bool;
     #pragma diagram {"xy":"H-38016;V-12138"} #end)
     
     (#9 wire #7 => #0
-    #pragma diagram {"wp":"v-581|#7 #0"} #end)
+    #pragma diagram {"wp":"v0|#7 #0"} #end)
     (#10 wire #28 => #7 .(speed))
     (#11 wire #27 => #7 .(motorControllerSupplyVoltage))
     (#12 wire #26 => #7 .(supercapacitorVoltage))
@@ -155,7 +155,7 @@ function Validation (isEmergencySwitchPressed: bool;
     (#78 wire #58 .(err_supercapacitorCurrent) => #60
     #pragma diagram {"wp":"v33504|#58 #60"} #end)
     (#79 wire #0 => #58
-    #pragma diagram {"wp":"v5092|#0 #58"} #end)
+    #pragma diagram {"wp":"v3000|#0 #58"} #end)
     (#80 wire #58 .(err_accelPedalVoltage) => #61
     #pragma diagram {"wp":"v-33504|#58 #61"} #end)
     (#81 wire #58 .(err_brakePedalVoltage) => #62
@@ -185,7 +185,7 @@ function Validation (isEmergencySwitchPressed: bool;
     (#43 wire #39 => #40
     #pragma diagram {"wp":"v-1271|#39 #40"} #end)
     (#47 wire #0 => #44
-    #pragma diagram {"wp":"v-2303|#0 h7742 v-31260 #44"} #end)
+    #pragma diagram {"wp":"v-3000|#0 h7742 v-31144 #44"} #end)
 }
 
 function EmergencyCheck (isEmergencySwitchPressed: bool;
@@ -440,7 +440,7 @@ function VehicleFaultyCheck (emg_emergencySwitch : bool;
       where
         (#13 group)
         (#14 group)
-    #pragma diagram {"xy":"H-80363;V-16105"} #end)
+    #pragma diagram {"xy":"H-80362;V-16105"} #end)
     (#15 expr emg_hydrogenLeakageVoltage
     #pragma diagram {"xy":"H-106725;V-25812","wh":"30000;3200"} #end)
     (#16 expr err_fuelCellOutputVoltage
@@ -450,6 +450,11 @@ function VehicleFaultyCheck (emg_emergencySwitch : bool;
         (#18 group)
         (#19 group)
     #pragma diagram {"xy":"H-32700;V-27550"} #end)
+    (#30 expr #31 or #32
+      where
+        (#31 group)
+        (#32 group)
+    #pragma diagram {"xy":"H-54350;V-8450"} #end)
     
     (#20 wire #6 => #19
     #pragma diagram {"wp":"#6 h3000 v-1738 #19"} #end)
@@ -464,7 +469,7 @@ function VehicleFaultyCheck (emg_emergencySwitch : bool;
     (#26 wire #15 => #13
     #pragma diagram {"wp":"#15 h3681 v7807 #13"} #end)
     (#27 wire #16 => #14
-    #pragma diagram {"wp":"#16 h4181 v1900 #14"} #end)
+    #pragma diagram {"wp":"#16 h4681 v1900 #14"} #end)
     (#28 wire #12 => #11
     #pragma diagram {"wp":"#12 h3000 v-2553 #11"} #end)
     (#29 wire #9 => #8

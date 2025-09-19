@@ -1,16 +1,36 @@
 -- version swan: 2025.1 graph: 2.0 swant: 1.1
 use SignalConditioningLogic;
 
+use SignalConditioningTestPanel;
+
 _harness SignalConditioningInTests
 {
   diagram
-    (#0 #pragma swt under_test #end block SignalConditioningLogic::SignalConditioningIn
-                                          #pragma diagram {"xy":"H40744;V-3425","wh":"28862;14000"} #end)
-    (#1 block (_source DataSignalConditioningIn)
-    #pragma diagram {"xy":"H-14350;V-4575","wh":"12000;7000"} #end)
+    (let _stop_condition = _current_cycle = 100;
+    #pragma diagram {"xy":"H23775;V-6925","wh":"46000;3200"} #end)
+    (#0 #pragma swt under_test #end block SignalConditioningTestPanel::SignalConditioningTestPanel
+                                          #pragma diagram {"xy":"H4975;V23362","wh":"20000;14000"} #end)
+    (#1 expr 2
+    #pragma diagram {"xy":"H38888;V32462"} #end)
+    (#4 expr #5 * #6
+      where
+        (#5 group)
+        (#6 group)
+    #pragma diagram {"xy":"H54775;V12362"} #end)
+    (#7 expr 2
+    #pragma diagram {"xy":"H38888;V10462"} #end)
+    (#2 expr #3 * #9
+      where
+        (#3 group)
+        (#9 group)
+    #pragma diagram {"xy":"H54775;V30562"} #end)
     
-    (#2 wire #1 => #0
-    #pragma diagram {"wp":"v0|#1 #0"} #end)
+    (#10 wire #0 .(accelerationVoltageRaw) => #3
+    #pragma diagram {"wp":"v5300|#0 #3"} #end)
+    (#8 wire #7 => #5)
+    (#11 wire #0 .(brakeVoltageRaw) => #6
+    #pragma diagram {"wp":"v-1650|#0 h31356 v-7450 #6"} #end)
+    (#12 wire #1 => #9)
 }
 
 _harness DebouncingTests

@@ -3,6 +3,7 @@
   "ModulesOrder": [
     "assets\\SignalConditioningLogic.swan",
     "assets\\SignalConditioningDefinitions.swan",
+    "assets\\SignalConditioningTestPanel.swan",
     "assets\\SignalConditioningTests.swant"
   ]
 }

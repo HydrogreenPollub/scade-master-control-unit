@@ -1,0 +1,9 @@
+-- version swan: 2025.1 graph: 2.0
+{text%
+      node #pragma cg keep #end #pragma swt data_source="../resources/SignalConditioningTestPanel.spanel" #end SignalConditioningTestPanel(
+      
+      ) returns (
+        accelerationVoltageRaw: float32;
+        brakeVoltageRaw: float32
+      );
+      %text}

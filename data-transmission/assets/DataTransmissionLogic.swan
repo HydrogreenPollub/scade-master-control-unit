@@ -1462,14 +1462,14 @@ node Decoding (encodedMsg: Definitions::EncodedFrame;)
       initial state #21 MsgType_st
       #pragma diagram {"xy":"h-51854;v4623","wh":"103951;25900"} #end :
         diagram
-          (#0 expr (#1 :>  int16)
+          (#0 expr (#1 :> int16)
             where
               (#1 group)
-          #pragma diagram {"xy":"h-16988;v5450","wh":"16000;7000"} #end)
-          (#2 expr (#3 :>  int16)
+          #pragma diagram {"xy":"h-17988;v5450","wh":"14000;7000"} #end)
+          (#2 expr (#3 :> int16)
             where
               (#3 group)
-          #pragma diagram {"xy":"h-16988;v-3023","wh":"16000;7000"} #end)
+          #pragma diagram {"xy":"h-17988;v-3023","wh":"14000;7000"} #end)
           (#4 expr #5 * #6
             where
               (#5 group)
