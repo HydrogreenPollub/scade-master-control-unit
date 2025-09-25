@@ -17,14 +17,14 @@ node MasterController (supercapacitorCurrentRaw : uint16;
                        fuelCellOutputVoltageRaw : uint16;
                        supercapacitorVoltageRaw : uint16;
                        motorControllerSupplyVoltageRaw : uint16;
-                       din1 : bool;
-                       din2 : bool;
-                       din3 : bool;
-                       din4 : bool;
-                       din5 : bool;
-                       din6 : bool;
-                       din7 : bool;
-                       din8 : bool;
+                       speedSensorPulseRaw : bool;
+                       startBtnRaw : bool;
+                       deadManSwitchRaw : bool;
+                       emergencySwitchRaw : bool;
+                       resetBtnRaw : bool;
+                       calibrationBtnRaw : bool;
+                       leakageSensorSwitchRaw : bool;
+                       shellTelemetryEmergencyRelayRaw : bool;
                        rpmHz : float32;)
   returns (relay1 : bool;
            relay2 : bool;
@@ -73,22 +73,22 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"xy":"H-120269;V-31823","wh":"28000;3200"} #end)
     (#16 expr motorControllerSupplyVoltageRaw
     #pragma diagram {"xy":"H-123269;V-24915","wh":"34000;3200"} #end)
-    (#17 expr din1
-    #pragma diagram {"xy":"H-110269;V-18008"} #end)
-    (#18 expr din2
-    #pragma diagram {"xy":"H-110269;V-11100"} #end)
-    (#19 expr din3
-    #pragma diagram {"xy":"H-110269;V-4192"} #end)
-    (#20 expr din4
-    #pragma diagram {"xy":"H-110269;V2715"} #end)
-    (#21 expr din5
-    #pragma diagram {"xy":"H-110269;V9623"} #end)
-    (#22 expr din6
-    #pragma diagram {"xy":"H-110269;V16531"} #end)
-    (#23 expr din7
-    #pragma diagram {"xy":"H-110269;V23439"} #end)
-    (#24 expr din8
-    #pragma diagram {"xy":"H-110269;V30346"} #end)
+    (#17 expr speedSensorPulseRaw
+    #pragma diagram {"xy":"H-117269;V-18007","wh":"22000;3200"} #end)
+    (#18 expr startBtnRaw
+    #pragma diagram {"xy":"H-114269;V-11100","wh":"16000;3200"} #end)
+    (#19 expr deadManSwitchRaw
+    #pragma diagram {"xy":"H-116269;V-4192","wh":"20000;3200"} #end)
+    (#20 expr emergencySwitchRaw
+    #pragma diagram {"xy":"H-117269;V2715","wh":"22000;3200"} #end)
+    (#21 expr resetBtnRaw
+    #pragma diagram {"xy":"H-114269;V9623","wh":"16000;3200"} #end)
+    (#22 expr calibrationBtnRaw
+    #pragma diagram {"xy":"H-116269;V16531","wh":"20000;3200"} #end)
+    (#23 expr leakageSensorSwitchRaw
+    #pragma diagram {"xy":"H-119269;V23439","wh":"26000;3200"} #end)
+    (#24 expr shellTelemetryEmergencyRelayRaw
+    #pragma diagram {"xy":"H-123269;V30346","wh":"34000;3200"} #end)
     (#25 expr rpmHz
     #pragma diagram {"xy":"H-111269;V37254","wh":"10000;3200"} #end)
     (#26 group
@@ -137,11 +137,10 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"xy":"H187507;V-10643","wh":"12000;3200"} #end)
     (#54 expr (#56, #55)
       where
-        (#55 group)
         (#56 group)
+        (#55 group)
     #pragma diagram {"xy":"H47918;V-13054"} #end)
-    (#59 expr #60.( 
-    emergencySwitch:isEmergencySwitchPressed,
+    (#59 expr #60.(emergencySwitch:isEmergencySwitchPressed,
     deadManSwitch:isDeadmansSwitchPressed,
     leakageSensorSwitch:isLeakageDetected,
     hydrogenLeakage:hydrogenLeakageVoltage,
@@ -157,18 +156,15 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     supercapacitorVoltage:supercapacitorVoltage,
     motorControllerSupplyVoltage:motorControllerSupplyVoltage,
     speed:speed,
-    message:telemetryMessage
-    )
+    message:telemetryMessage)
       where
         (#60 group)
     #pragma diagram {"IsGraphicalVariant":true,"xy":"H5448;V-7600"} #end)
-    (#91 expr #92.(
-    isVehicleAllowedToMove:isVehicleAllowedToDrive,
+    (#91 expr #92.(isVehicleAllowedToMove:isVehicleAllowedToDrive,
     startBtn:isStartButtonPressed,
     resetBtn:isResetButtonPressed,
     brakePedalVoltage:brakePedalVoltage,
-    accelPedalVoltage:accelerationPedalVoltage
-    )
+    accelPedalVoltage:accelerationPedalVoltage)
       where
         (#92 group)
     #pragma diagram {"IsGraphicalVariant":true,"xy":"H53759;V-7600"} #end)
@@ -177,20 +173,18 @@ node MasterController (supercapacitorCurrentRaw : uint16;
         (#94 group)
         (#95 group)
     #pragma diagram {"xy":"H-3;V-13054"} #end)
-    (#57 expr #58.(
-    shouldProtiumRun:shouldProtiumRun,
+    (#57 expr #58.(shouldProtiumRun:shouldProtiumRun,
     canAccelerate:canAccelerate,
     canRecuperate:canRecuperate,
     accelerationValueRaw:accelerationValueRaw,
-    recuperationValueRaw:recuperationValueRaw
-    )
+    recuperationValueRaw:recuperationValueRaw)
       where
         (#58 group)
     #pragma diagram {"IsGraphicalVariant":true,"xy":"H96224;V-8825"} #end)
     (#79 expr (#105, #104)
       where
-        (#104 group)
         (#105 group)
+        (#104 group)
     #pragma diagram {"xy":"H133561;V-13054"} #end)
     (#107 expr (#109, #110)
       where
@@ -208,14 +202,14 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     (#41 wire #14 => #26 .(fuelCellOutputVoltageRaw))
     (#42 wire #15 => #26 .(supercapacitorVoltageRaw))
     (#43 wire #16 => #26 .(motorControllerSupplyVoltageRaw))
-    (#44 wire #17 => #26 .(din1))
-    (#45 wire #18 => #26 .(din2))
-    (#46 wire #19 => #26 .(din3))
-    (#47 wire #20 => #26 .(din4))
-    (#48 wire #21 => #26 .(din5))
-    (#49 wire #22 => #26 .(din6))
-    (#50 wire #23 => #26 .(din7))
-    (#51 wire #24 => #26 .(din8))
+    (#44 wire #17 => #26 .(speedSensorPulseRaw))
+    (#45 wire #18 => #26 .(startBtnRaw))
+    (#46 wire #19 => #26 .(deadManSwitchRaw))
+    (#47 wire #20 => #26 .(emergencySwitchRaw))
+    (#48 wire #21 => #26 .(resetBtnRaw))
+    (#49 wire #22 => #26 .(calibrationBtnRaw))
+    (#50 wire #23 => #26 .(leakageSensorSwitchRaw))
+    (#51 wire #24 => #26 .(shellTelemetryEmergencyRelayRaw))
     (#52 wire #25 => #26 .(rpmHz))
     (#53 wire #26 => #7
     #pragma diagram {"wp":"v6908|#26 #7"} #end)

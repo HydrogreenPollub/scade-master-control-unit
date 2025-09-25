@@ -2908,7 +2908,7 @@ node TelemetryDataReception ()
           (#20 wire #12 => #13)
           (#21 wire #15 => #14)
           (#22 wire #17 => #16
-          #pragma diagram {"wp":"v-0|#17 #16"} #end)
+          #pragma diagram {"wp":"v0|#17 #16"} #end)
       state #4 StartByteCheck_st
       #pragma diagram {"xy":"h4436;v6437","wh":"170450;41325"} #end :
         diagram
@@ -2988,7 +2988,7 @@ node TelemetryDataReception ()
       #pragma diagram {"tp":"h34050;v5894|#3 h4683 h4683 h-85225;v-2569|#4"} #end;
       :1: #4 until if (telemetryRxReady)
       restart #5
-      #pragma diagram {"tp":"h85225;v10226|#4 h500 h17166 h8083 h18041;v0 h6208;v-1561 v-3121 v-1487 v-1487 v-1487 v-6096 h-14099;v-3048 h-14099 h-9400 h-20133 h-27036;v400|#5"} #end;
+      #pragma diagram {"tp":"h85225;v10226|#4 h500 h17166 h8083 h18041 h6208;v-1561 v-3121 v-1487 v-1487 v-1487 v-6096 h-14099;v-3048 h-14099 h-9400 h-20133 h-27036;v400|#5"} #end;
       #pragma diagram {"xy":"H-18659;V83838","wh":"333878;109550"} #end)
 }
 
