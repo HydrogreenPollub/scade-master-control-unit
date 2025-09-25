@@ -13,14 +13,14 @@ node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
                            fuelCellOutputVoltageRaw : uint16;
                            supercapacitorVoltageRaw : uint16;
                            motorControllerSupplyVoltageRaw : uint16;
-                           din1 : bool;
-                           din2 : bool;
-                           din3 : bool;
-                           din4 : bool;
-                           din5 : bool;
-                           din6 : bool;
-                           din7 : bool;
-                           din8 : bool;
+                           speedSensorPulseRaw : bool;
+                           startBtnRaw : bool;
+                           deadManSwitchRaw : bool;
+                           emergencySwitchRaw : bool;
+                           resetBtnRaw: bool;
+                           calibrationBtnRaw : bool;
+                           leakageSensorSwitchRaw : bool;
+                           shellTelemetryEmergencyRelayRaw : bool;
                            rpmHz : float32;)
   returns (supercapacitorCurrent : float32;
            accelPedalVoltage : float32;
@@ -62,8 +62,8 @@ node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"xy":"H-12601;V-21088","wh":"28000;3200"} #end)
     (#9 expr motorControllerSupplyVoltageRaw
     #pragma diagram {"xy":"H-15601;V-65065","wh":"34000;3200"} #end)
-    (#10 expr din8
-    #pragma diagram {"xy":"H21699;V68390"} #end)
+    (#10 expr shellTelemetryEmergencyRelayRaw
+    #pragma diagram {"xy":"H-876;V68389","wh":"34000;3200"} #end)
     (#11 expr accessoryBatteryCurrentRaw
     #pragma diagram {"xy":"H-13601;V-61067","wh":"30000;3200"} #end)
     (#12 expr fuelCellOutputVoltageRaw
@@ -76,32 +76,32 @@ node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"xy":"H109025;V4250","wh":"14000;3200"} #end)
     (#16 expr accessoryBatteryVoltageRaw
     #pragma diagram {"xy":"H-13601;V-45075","wh":"30000;3200"} #end)
-    (#17 expr din7
-    #pragma diagram {"xy":"H21699;V33270"} #end)
+    (#17 expr leakageSensorSwitchRaw
+    #pragma diagram {"xy":"H12699;V33270","wh":"26000;3200"} #end)
     (#18 def calibrationBtn
     #pragma diagram {"xy":"H170625;V57766","wh":"18000;3200"} #end)
     (#19 expr brakePedalRaw
     #pragma diagram {"xy":"H-7601;V-41077","wh":"18000;3200"} #end)
     (#20 expr accelPedalRaw
     #pragma diagram {"xy":"H-7601;V-37079","wh":"18000;3200"} #end)
-    (#21 expr din4
-    #pragma diagram {"xy":"H21699;V38287"} #end)
-    (#22 expr din5
-    #pragma diagram {"xy":"H21699;V43304"} #end)
-    (#23 expr din6
-    #pragma diagram {"xy":"H21699;V48321"} #end)
+    (#21 expr emergencySwitchRaw
+    #pragma diagram {"xy":"H14699;V38287","wh":"22000;3200"} #end)
+    (#22 expr resetBtnRaw
+    #pragma diagram {"xy":"H17699;V43304","wh":"16000;3200"} #end)
+    (#23 expr calibrationBtnRaw
+    #pragma diagram {"xy":"H15699;V48321","wh":"20000;3200"} #end)
     (#24 def speed
     #pragma diagram {"xy":"H107025;V10700","wh":"10000;3200"} #end)
     (#0 block MapAnalogSignals
               #pragma diagram {"xy":"H75862;V-49850","wh":"20000;14000"} #end)
-    (#25 expr din1
-    #pragma diagram {"xy":"H21699;V53338"} #end)
+    (#25 expr speedSensorPulseRaw
+    #pragma diagram {"xy":"H14699;V53338","wh":"22000;3200"} #end)
     (#26 def resetBtn
     #pragma diagram {"xy":"H173625;V65481","wh":"12000;3200"} #end)
     (#27 def deadManSwitch
     #pragma diagram {"xy":"H170625;V73197","wh":"18000;3200"} #end)
-    (#28 expr din3
-    #pragma diagram {"xy":"H21699;V58355"} #end)
+    (#28 expr deadManSwitchRaw
+    #pragma diagram {"xy":"H15699;V58356","wh":"20000;3200"} #end)
     (#29 expr supercapacitorCurrentRaw
     #pragma diagram {"xy":"H-12601;V-33081","wh":"28000;3200"} #end)
     (#30 def fuelCellOutputCurrent
@@ -124,8 +124,8 @@ node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
               #pragma diagram {"xy":"H75862;V50050","wh":"28000;14000"} #end)
     (#38 def speedSensorPulse
     #pragma diagram {"xy":"H169625;V80912","wh":"20000;3200"} #end)
-    (#39 expr din2
-    #pragma diagram {"xy":"H21699;V63373"} #end)
+    (#39 expr startBtnRaw
+    #pragma diagram {"xy":"H17199;V63372","wh":"16000;3200"} #end)
     (#40 expr rpmHz
     #pragma diagram {"xy":"H50081;V9675","wh":"10000;3200"} #end)
     (#41 block CalculateSpeed
@@ -159,7 +159,7 @@ node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"wp":"v-19289|#4 #6"} #end)
     (#55 wire #4 .(calibrationBtn) => #18
     #pragma diagram {"wp":"v-3857|#4 #18"} #end)
-    (#56 wire #25 => #37 .(din1))
+    (#56 wire #25 => #37 .(speedSensorPulseRaw))
     (#57 wire #1 => #4
     #pragma diagram {"wp":"v4300|#1 #4"} #end)
     (#58 wire #4 .(shellTelemetryEmergencyRelay) => #2
@@ -168,18 +168,18 @@ node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"wp":"v3858|#4 #26"} #end)
     (#60 wire #33 .(hydrogenLeakage) => #48
     #pragma diagram {"wp":"v25754|#33 #48"} #end)
-    (#61 wire #21 => #37 .(din4))
+    (#61 wire #21 => #37 .(emergencySwitchRaw))
     (#62 wire #33 .(accelPedalVoltage) => #45
     #pragma diagram {"wp":"v3679|#33 #45"} #end)
-    (#63 wire #28 => #37 .(din3))
-    (#64 wire #39 => #37 .(din2))
+    (#63 wire #28 => #37 .(deadManSwitchRaw))
+    (#64 wire #39 => #37 .(startBtnRaw))
     (#65 wire #33 .(fuelCellOutputVoltage) => #34
     #pragma diagram {"wp":"v-25754|#33 #34"} #end)
     (#66 wire #41 .(speed) => #24
     #pragma diagram {"wp":"v3125|#41 #24"} #end)
     (#67 wire #41 .(rpmLinear) => #15
     #pragma diagram {"wp":"v-3325|#41 #15"} #end)
-    (#68 wire #17 => #37 .(din7))
+    (#68 wire #17 => #37 .(leakageSensorSwitchRaw))
     (#69 wire #20 => #5 .(accelPedalRaw))
     (#70 wire #14 => #5 .(supercapacitorVoltageRaw))
     (#71 wire #16 => #5 .(accessoryBatteryVoltageRaw))
@@ -189,14 +189,14 @@ node SignalConditioningIn (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"wp":"v-780|#37 #1"} #end)
     (#75 wire #33 .(accessoryBatteryCurrent) => #44
     #pragma diagram {"wp":"v-3679|#33 #44"} #end)
-    (#76 wire #22 => #37 .(din5))
+    (#76 wire #22 => #37 .(resetBtnRaw))
     (#77 wire #40 => #41)
     (#78 wire #33 .(motorControllerSupplyCurrent) => #42
     #pragma diagram {"wp":"v-18396|#33 #42"} #end)
-    (#79 wire #10 => #37 .(din8))
+    (#79 wire #10 => #37 .(shellTelemetryEmergencyRelayRaw))
     (#80 wire #33 .(fuelCellOutputCurrent) => #30
     #pragma diagram {"wp":"v40471|#33 #30"} #end)
-    (#81 wire #23 => #37 .(din6))
+    (#81 wire #23 => #37 .(calibrationBtnRaw))
     (#82 wire #33 .(supercapacitorCurrent) => #49
     #pragma diagram {"wp":"v33112|#33 #49"} #end)
     (#83 wire #33 .(brakePedalVoltage) => #47
@@ -449,14 +449,14 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"wp":"v0|#1 #19"} #end)
 }
 
-node DebounceDigitalSignals (din1 : bool;
-                             din2 : bool;
-                             din3 : bool;
-                             din4 : bool;
-                             din5 : bool;
-                             din6 : bool;
-                             din7 : bool;
-                             din8 : bool;)
+node DebounceDigitalSignals (speedSensorPulseRaw : bool;
+                             startBtnRaw : bool;
+                             deadManSwitchRaw : bool;
+                             emergencySwitchRaw : bool;
+                             resetBtnRaw : bool;
+                             calibrationBtnRaw : bool;
+                             leakageSensorSwitchRaw : bool;
+                             shellTelemetryEmergencyRelayRaw : bool;)
   returns (speedSensorPulse : bool;
            startBtn : bool;
            deadManSwitch : bool;
@@ -469,12 +469,12 @@ node DebounceDigitalSignals (din1 : bool;
   diagram
     (#0 def shellTelemetryEmergencyRelay
     #pragma diagram {"xy":"H-289441;V79824","wh":"32000;3200"} #end)
-    (#1 expr din6
-    #pragma diagram {"xy":"H-352071;V34312"} #end)
+    (#1 expr calibrationBtnRaw
+    #pragma diagram {"xy":"H-358801;V34312","wh":"20000;3200"} #end)
     (#2 block (Debouncing \ debounceCycles: 500_i32)
               #pragma diagram {"xy":"H-322621;V-56712","wh":"20000;14000"} #end)
-    (#3 expr din7
-    #pragma diagram {"xy":"H-352071;V57068"} #end)
+    (#3 expr leakageSensorSwitchRaw
+    #pragma diagram {"xy":"H-360334;V57068","wh":"26000;3200"} #end)
     (#4 block (Debouncing \ debounceCycles: 500_i32)
               #pragma diagram {"xy":"H-322621;V-79468","wh":"20000;14000"} #end)
     (#5 expr not #6
@@ -489,22 +489,22 @@ node DebounceDigitalSignals (din1 : bool;
               #pragma diagram {"xy":"H-322621;V11556","wh":"20000;14000"} #end)
     (#10 def emergencySwitch
     #pragma diagram {"xy":"H-289441;V-13067","wh":"20000;3200"} #end)
-    (#11 expr din2
-    #pragma diagram {"xy":"H-353571;V-56712"} #end)
-    (#12 expr din1
-    #pragma diagram {"xy":"H-353571;V-79468"} #end)
+    (#11 expr startBtnRaw
+    #pragma diagram {"xy":"H-357571;V-56712","wh":"16000;3200"} #end)
+    (#12 expr speedSensorPulseRaw
+    #pragma diagram {"xy":"H-362371;V-79468","wh":"22000;3200"} #end)
     (#13 def leakageSensorSwitch
     #pragma diagram {"xy":"H-289441;V57068","wh":"22000;3200"} #end)
-    (#14 expr din8
-    #pragma diagram {"xy":"H-352071;V79824"} #end)
+    (#14 expr shellTelemetryEmergencyRelayRaw
+    #pragma diagram {"xy":"H-365071;V79824","wh":"34000;3200"} #end)
     (#15 expr not #16
       where
         (#16 group)
     #pragma diagram {"xy":"H-340346;V57068"} #end)
-    (#17 expr din5
-    #pragma diagram {"xy":"H-352071;V11556"} #end)
-    (#18 expr din3
-    #pragma diagram {"xy":"H-353571;V-33956"} #end)
+    (#17 expr resetBtnRaw
+    #pragma diagram {"xy":"H-356801;V11556","wh":"16000;3200"} #end)
+    (#18 expr deadManSwitchRaw
+    #pragma diagram {"xy":"H-361396;V-33956","wh":"20000;3200"} #end)
     (#19 def startBtn
     #pragma diagram {"xy":"H-289441;V-56712","wh":"12000;3200"} #end)
     (#20 expr not #21
@@ -541,8 +541,8 @@ node DebounceDigitalSignals (din1 : bool;
       where
         (#36 group)
     #pragma diagram {"xy":"H-340346;V11556"} #end)
-    (#37 expr din4
-    #pragma diagram {"xy":"H-353571;V-11200"} #end)
+    (#37 expr emergencySwitchRaw
+    #pragma diagram {"xy":"H-356801;V-11200","wh":"22000;3200"} #end)
     
     (#38 wire #22 => #10
     #pragma diagram {"wp":"v-1867|#22 #10"} #end)
