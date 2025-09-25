@@ -138,7 +138,7 @@ node EncodingProtiumOperatingState (protiumState: Definitions::ProtiumOperatingS
         (let op = 0_ui8;
         #pragma diagram {"xy":"h-4225;v0","wh":"20000;3200"} #end)
       returns ([op])
-      #pragma diagram {"xy":"H60725;V78025","wh":"48600;19600"} #end)
+      #pragma diagram {"xy":"H60725;V79125","wh":"48600;19600"} #end)
     (#18 expr Definitions::START_BYTE
     #pragma diagram {"xy":"H55525;V-45510","wh":"26000;3200"} #end)
     (#19 expr Definitions::ID_PROTIUM_OPERATING_STATE
@@ -188,7 +188,7 @@ node EncodingProtiumOperatingState (protiumState: Definitions::ProtiumOperatingS
     (#38 wire #2 => #31
     #pragma diagram {"wp":"#2 h17969 v5700 #31"} #end)
     (#39 wire #16 => #15
-    #pragma diagram {"wp":"v-7600|#16 h147579 v-80600 #15"} #end)
+    #pragma diagram {"wp":"v-7600|#16 h147579 v-81700 #15"} #end)
     (#40 wire #18 => #23)
     (#41 wire #19 => #21)
     (#42 wire #21 => #22
@@ -1613,7 +1613,7 @@ node Validating (encodedMsg:Definitions::EncodedFrame;)
       state #9 CheckStartByte_st
       #pragma diagram {"xy":"h-73878;v-35605","wh":"52579;26000"} #end :
         diagram
-          (#0 expr encodedMsg[0] 
+          (#0 expr encodedMsg[0]
           #pragma diagram {"xy":"h-5290;v-3438","wh":"18000;3200"} #end)
           (#1 expr Definitions::START_BYTE
           #pragma diagram {"xy":"h-9290;v862","wh":"26000;3200"} #end)
@@ -1633,13 +1633,13 @@ node Validating (encodedMsg:Definitions::EncodedFrame;)
       state #20 CheckLengthMatch_st
       #pragma diagram {"xy":"h-14326;v-15555","wh":"58225;66850"} #end :
         diagram
-          (#10 expr encodedMsg[1] 
+          (#10 expr encodedMsg[1]
           #pragma diagram {"xy":"h-11839;v-25088","wh":"18000;3200"} #end)
-          (#11 expr encodedMsg[2] 
+          (#11 expr encodedMsg[2]
           #pragma diagram {"xy":"h-11839;v-21588","wh":"18000;3200"} #end)
-          (#12 expr encodedMsg[3] 
+          (#12 expr encodedMsg[3]
           #pragma diagram {"xy":"h-11839;v-18088","wh":"18000;3200"} #end)
-          (#13 expr encodedMsg[4] 
+          (#13 expr encodedMsg[4]
           #pragma diagram {"xy":"h-11839;v-14588","wh":"18000;3200"} #end)
           (#14 block FourUint8toint32
                      #pragma diagram {"xy":"h11214;v-19838","wh":"20000;14000"} #end)
@@ -2860,16 +2860,136 @@ node CreateFauxCRC ()
 }
 
 node TelemetryDataReception ()
-  returns (message : Definitions::Message;)
+  returns (receivedMsg : Definitions::EncodedFrame;
+           frameLength:int32;
+           frameValid:bool;)
 {
   diagram
     (#0 def message
     #pragma diagram {"xy":"H-9106;V3950","wh":"12000;3200"} #end)
     (#1 block Decoding
-              #pragma diagram {"xy":"H-42894;V3950","wh":"20000;14000"} #end)
+              #pragma diagram {"xy":"H-40606;V3950","wh":"20000;14000"} #end)
     
     (#2 wire #1 => #0
     #pragma diagram {"wp":"v0|#1 #0"} #end)
+    
+    (var
+        lenIdx:uint8;
+        dataIdx:int32;
+        passedChecks:bool;
+        messageTemp:uint8^256;)
+    (automaton $automaton0
+      initial state #3 Init_st
+      #pragma diagram {"xy":"h-128889;v-2026","wh":"68100;47975"} #end :
+        diagram
+          (#10 def lenIdx
+          #pragma diagram {"xy":"h14193;v-18388","wh":"10000;3200"} #end)
+          (#11 expr 0_ui8
+          #pragma diagram {"xy":"h-7807;v-18388","wh":"10000;3200"} #end)
+          (#12 expr 0_i32
+          #pragma diagram {"xy":"h-8582;v-12512","wh":"10000;3200"} #end)
+          (#13 def dataIdx
+          #pragma diagram {"xy":"h14418;v-12512","wh":"12000;3200"} #end)
+          (#14 def passedChecks
+          #pragma diagram {"xy":"h12099;v-6712","wh":"16000;3200"} #end)
+          (#15 expr false
+          #pragma diagram {"xy":"h-12901;v-6712","wh":"10000;3200"} #end)
+          (#16 def messageTemp
+          #pragma diagram {"xy":"h22050;v10188","wh":"16000;3200"} #end)
+          (#17 expr forward
+            <<Definitions::ENCODED_FRAME_SIZE>>
+            diagram
+              (let op = 0_ui8;
+              #pragma diagram {"xy":"h0;v0","wh":"20000;3200"} #end)
+            returns ([op])
+            #pragma diagram {"xy":"h-15750;v10188","wh":"28600;19600"} #end)
+          
+          (#19 wire #11 => #10)
+          (#20 wire #12 => #13)
+          (#21 wire #15 => #14)
+          (#22 wire #17 => #16
+          #pragma diagram {"wp":"v-0|#17 #16"} #end)
+      state #4 StartByteCheck_st
+      #pragma diagram {"xy":"h4436;v6437","wh":"170450;41325"} #end :
+        diagram
+          (#23 expr telemetryRxByte
+          #pragma diagram {"xy":"h-65225;v-15063","wh":"20000;3200"} #end)
+          (#24 expr #25 = #26
+            where
+              (#25 group)
+              (#26 group)
+          #pragma diagram {"xy":"h-28225;v-13163"} #end)
+          (#27 expr if #28 then #29 else #30
+            where
+              (#28 group)
+              (#29 group)
+              (#30 group)
+          #pragma diagram {"xy":"h12117;v8713"} #end)
+          (#31 expr #32 and #33
+            where
+              (#32 group)
+              (#33 group)
+          #pragma diagram {"xy":"h-4225;v-10263"} #end)
+          (#34 expr telemetryRxReady
+          #pragma diagram {"xy":"h-33225;v-7563","wh":"20000;3200"} #end)
+          (#35 def passedChecks
+          #pragma diagram {"xy":"h22775;v-12163","wh":"16000;3200"} #end)
+          (#36 expr 0_ui8
+          #pragma diagram {"xy":"h-15883;v10613","wh":"10000;3200"} #end)
+          (#37 expr Definitions::START_BYTE
+          #pragma diagram {"xy":"h-23883;v6813","wh":"26000;3200"} #end)
+          (#38 expr messageTemp
+          #pragma diagram {"xy":"h-3144;v-4188","wh":"16000;3200"} #end)
+          (#45 def messageTemp
+          #pragma diagram {"xy":"h65117;v6813","wh":"16000;3200"} #end)
+          (#47 expr
+            (#48 with
+              {syntax%5%syntax} = #49;)
+                where
+                  (#48 group)
+                  (#49 group)
+              #pragma diagram {"xy":"h37117;v6813","wh":"16000;7000"} #end)
+          (#50 expr messageTemp
+          #pragma diagram {"xy":"h15117;v15063","wh":"16000;3200"} #end)
+          
+          (#39 wire #23 => #25)
+          (#40 wire #37 => #26, #29
+          #pragma diagram {"wp":"#37 h3500[v-5500 h-35342 v-12575 #26, #29]"} #end)
+          (#41 wire #24 => #32
+          #pragma diagram {"wp":"#24 h7500 v1000 #32"} #end)
+          (#42 wire #34 => #33
+          #pragma diagram {"wp":"#34 h7500 v-800 #33"} #end)
+          (#43 wire #31 => #35, #28
+          #pragma diagram {"wp":"#31 h3541[v-1900 #35, h17301 v14975 h-10000 #28]"} #end)
+          (#44 wire #36 => #30)
+          (#51 wire #27 => #49)
+          (#52 wire #47 => #45)
+          (#53 wire #50 => #48
+          #pragma diagram {"wp":"#50 h4500 v-10150 #48"} #end)
+      state #5 ReadLengthByte_st
+      #pragma diagram {"xy":"h108297;v-2026","wh":"54073;26000"} #end :
+        diagram
+          ({syntax%messageTemp[0+lenIdx] := telemetryRxByte%syntax}
+          #pragma diagram {"xy":"h-2647;v-5974","wh":"42000;3200"} #end)
+          (#54 expr #55[{syntax% %syntax}]
+            where
+              (#55 group)
+          #pragma diagram {"xy":"h-9389;v2238","wh":"12000;7000"} #end)
+      state #6 AssembleLength_st
+      #pragma diagram {"xy":"h60139;v41750","wh":"40000;26000"} #end :
+      state #7 ReadDataByte_st
+      #pragma diagram {"xy":"h5814;v41750","wh":"40000;26000"} #end :
+      state #8 CheckEndByte_st
+      #pragma diagram {"xy":"h99714;v-32125","wh":"40000;26000"} #end :
+      state #9 FailedFrame_st
+      #pragma diagram {"xy":"h136439;v40000","wh":"40000;26000"} #end :
+      :1: #3 until 
+      restart #4
+      #pragma diagram {"tp":"h34050;v5894|#3 h4683 h4683 h-85225;v-2569|#4"} #end;
+      :1: #4 until if (telemetryRxReady)
+      restart #5
+      #pragma diagram {"tp":"h85225;v10226|#4 h500 h17166 h8083 h18041;v0 h6208;v-1561 v-3121 v-1487 v-1487 v-1487 v-6096 h-14099;v-3048 h-14099 h-9400 h-20133 h-27036;v400|#5"} #end;
+      #pragma diagram {"xy":"H-18659;V83838","wh":"333878;109550"} #end)
 }
 
 node TelemetryDataTransmission ()
@@ -2886,3 +3006,7 @@ node ProtiumDataTransmission ()
   returns ()
 {
 }
+
+sensor telemetryRxReady: bool;
+
+sensor telemetryRxByte: uint8;
