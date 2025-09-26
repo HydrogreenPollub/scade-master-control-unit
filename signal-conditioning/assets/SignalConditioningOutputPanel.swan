@@ -1,0 +1,29 @@
+-- version swan: 2025.1 graph: 2.0
+{text%
+      node #pragma cg keep #end #pragma swt data_source="../resources/SignalConditioningOutputPanel.spanel" #end SignalConditioningOutputPanel(
+        supercapacitorCurrent: float32;
+        accelPedalVoltage: float32;
+        brakePedalVoltage: float32;
+        accessoryBatteryCurrent: float32;
+        hydrogenHighPressure: float32;
+        hydrogenLeakage: float32;
+        fuelCellOutputCurrent: float32;
+        motorControllerSupplyCurrent: float32;
+        accessoryBatteryVoltage: float32;
+        fuelCellOutputVoltage: float32;
+        supercapacitorVoltage: float32;
+        motorControllerSupplyVoltage: float32;
+        speedSensorPulse: bool;
+        startBtn: bool;
+        deadManSwitch: bool;
+        emergencySwitch: bool;
+        resetBtn: bool;
+        calibrationBtn: bool;
+        leakageSensorSwitch: bool;
+        shellTelemetryEmergencyRelay: bool;
+        rpmLinear: float32;
+        speed: float32
+      ) returns (
+      
+      );
+      %text}

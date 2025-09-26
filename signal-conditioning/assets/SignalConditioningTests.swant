@@ -1,36 +1,175 @@
 -- version swan: 2025.1 graph: 2.0 swant: 1.1
 use SignalConditioningLogic;
 
-use SignalConditioningTestPanel;
+use SignalConditioningInputPanel;
 
-_harness SignalConditioningInTests
+use SignalConditioningOutputPanel;
+
+_harness SignalConditioningSimulation
 {
   diagram
     (let _stop_condition = _current_cycle = 100;
-    #pragma diagram {"xy":"H23775;V-6925","wh":"46000;3200"} #end)
-    (#0 #pragma swt under_test #end block SignalConditioningTestPanel::SignalConditioningTestPanel
-                                          #pragma diagram {"xy":"H4975;V23362","wh":"20000;14000"} #end)
-    (#1 expr 2
-    #pragma diagram {"xy":"H38888;V32462"} #end)
-    (#4 expr #5 * #6
+    #pragma diagram {"xy":"H4300;V-32588","wh":"46000;3200"} #end)
+    (#7 expr (#8)
       where
-        (#5 group)
+        (#8 group)
+    #pragma diagram {"xy":"H66756;V22538"} #end)
+    (#9 block SignalConditioningInputPanel::SignalConditioningInputPanel
+              #pragma diagram {"xy":"H-76675;V22538","wh":"20000;18000"} #end)
+    (#10 block SignalConditioningOutputPanel::SignalConditioningOutputPanel
+               #pragma diagram {"xy":"H89534;V21894","wh":"20000;14000"} #end)
+    (#11 #pragma swt under_test #end block SignalConditioningLogic::SignalConditioningIn
+                                           #pragma diagram {"xy":"H45666;V22538","wh":"20000;14000"} #end)
+    (#1 expr (#2 :> uint16)
+      where
+        (#2 group)
+    #pragma diagram {"xy":"H-21362;V-7538","wh":"16000;7000"} #end)
+    (#3 group
+    #pragma diagram {"xy":"H-59969;V50850","wh":"800;127250"} #end)
+    (#4 group
+    #pragma diagram {"xy":"H15625;V45588","wh":"800;127250"} #end)
+    (#5 expr (#6 :> uint16)
+      where
         (#6 group)
-    #pragma diagram {"xy":"H54775;V12362"} #end)
-    (#7 expr 2
-    #pragma diagram {"xy":"H38888;V10462"} #end)
-    (#2 expr #3 * #9
+    #pragma diagram {"xy":"H-21362;V-238","wh":"16000;7000"} #end)
+    (#12 expr (#13 :> uint16)
       where
-        (#3 group)
-        (#9 group)
-    #pragma diagram {"xy":"H54775;V30562"} #end)
+        (#13 group)
+    #pragma diagram {"xy":"H-21362;V7062","wh":"16000;7000"} #end)
+    (#14 expr (#15 :> uint16)
+      where
+        (#15 group)
+    #pragma diagram {"xy":"H-21362;V14362","wh":"16000;7000"} #end)
+    (#16 expr (#18 :> uint16)
+      where
+        (#18 group)
+    #pragma diagram {"xy":"H-21362;V21650","wh":"16000;7000"} #end)
+    (#19 expr (#20 :> uint16)
+      where
+        (#20 group)
+    #pragma diagram {"xy":"H-21362;V28950","wh":"16000;7000"} #end)
+    (#21 expr (#22 :> uint16)
+      where
+        (#22 group)
+    #pragma diagram {"xy":"H-21362;V50851","wh":"16000;7000"} #end)
+    (#23 expr (#24 :> uint16)
+      where
+        (#24 group)
+    #pragma diagram {"xy":"H-21362;V43551","wh":"16000;7000"} #end)
+    (#25 expr (#26 :> uint16)
+      where
+        (#26 group)
+    #pragma diagram {"xy":"H-21362;V36251","wh":"16000;7000"} #end)
+    (#27 expr (#28 :> uint16)
+      where
+        (#28 group)
+    #pragma diagram {"xy":"H-21362;V58151","wh":"16000;7000"} #end)
+    (#29 expr (#30 :> uint16)
+      where
+        (#30 group)
+    #pragma diagram {"xy":"H-21362;V72739","wh":"16000;7000"} #end)
+    (#31 expr (#32 :> uint16)
+      where
+        (#32 group)
+    #pragma diagram {"xy":"H-21362;V65439","wh":"16000;7000"} #end)
+    (#33 expr #34.(
+    supercapacitorCurrentRaw:supercapacitorCurrentRaw,
+    accelPedalRaw:accelPedalRaw,
+    brakePedalRaw:brakePedalRaw,
+    accessoryBatteryCurrentRaw:accessoryBatteryCurrentRaw,
+    hydrogenHighPressureRaw:hydrogenHighPressureRaw,
+    hydrogenLeakageRaw:hydrogenLeakageRaw,
+    fuelCellOutputCurrentRaw:fuelCellOutputCurrentRaw,
+    motorControllerSupplyCurrentRaw:motorControllerSupplyCurrentRaw,
+    accessoryBatteryVoltageRaw:accessoryBatteryVoltageRaw,
+    fuelCellOutputVoltageRaw:fuelCellOutputVoltageRaw,
+    supercapacitorVoltageRaw:supercapacitorVoltageRaw,
+    motorControllerSupplyVoltageRaw:motorControllerSupplyVoltageRaw,
+    speedSensorPulseRaw:speedSensorPulseRaw,
+    startBtnRaw:startBtnRaw,
+    deadManSwitchRaw:deadManSwitchRaw,
+    emergencySwitchRaw:emergencySwitchRaw,
+    resetBtnRaw:resetBtnRaw,
+    calibrationBtnRaw:calibrationBtnRaw,
+    leakageSensorSwitchRaw:leakageSensorSwitchRaw,
+    shellTelemetryEmergencyRelayRaw:shellTelemetryEmergencyRelayRaw,
+    rpmHz:rpmHz
+    )
+      where
+        (#34 group)
+    #pragma diagram {"IsGraphicalVariant":true,"xy":"H25845;V22538"} #end)
+    (#40 block (SignalConditioningLogic::LinerMappingFloat \ fromLow: 0.0, fromHigh: 1.0, toLow: 0.0, toHigh: 4095.0)
+               #pragma diagram {"xy":"H-45866;V-43138","wh":"20000;14000"} #end)
+    (#41 block (SignalConditioningLogic::LinerMappingFloat \ fromLow: 0.0, fromHigh: 1.0, toLow: 0.0, toHigh: 4095.0)
+               #pragma diagram {"xy":"H-45866;V-22262","wh":"20000;14000"} #end)
     
-    (#10 wire #0 .(accelerationVoltageRaw) => #3
-    #pragma diagram {"wp":"v5300|#0 #3"} #end)
-    (#8 wire #7 => #5)
-    (#11 wire #0 .(brakeVoltageRaw) => #6
-    #pragma diagram {"wp":"v-1650|#0 h31356 v-7450 #6"} #end)
-    (#12 wire #1 => #9)
+    (#17 wire #11 => #8
+    #pragma diagram {"wp":"v-3200|#11 #8"} #end)
+    (#35 wire #7 => #10
+    #pragma diagram {"wp":"v-322|#7 #10"} #end)
+    (#36 wire #3 .(supercapacitorCurrentRaw) => #2
+    #pragma diagram {"wp":"v-58388|#3 #2"} #end)
+    (#37 wire #1 => #4 .(supercapacitorCurrentRaw))
+    (#38 wire #3 .(startBtnRaw ) => #4 .(startBtnRaw)
+    #pragma diagram {"wp":"v55642|#3 #4"} #end)
+    (#39 wire #9 => #3
+    #pragma diagram {"wp":"v0|#9 #3"} #end)
+    (#72 wire #40 => #6
+    #pragma diagram {"wp":"v-0|#40 h3252 v42900 #6"} #end)
+    (#73 wire #41 => #13
+    #pragma diagram {"wp":"v0|#41 h2252 v29324 #13"} #end)
+    (#42 wire #3 .(accessoryBatteryCurrentRaw) => #15
+    #pragma diagram {"wp":"v-36488|#3 #15"} #end)
+    (#43 wire #3 .(hydrogenHighPressureRaw) => #18
+    #pragma diagram {"wp":"v-29200|#3 #18"} #end)
+    (#44 wire #3 .(hydrogenLeakageRaw) => #20
+    #pragma diagram {"wp":"v-21900|#3 #20"} #end)
+    (#45 wire #3 .(fuelCellOutputCurrentRaw) => #26
+    #pragma diagram {"wp":"v-14600|#3 #26"} #end)
+    (#46 wire #3 .(motorControllerSupplyCurrentRaw) => #24
+    #pragma diagram {"wp":"v-7300|#3 #24"} #end)
+    (#47 wire #3 .(accessoryBatteryVoltageRaw) => #22
+    #pragma diagram {"wp":"v0|#3 #22"} #end)
+    (#48 wire #3 .(fuelCellOutputVoltageRaw) => #28
+    #pragma diagram {"wp":"v7300|#3 #28"} #end)
+    (#49 wire #3 .(supercapacitorVoltageRaw) => #32
+    #pragma diagram {"wp":"v14588|#3 #32"} #end)
+    (#50 wire #3 .(motorControllerSupplyVoltageRaw) => #30
+    #pragma diagram {"wp":"v21888|#3 #30"} #end)
+    (#51 wire #4 => #34
+    #pragma diagram {"wp":"v-23050|#4 #34"} #end)
+    (#52 wire #12 => #4 .(brakePedalRaw))
+    (#53 wire #14 => #4 .(accessoryBatteryCurrentRaw))
+    (#54 wire #16 => #4 .(hydrogenHighPressureRaw))
+    (#55 wire #19 => #4 .(hydrogenLeakageRaw))
+    (#56 wire #25 => #4 .(fuelCellOutputCurrentRaw))
+    (#57 wire #23 => #4 .(motorControllerSupplyCurrentRaw))
+    (#58 wire #21 => #4 .(accessoryBatteryVoltageRaw))
+    (#59 wire #27 => #4 .(fuelCellOutputVoltageRaw))
+    (#60 wire #31 => #4 .(supercapacitorVoltageRaw))
+    (#61 wire #29 => #4 .(motorControllerSupplyVoltageRaw))
+    (#62 wire #5 => #4 .(accelPedalRaw))
+    (#63 wire #3 .(speedSensorPulseRaw) => #4 .(speedSensorPulseRaw)
+    #pragma diagram {"wp":"v52200|#3 #4"} #end)
+    (#64 wire #3 .(deadManSwitchRaw) => #4 .(deadManSwitchRaw)
+    #pragma diagram {"wp":"v48758|#3 #4"} #end)
+    (#65 wire #3 .(emergencySwitchRaw) => #4 .(emergencySwitchRaw)
+    #pragma diagram {"wp":"v45316|#3 #4"} #end)
+    (#66 wire #3 .(resetBtnRaw) => #4 .(resetBtnRaw)
+    #pragma diagram {"wp":"v41876|#3 #4"} #end)
+    (#67 wire #3 .(calibrationBtnRaw) => #4 .(calibrationBtnRaw)
+    #pragma diagram {"wp":"v38434|#3 #4"} #end)
+    (#68 wire #3 .(leakageSensorSwitchRaw) => #4 .(leakageSensorSwitchRaw)
+    #pragma diagram {"wp":"v34992|#3 #4"} #end)
+    (#69 wire #3 .(shellTelemetryEmergencyRelayRaw) => #4 .(shellTelemetryEmergencyRelayRaw)
+    #pragma diagram {"wp":"v31550|#3 #4"} #end)
+    (#70 wire #3 .(rpmHz) => #4 .(rpmHz)
+    #pragma diagram {"wp":"v28109|#3 #4"} #end)
+    (#71 wire #33 => #11)
+    (#74 wire #3 .(accelPedalRaw) => #40
+    #pragma diagram {"wp":"v-61212|#3 h1602 v-32776 #40"} #end)
+    (#75 wire #3 .(brakePedalRaw) => #41
+    #pragma diagram {"wp":"v-59800|#3 h1670 v-13312 #41"} #end)
 }
 
 _harness DebouncingTests
