@@ -2,10 +2,13 @@
   "files": [
     "..\\..\\..\\data-transmission\\assets\\DataTransmissionDefinitions.swan",
     "..\\..\\..\\data-transmission\\assets\\DataTransmissionLogic.swan",
+    "..\\..\\..\\data-transmission\\assets\\DataTransmissionUtils.swan",
     "..\\..\\..\\data-validation\\assets\\DataValidationDefinitions.swan",
     "..\\..\\..\\data-validation\\assets\\DataValidationLogic.swan",
     "..\\..\\..\\signal-conditioning\\assets\\SignalConditioningDefinitions.swan",
+    "..\\..\\..\\signal-conditioning\\assets\\SignalConditioningInputPanel.swan",
     "..\\..\\..\\signal-conditioning\\assets\\SignalConditioningLogic.swan",
+    "..\\..\\..\\signal-conditioning\\assets\\SignalConditioningOutputPanel.swan",
     "..\\..\\assets\\Logic.swan",
     "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Float\\assets\\Float.swan",
     "C:\\Program Files\\ANSYS Inc\\v252\\Scade One\\libraries\\Float\\assets\\Float.swani",
@@ -26,6 +29,6 @@
   "target": "C",
   "keep_asserts": false,
   "metadata": {
-    "date": "2025-09-04T03:45:24.2485995Z"
+    "date": "2025-09-26T05:07:26.2152625Z"
   }
 }

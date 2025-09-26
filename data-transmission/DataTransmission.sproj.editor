@@ -1,7 +1,5 @@
 {
-  "JobsOrder": [
-    "jobs\\codegen_8c902b6\\.sjob"
-  ],
+  "JobsOrder": [],
   "ModulesOrder": [
     "assets\\DataTransmissionLogic.swan",
     "assets\\DataTransmissionUtils.swan",

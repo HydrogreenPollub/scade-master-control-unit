@@ -1,12 +1,14 @@
 -- version swan: 2025.1 graph: 2.0 swant: 1.1
-use DataTransmissionLogic;
+use DataTransmissionLogic as Logic;
+
+use DataTransmissionUtils as Utils;
 
 _harness harness_Int16to2uint8
 {
   diagram
-    (#0 block DataTransmissionLogic::TwoUint8toint16
+    (#0 block Utils::TwoUint8toint16
               #pragma diagram {"xy":"H-3350;V0","wh":"20000;14000"} #end)
-    (#1 #pragma swt under_test #end block DataTransmissionLogic::Int16to2uint8
+    (#1 #pragma swt under_test #end block Utils::Int16to2uint8
                                           #pragma diagram {"xy":"H-35000;V0","wh":"20000;14000"} #end)
     (#2 expr 0_i16 pre 1_i16 pre 255_i16 pre 256_i16 pre 3000_i16 pre 30000_i16
     #pragma diagram {"xy":"H-84750;V-1250","wh":"66000;3200"} #end)
@@ -28,11 +30,11 @@ _harness harness_Int16to2uint8
 _harness harness_Float64to8uint8
 {
   diagram
-    (#0 #pragma swt under_test #end block DataTransmissionLogic::Float64to8uint8
+    (#0 #pragma swt under_test #end block Utils::Float64to8uint8
                                           #pragma diagram {"xy":"H43500;V-250","wh":"20000;14000"} #end)
     (#1 expr 0.0_f64 pre 1.0_f64 pre 1.5_f64 pre 1.6_f64 pre 100.0_f64 pre -1.0_f64 pre -1.6_f64 pre -100.0_f64 pre 200000000.0_f64 pre 1.3664235 pre -1.3664235 pre 15135211.124214
     #pragma diagram {"xy":"H-72125;V-250","wh":"162000;3200"} #end)
-    (#2 block DataTransmissionLogic::EightUint8toFloat64
+    (#2 block Utils::EightUint8toFloat64
               #pragma diagram {"xy":"H97700;V-250","wh":"20000;14000"} #end)
     (#3 def numb
     #pragma diagram {"xy":"H129400;V-250"} #end)
