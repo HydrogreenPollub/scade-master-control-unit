@@ -16,8 +16,7 @@ function Validation (isEmergencySwitchPressed: bool;
                      fuelCellOutputVoltage : float32;
                      supercapacitorVoltage : float32;
                      motorControllerSupplyVoltage : float32;
-                     speed : float32;
-                     telemetryMessage : DataTransmissionDefinitions::Message;)
+                     speed : float32;)
   returns (emg_emergencySwitch : bool;
            emg_deadmansSwitch : bool;
            emg_leakageSensorSwitch : bool;
@@ -124,10 +123,14 @@ function Validation (isEmergencySwitchPressed: bool;
         (#42 group)
         (#44 group)
     #pragma diagram {"xy":"H-38016;V-12138"} #end)
-    (#48 expr telemetryMessage
-    #pragma diagram {"xy":"H-136044;V57656","wh":"20000;3200"} #end)
-    (#50 expr telemetryMessage
-    #pragma diagram {"xy":"H-132444;V-17538","wh":"20000;3200"} #end)
+    (-- add message validation here later
+     let
+     
+    #pragma diagram {"xy":"H-115273;V56216","wh":"38000;6078"} #end)
+    (-- add message validation here later
+     let
+     
+    #pragma diagram {"xy":"H-113144;V-16249","wh":"38000;6078"} #end)
     
     (#9 wire #7 => #0
     #pragma diagram {"wp":"v-6362|#7 #0"} #end)
@@ -193,15 +196,12 @@ function Validation (isEmergencySwitchPressed: bool;
     #pragma diagram {"wp":"v-1271|#39 #40"} #end)
     (#47 wire #0 => #44
     #pragma diagram {"wp":"v-3000|#0 h7742 v-31144 #44"} #end)
-    (#49 wire #48 => #7 .(telemetryMessage))
-    (#51 wire #50 => #8 .(telemetryMessage))
 }
 
 function EmergencyCheck (isEmergencySwitchPressed: bool;
                          isDeadmansSwitchPressed : bool;
                          isLeakageDetected : bool;
-                         hydrogenLeakageVoltage : float32;
-                         telemetryMessage : DataTransmissionDefinitions::Message;)
+                         hydrogenLeakageVoltage : float32;)
   returns (emg_emergencySwitch : bool;
            emg_deadmansSwitch : bool;
            emg_leakageSensorSwitch : bool;
@@ -210,7 +210,7 @@ function EmergencyCheck (isEmergencySwitchPressed: bool;
 {
   diagram
     (#0 def emg_emergencySwitch
-    #pragma diagram {"xy":"H-51909;V-45225","wh":"22000;3200"} #end)
+    #pragma diagram {"xy":"H-43909;V-45225","wh":"22000;3200"} #end)
     (#1 expr isEmergencySwitchPressed
     #pragma diagram {"xy":"H-117591;V-45225","wh":"28000;3200"} #end)
     (#2 expr not #3
@@ -218,19 +218,31 @@ function EmergencyCheck (isEmergencySwitchPressed: bool;
         (#3 group)
     #pragma diagram {"xy":"H-83250;V-29850"} #end)
     (#5 def emg_deadmansSwitch
-    #pragma diagram {"xy":"H-51909;V-29850","wh":"22000;3200"} #end)
+    #pragma diagram {"xy":"H-43909;V-29850","wh":"22000;3200"} #end)
     (#6 expr isLeakageDetected
-    #pragma diagram {"xy":"H-113591;V-14475","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H-121591;V-14475","wh":"20000;3200"} #end)
     (#7 def emg_leakageSensorSwitch
-    #pragma diagram {"xy":"H-49909;V-14475","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-45909;V-14475","wh":"26000;3200"} #end)
     (#12 def emg_hydrogenLeakageVoltage
     #pragma diagram {"xy":"H-47909;V900","wh":"30000;3200"} #end)
     (#13 expr hydrogenLeakageVoltage
-    #pragma diagram {"xy":"H-116591;V900","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-118591;V900","wh":"26000;3200"} #end)
     (#14 block (IsInRange \ minValue: 0, maxValue: 1.1)
                #pragma diagram {"xy":"H-83250;V900","wh":"20000;14000"} #end)
     (#4 expr isDeadmansSwitchPressed
-    #pragma diagram {"xy":"H-116591;V-29850","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-118591;V-29850","wh":"26000;3200"} #end)
+    (-- add message validation here later
+     let
+     
+    #pragma diagram {"xy":"H-87965;V45184","wh":"38000;6078"} #end)
+    (-- add message validation here later
+     let
+     
+    #pragma diagram {"xy":"H-81009;V12306","wh":"38000;6078"} #end)
+    (#19 def emg_telemetry
+    #pragma diagram {"xy":"H-78275;V54150","wh":"18000;3200"} #end)
+    (#20 expr false
+    #pragma diagram {"xy":"H-104275;V54150","wh":"10000;3200"} #end)
     
     (#8 wire #4 => #3)
     (#9 wire #2 => #5)
@@ -239,41 +251,7 @@ function EmergencyCheck (isEmergencySwitchPressed: bool;
     (#15 wire #14 => #12
     #pragma diagram {"wp":"v0|#14 #12"} #end)
     (#16 wire #13 => #14)
-    
-    (activate when telemetryMessage match
-      | DataTransmissionDefinitions::ProtiumOperatingStateMsg {x} :
-        {
-        #pragma diagram {"xy":"h0;v-28233","wh":"82581;6400"} #end
-        }
-      | DataTransmissionDefinitions::MasterStatusMsg {x} :
-        {
-        #pragma diagram {"xy":"h0;v-17973","wh":"82581;6400"} #end
-        }
-      | DataTransmissionDefinitions::MasterMeasurementsMsg {x} :
-        {
-        #pragma diagram {"xy":"h0;v-7714","wh":"82581;6400"} #end
-        }
-      | DataTransmissionDefinitions::ProtiumValuesMsg {x} :
-        {
-        #pragma diagram {"xy":"h0;v9346","wh":"82581;20000"} #end
-        }
-      | DataTransmissionDefinitions::TelemetryStatusMsg {x} :
-        {
-          diagram
-            (#17 expr #18 . isEmergency
-              where
-                (#18 group)
-            #pragma diagram {"xy":"h0;v-402","wh":"20000;7000"} #end)
-            (#19 expr x
-            #pragma diagram {"xy":"h-21200;v-402"} #end)
-            (#20 def emg_telemetry
-            #pragma diagram {"xy":"h26200;v-402","wh":"18000;3200"} #end)
-            
-            (#21 wire #19 => #18)
-            (#22 wire #17 => #20)
-        #pragma diagram {"xy":"h0;v30178","wh":"82581;13947"} #end
-        }
-      #pragma diagram {"xy":"H-77604;V56673","wh":"85581;77303"} #end)
+    (#21 wire #20 => #19)
 }
 
 function ErrorCheck (supercapacitorCurrent : float32;
@@ -287,8 +265,7 @@ function ErrorCheck (supercapacitorCurrent : float32;
                      fuelCellOutputVoltage : float32;
                      supercapacitorVoltage : float32;
                      motorControllerSupplyVoltage : float32;
-                     speed : float32;
-                     telemetryMessage : DataTransmissionDefinitions::Message;)
+                     speed : float32;)
   returns (err_supercapacitorCurrent : bool;
            err_accelPedalVoltage : bool;
            err_brakePedalVoltage : bool;
@@ -375,6 +352,10 @@ function ErrorCheck (supercapacitorCurrent : float32;
                #pragma diagram {"xy":"H376063;V-138400","wh":"20000;14000"} #end)
     (#38 def err_speed
     #pragma diagram {"xy":"H408563;V-138400","wh":"14000;3200"} #end)
+    (-- add message validation here later
+     let
+     
+    #pragma diagram {"xy":"H379207;V-98939","wh":"38000;6078"} #end)
     
     (#47 wire #0 => #1)
     (#48 wire #1 => #2

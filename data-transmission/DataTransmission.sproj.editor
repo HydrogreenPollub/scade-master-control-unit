@@ -4,6 +4,7 @@
   ],
   "ModulesOrder": [
     "assets\\DataTransmissionLogic.swan",
+    "assets\\DataTransmissionUtils.swan",
     "assets\\DataTransmissionDefinitions.swan",
     "assets\\DataTransmissionTests.swant"
   ]

@@ -155,8 +155,7 @@ node MasterController (supercapacitorCurrentRaw : uint16;
     fuelCellOutputVoltage:fuelCellOutputVoltage,
     supercapacitorVoltage:supercapacitorVoltage,
     motorControllerSupplyVoltage:motorControllerSupplyVoltage,
-    speed:speed,
-    message:telemetryMessage)
+    speed:speed)
       where
         (#60 group)
     #pragma diagram {"IsGraphicalVariant":true,"xy":"H5448;V-7600"} #end)

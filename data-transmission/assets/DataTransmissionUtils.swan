@@ -1,0 +1,51 @@
+-- version swan: 2025.1 graph: 2.0
+node Int16to2uint8 (i0:int16;)
+  returns (LSB:uint8;
+           MSB:uint8;)
+{
+  diagram
+    (#0 expr i0
+    #pragma diagram {"xy":"H-65981;V-867"} #end)
+    (#1 expr #2 / #3
+      where
+        (#2 group)
+        (#3 group)
+    #pragma diagram {"xy":"H-42981;V1033"} #end)
+    (#4 expr 256_i16
+    #pragma diagram {"xy":"H-67981;V10433","wh":"12000;3200"} #end)
+    (#5 expr #6 mod #7
+      where
+        (#6 group)
+        (#7 group)
+    #pragma diagram {"xy":"H-43981;V8533"} #end)
+    (#8 expr (#9 :> uint8)
+      where
+        (#9 group)
+    #pragma diagram {"xy":"H-26481;V8533","wh":"14000;7000"} #end)
+    (#10 expr (#11 :> uint8)
+      where
+        (#11 group)
+    #pragma diagram {"xy":"H-26481;V1033","wh":"14000;7000"} #end)
+    (#12 def MSB
+    #pragma diagram {"xy":"H-13359;V1033"} #end)
+    (#13 def LSB
+    #pragma diagram {"xy":"H-13359;V8533"} #end)
+    
+    (#14 wire #0 => #2, #6
+    #pragma diagram {"wp":"#0 h9500[#2, v7500 #6]"} #end)
+    (#15 wire #4 => #3, #7
+    #pragma diagram {"wp":"#4 h5500[v-7500 #3, #7]"} #end)
+    (#16 wire #5 => #9)
+    (#17 wire #1 => #11)
+    (#18 wire #10 => #12)
+    (#19 wire #8 => #13)
+}
+
+node TwoUint8toint16 (LSB:uint8;
+                      MSB:uint8;)
+  returns (out:int16;)
+{
+  diagram
+    (let out=(MSB:>int16)*256_i16+(LSB:>int16);
+    #pragma diagram {"xy":"H-37150;V-30050","wh":"44000;3200"} #end)
+}

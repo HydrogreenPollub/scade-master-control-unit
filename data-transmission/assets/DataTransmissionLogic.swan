@@ -3,6 +3,8 @@ use DataTransmissionDefinitions as Definitions;
 
 use Math::Common as Common;
 
+use DataTransmissionUtils as Utils;
+
 node Encoding (msg: Definitions::Message;
                time:int64;)
   returns (encodedMsg:Definitions::EncodedFrame;)
@@ -143,7 +145,7 @@ node EncodingProtiumOperatingState (protiumState: Definitions::ProtiumOperatingS
     #pragma diagram {"xy":"H55525;V-45510","wh":"26000;3200"} #end)
     (#19 expr Definitions::ID_PROTIUM_OPERATING_STATE
     #pragma diagram {"xy":"H36517;V-14200","wh":"42000;3200"} #end)
-    (#21 block Int16to2uint8
+    (#21 block Utils::Int16to2uint8
                #pragma diagram {"xy":"H75825;V-16732","wh":"20000;14000"} #end)
     (#22 group bypos
     #pragma diagram {"xy":"H96969;V-16990"} #end)
@@ -477,7 +479,7 @@ node EncodingMasterStatus (status:Definitions::MasterStatus;
         (#38 group)
         (#39 group)
     #pragma diagram {"xy":"H123494;V-51432"} #end)
-    (#40 block Int16to2uint8
+    (#40 block Utils::Int16to2uint8
                #pragma diagram {"xy":"H-110732;V-40526","wh":"20000;14000"} #end)
     (#41 expr Definitions::ID_MASTER_STATUS
     #pragma diagram {"xy":"H-146032;V-40526","wh":"32000;3200"} #end)
@@ -762,7 +764,7 @@ node EncodingProtiumValues (values:Definitions::ProtiumValues;
     #pragma diagram {"xy":"H-109561;V-43090"} #end)
     (#62 block CreateFauxCRC
                #pragma diagram {"xy":"H-81459;V396034","wh":"20000;14000"} #end)
-    (#63 block Int16to2uint8
+    (#63 block Utils::Int16to2uint8
                #pragma diagram {"xy":"H-86261;V-60180","wh":"20000;14000"} #end)
     (#64 group bypos
     #pragma diagram {"xy":"H-65117;V-25464"} #end)
@@ -1184,7 +1186,7 @@ node EncodingMasterMeasurements (measurements:Definitions::MasterMeasurements;
     #pragma diagram {"xy":"H-109561;V-43090"} #end)
     (#63 block CreateFauxCRC
                #pragma diagram {"xy":"H-81459;V396034","wh":"20000;14000"} #end)
-    (#64 block Int16to2uint8
+    (#64 block Utils::Int16to2uint8
                #pragma diagram {"xy":"H-86261;V-60180","wh":"20000;14000"} #end)
     (#65 group bypos
     #pragma diagram {"xy":"H-65117;V-25464"} #end)
@@ -1691,57 +1693,6 @@ node Validating (encodedMsg:Definitions::EncodedFrame;)
       restart #25
       #pragma diagram {"tp":"h20000;v0|#22 h1861 h1861 h-20000;v0|#25"} #end;
       #pragma diagram {"xy":"H58739;V40930","wh":"295276;108285"} #end)
-}
-
-node Int16to2uint8 (i0:int16;)
-  returns (LSB:uint8;
-           MSB:uint8;)
-{
-  diagram
-    (#0 expr i0
-    #pragma diagram {"xy":"H-65981;V-867"} #end)
-    (#1 expr #2 / #3
-      where
-        (#2 group)
-        (#3 group)
-    #pragma diagram {"xy":"H-42981;V1033"} #end)
-    (#4 expr 256_i16
-    #pragma diagram {"xy":"H-67981;V10433","wh":"12000;3200"} #end)
-    (#5 expr #6 mod #7
-      where
-        (#6 group)
-        (#7 group)
-    #pragma diagram {"xy":"H-43981;V8533"} #end)
-    (#8 expr (#9 :> uint8)
-      where
-        (#9 group)
-    #pragma diagram {"xy":"H-26481;V8533","wh":"14000;7000"} #end)
-    (#10 expr (#11 :> uint8)
-      where
-        (#11 group)
-    #pragma diagram {"xy":"H-26481;V1033","wh":"14000;7000"} #end)
-    (#12 def MSB
-    #pragma diagram {"xy":"H-13359;V1033"} #end)
-    (#13 def LSB
-    #pragma diagram {"xy":"H-13359;V8533"} #end)
-    
-    (#14 wire #0 => #2, #6
-    #pragma diagram {"wp":"#0 h9500[#2, v7500 #6]"} #end)
-    (#15 wire #4 => #3, #7
-    #pragma diagram {"wp":"#4 h5500[v-7500 #3, #7]"} #end)
-    (#16 wire #5 => #9)
-    (#17 wire #1 => #11)
-    (#18 wire #10 => #12)
-    (#19 wire #8 => #13)
-}
-
-node TwoUint8toint16 (LSB:uint8;
-                      MSB:uint8;)
-  returns (out:int16;)
-{
-  diagram
-    (let out=(MSB:>int16)*256_i16+(LSB:>int16);
-    #pragma diagram {"xy":"H-37150;V-30050","wh":"44000;3200"} #end)
 }
 
 node Int32to4uint8 (int: int32;)
@@ -2865,14 +2816,6 @@ node TelemetryDataReception ()
            frameValid:bool;)
 {
   diagram
-    (#0 def message
-    #pragma diagram {"xy":"H-9106;V3950","wh":"12000;3200"} #end)
-    (#1 block Decoding
-              #pragma diagram {"xy":"H-40606;V3950","wh":"20000;14000"} #end)
-    
-    (#2 wire #1 => #0
-    #pragma diagram {"wp":"v0|#1 #0"} #end)
-    
     (var
         lenIdx:uint8;
         dataIdx:int32;
@@ -2902,7 +2845,7 @@ node TelemetryDataReception ()
               (let op = 0_ui8;
               #pragma diagram {"xy":"h0;v0","wh":"20000;3200"} #end)
             returns ([op])
-            #pragma diagram {"xy":"h-15750;v10188","wh":"28600;19600"} #end)
+            #pragma diagram {"xy":"h-15462;v10188","wh":"28600;19600"} #end)
           
           (#19 wire #11 => #10)
           (#20 wire #12 => #13)
@@ -2944,7 +2887,7 @@ node TelemetryDataReception ()
           #pragma diagram {"xy":"h65117;v6813","wh":"16000;3200"} #end)
           (#47 expr
             (#48 with
-              {syntax%5%syntax} = #49;)
+              [5] = #49;)
                 where
                   (#48 group)
                   (#49 group)
@@ -2967,7 +2910,7 @@ node TelemetryDataReception ()
           (#53 wire #50 => #48
           #pragma diagram {"wp":"#50 h4500 v-10150 #48"} #end)
       state #5 ReadLengthByte_st
-      #pragma diagram {"xy":"h108297;v-2026","wh":"54073;26000"} #end :
+      #pragma diagram {"xy":"h126447;v-2024","wh":"54073;26000"} #end :
         diagram
           ({syntax%messageTemp[0+lenIdx] := telemetryRxByte%syntax}
           #pragma diagram {"xy":"h-2647;v-5974","wh":"42000;3200"} #end)
@@ -2980,7 +2923,7 @@ node TelemetryDataReception ()
       state #7 ReadDataByte_st
       #pragma diagram {"xy":"h5814;v41750","wh":"40000;26000"} #end :
       state #8 CheckEndByte_st
-      #pragma diagram {"xy":"h99714;v-32125","wh":"40000;26000"} #end :
+      #pragma diagram {"xy":"h112414;v-35350","wh":"40000;26000"} #end :
       state #9 FailedFrame_st
       #pragma diagram {"xy":"h136439;v40000","wh":"40000;26000"} #end :
       :1: #3 until 
@@ -2988,7 +2931,7 @@ node TelemetryDataReception ()
       #pragma diagram {"tp":"h34050;v5894|#3 h4683 h4683 h-85225;v-2569|#4"} #end;
       :1: #4 until if (telemetryRxReady)
       restart #5
-      #pragma diagram {"tp":"h85225;v10226|#4 h500 h17166 h8083 h18041 h6208;v-1561 v-3121 v-1487 v-1487 v-1487 v-6096 h-14099;v-3048 h-14099 h-9400 h-20133 h-27036;v400|#5"} #end;
+      #pragma diagram {"tp":"h85225;v-8062|#4 h3250 h3250 h-27036;v399|#5"} #end;
       #pragma diagram {"xy":"H-18659;V83838","wh":"333878;109550"} #end)
 }
 
