@@ -1743,17 +1743,13 @@ node TelemetryDataReception ()
   diagram
     (#0 def frameValid
     #pragma diagram {"xy":"H-22188;V-9612","wh":"14000;3200"} #end)
-    (#1 def frameLength
-    #pragma diagram {"xy":"H-23188;V-17250","wh":"16000;3200"} #end)
     (#2 expr true
-    #pragma diagram {"xy":"H-47188;V-9612"} #end)
-    (#54 expr 2137
-    #pragma diagram {"xy":"H-47188;V-17250"} #end)
+    #pragma diagram {"xy":"H-45188;V-9612"} #end)
     (#55 def receivedMsg
-    #pragma diagram {"xy":"H-23188;V-25459","wh":"16000;3200"} #end)
+    #pragma diagram {"xy":"H-33497;V-29759","wh":"16000;3200"} #end)
     (-- TODO remove placeholder code
      let
-    #pragma diagram {"xy":"H-33469;V-37565","wh":"34000;4219"} #end)
+    #pragma diagram {"xy":"H-32469;V-37565","wh":"34000;4219"} #end)
     (#38 expr [
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -1772,125 +1768,333 @@ node TelemetryDataReception ()
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
               ]
-    #pragma diagram {"xy":"H-82206;V-25459","wh":"50000;33970"} #end)
+    #pragma diagram {"xy":"H-78497;V-29759","wh":"50000;33970"} #end)
     
     (#57 wire #2 => #0)
-    (#58 wire #54 => #1)
     (#45 wire #38 => #55)
     
     (var
         lenIdx:uint8;
+        idIdx:int32;
         dataIdx:int32;
         passedChecks:bool;
         messageTemp:uint8^256;)
     (automaton $automaton0
       initial state #3 Init_st
-      #pragma diagram {"xy":"h-128889;v-2026","wh":"68100;47975"} #end :
+      #pragma diagram {"xy":"h3793;v-40343","wh":"78493;47526"} #end :
         diagram
           (#10 def lenIdx
-          #pragma diagram {"xy":"h14193;v-18388","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h16015;v-18163","wh":"10000;3200"} #end)
           (#11 expr 0_ui8
-          #pragma diagram {"xy":"h-7807;v-18388","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-5985;v-18163","wh":"10000;3200"} #end)
           (#12 expr 0_i32
-          #pragma diagram {"xy":"h-8582;v-12512","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h2246;v-87","wh":"10000;3200"} #end)
           (#13 def dataIdx
-          #pragma diagram {"xy":"h14418;v-12512","wh":"12000;3200"} #end)
+          #pragma diagram {"xy":"h29246;v3613","wh":"12000;3200"} #end)
           (#14 def passedChecks
-          #pragma diagram {"xy":"h12099;v-6712","wh":"16000;3200"} #end)
+          #pragma diagram {"xy":"h6759;v-6937","wh":"16000;3200"} #end)
           (#15 expr false
-          #pragma diagram {"xy":"h-12901;v-6712","wh":"10000;3200"} #end)
+          #pragma diagram {"xy":"h-18241;v-6937","wh":"10000;3200"} #end)
           (#16 def messageTemp
-          #pragma diagram {"xy":"h22050;v10188","wh":"16000;3200"} #end)
+          #pragma diagram {"xy":"h16854;v9963","wh":"16000;3200"} #end)
           (#17 expr forward
             <<Definitions::ENCODED_FRAME_SIZE>>
             diagram
               (let op = 0_ui8;
               #pragma diagram {"xy":"h0;v0","wh":"20000;3200"} #end)
             returns ([op])
-            #pragma diagram {"xy":"h-15462;v10188","wh":"28600;19600"} #end)
+            #pragma diagram {"xy":"h-20946;v9963","wh":"28600;19600"} #end)
+          (#7 def idIdx
+          #pragma diagram {"xy":"h30246;v-3787","wh":"10000;3200"} #end)
+          (#87 def frameLength
+          #pragma diagram {"xy":"h27246;v-87","wh":"16000;3200"} #end)
           
           (#19 wire #11 => #10)
-          (#20 wire #12 => #13)
+          (#20 wire #12 => #13, #87, #7
+          #pragma diagram {"wp":"#12 h5500[h4000[v3700 #13, #87], v-3700 #7]"} #end)
           (#21 wire #15 => #14)
           (#22 wire #17 => #16
           #pragma diagram {"wp":"v0|#17 #16"} #end)
       state #4 StartByteCheck_st
-      #pragma diagram {"xy":"h4436;v6437","wh":"170450;41325"} #end :
+      #pragma diagram {"xy":"h-130553;v-40343","wh":"162100;45300"} #end :
         diagram
-          (#23 expr telemetryRxByte
-          #pragma diagram {"xy":"h-65225;v-15063","wh":"20000;3200"} #end)
-          (#24 expr #25 = #26
+          (#24 def messageTemp
+          #pragma diagram {"xy":"h69050;v13250","wh":"16000;3200"} #end)
+          (#25 expr Definitions::START_BYTE
+          #pragma diagram {"xy":"h-64050;v13250","wh":"26000;3200"} #end)
+          (#88 expr forward
+            <<Definitions::ENCODED_FRAME_SIZE>>
+            diagram
+              (let op = 0_ui8;
+              #pragma diagram {"xy":"h0;v0","wh":"20000;3200"} #end)
+            returns ([op])
+            #pragma diagram {"xy":"h-24750;v-8850","wh":"28600;19600"} #end)
+          (#90 expr messageTemp
+          #pragma diagram {"xy":"h-18450;v3050","wh":"16000;3200"} #end)
+          (#91 expr #92 pre #93
             where
-              (#25 group)
-              (#26 group)
-          #pragma diagram {"xy":"h-28225;v-13163"} #end)
-          (#27 expr if #28 then #29 else #30
-            where
-              (#28 group)
-              (#29 group)
-              (#30 group)
-          #pragma diagram {"xy":"h12117;v8713"} #end)
-          (#31 expr #32 and #33
-            where
-              (#32 group)
-              (#33 group)
-          #pragma diagram {"xy":"h-4225;v-10263"} #end)
-          (#34 expr telemetryRxReady
-          #pragma diagram {"xy":"h-33225;v-7563","wh":"20000;3200"} #end)
-          (#35 def passedChecks
-          #pragma diagram {"xy":"h22775;v-12163","wh":"16000;3200"} #end)
-          (#36 expr 0_ui8
-          #pragma diagram {"xy":"h-15883;v10613","wh":"10000;3200"} #end)
-          (#37 expr Definitions::START_BYTE
-          #pragma diagram {"xy":"h-23883;v6813","wh":"26000;3200"} #end)
-          (#47 expr
-            (#48 with
-              [5] = #49;)
+              (#92 group)
+              (#93 group)
+          #pragma diagram {"xy":"h15050;v1150"} #end)
+          (#29 expr
+            (#30 with
+              [0] = #31;)
                 where
-                  (#48 group)
-                  (#49 group)
-              #pragma diagram {"xy":"h37117;v6813","wh":"16000;7000"} #end)
-          (#50 expr messageTemp
-          #pragma diagram {"xy":"h15117;v15063","wh":"16000;3200"} #end)
-          (-- set message temp
-           -- fix causality error
-           let
-          #pragma diagram {"xy":"h58417;v6813","wh":"26000;6078"} #end)
+                  (#30 group)
+                  (#31 group)
+              #pragma diagram {"xy":"h41050;v13250","wh":"16000;7000"} #end)
+          (#32 def passedChecks
+          #pragma diagram {"xy":"h13050;v6750","wh":"16000;3200"} #end)
+          (#33 expr #34 = #35
+            where
+              (#34 group)
+              (#35 group)
+          #pragma diagram {"xy":"h-15450;v8650"} #end)
+          (#36 expr 0_ui8
+          #pragma diagram {"xy":"h-15450;v17050","wh":"10000;3200"} #end)
+          (#37 expr if #39 then #40 else #41
+            where
+              (#39 group)
+              (#40 group)
+              (#41 group)
+          #pragma diagram {"xy":"h16050;v15150"} #end)
+          (#42 expr telemetryRxByte
+          #pragma diagram {"xy":"h-61050;v6750","wh":"20000;3200"} #end)
           
-          (#39 wire #23 => #25)
-          (#40 wire #37 => #26, #29
-          #pragma diagram {"wp":"#37 h3500[v-5500 h-35342 v-12575 #26, #29]"} #end)
-          (#41 wire #24 => #32
-          #pragma diagram {"wp":"#24 h7500 v1000 #32"} #end)
-          (#42 wire #34 => #33
-          #pragma diagram {"wp":"#34 h7500 v-800 #33"} #end)
-          (#43 wire #31 => #35, #28
-          #pragma diagram {"wp":"#31 h3541[v-1900 #35, h17301 v14975 h-10000 #28]"} #end)
-          (#44 wire #36 => #30)
-          (#51 wire #27 => #49)
-          (#53 wire #50 => #48
-          #pragma diagram {"wp":"#50 h4500 v-10150 #48"} #end)
+          (#94 wire #90 => #93)
+          (#44 wire #36 => #41)
+          (#95 wire #91 => #30
+          #pragma diagram {"wp":"#91 h7500 v10200 #30"} #end)
+          (#46 wire #29 => #24)
+          (#96 wire #88 => #92
+          #pragma diagram {"wp":"v8100|#88 #92"} #end)
+          (#48 wire #42 => #34)
+          (#49 wire #25 => #35, #40
+          #pragma diagram {"wp":"#25 h8000[v-2700 #35, #40]"} #end)
+          (#50 wire #33 => #32, #39
+          #pragma diagram {"wp":"#33 h9250[v-1900 #32, h18750 #39]"} #end)
+          (#51 wire #37 => #31)
       state #5 ReadLengthByte_st
-      #pragma diagram {"xy":"h126447;v-2024","wh":"54073;26000"} #end :
+      #pragma diagram {"xy":"h-290554;v-40343","wh":"130409;47962"} #end :
         diagram
-          (-- messageTemp[0+lenIdx] := telemetryRxByte
-           let
-          #pragma diagram {"xy":"h-647;v-5465","wh":"46000;4219"} #end)
+          (#52 expr messageTemp
+          #pragma diagram {"xy":"h-38295;v1719","wh":"16000;3200"} #end)
+          (#53 expr lenIdx
+          #pragma diagram {"xy":"h-56205;v14681","wh":"10000;3200"} #end)
+          (#1 expr #26 pre #27
+            where
+              (#26 group)
+              (#27 group)
+          #pragma diagram {"xy":"h-33205;v12781"} #end)
+          (#60 expr #61 + #62
+            where
+              (#61 group)
+              (#62 group)
+          #pragma diagram {"xy":"h-10205;v16481"} #end)
+          (#63 expr 1_ui8
+          #pragma diagram {"xy":"h-32205;v18381","wh":"10000;3200"} #end)
+          (#64 def lenIdx
+          #pragma diagram {"xy":"h11795;v16481","wh":"10000;3200"} #end)
+          (#65 expr
+            (#66 with
+              [1+lenIdx] = #67;)
+                where
+                  (#66 group)
+                  (#67 group)
+              #pragma diagram {"xy":"h25205;v3519","wh":"16000;7000"} #end)
+          (#28 expr #43 pre #47
+            where
+              (#43 group)
+              (#47 group)
+          #pragma diagram {"xy":"h-795;v-181"} #end)
+          (#70 def messageTemp
+          #pragma diagram {"xy":"h53205;v3519","wh":"16000;3200"} #end)
+          (#71 expr telemetryRxByte
+          #pragma diagram {"xy":"h-4795;v5419","wh":"20000;3200"} #end)
+          (#54 expr forward
+            <<Definitions::ENCODED_FRAME_SIZE>>
+            diagram
+              (let op = 0_ui8;
+              #pragma diagram {"xy":"h0;v0","wh":"20000;3200"} #end)
+            returns ([op])
+            #pragma diagram {"xy":"h-44595;v-10181","wh":"28600;19600"} #end)
+          (#58 expr 0_ui8
+          #pragma diagram {"xy":"h-56205;v10881","wh":"10000;3200"} #end)
+          
+          (#59 wire #1 => #61
+          #pragma diagram {"wp":"#1 h7500 v1800 #61"} #end)
+          (#68 wire #53 => #27)
+          (#74 wire #63 => #62)
+          (#75 wire #60 => #64)
+          (#69 wire #28 => #66
+          #pragma diagram {"wp":"#28 h7500 v1800 #66"} #end)
+          (#72 wire #52 => #47)
+          (#78 wire #65 => #70)
+          (#79 wire #71 => #67)
+          (#73 wire #54 => #43
+          #pragma diagram {"wp":"v8100|#54 #43"} #end)
+          (#76 wire #58 => #26)
       state #6 AssembleLength_st
-      #pragma diagram {"xy":"h60139;v41750","wh":"40000;26000"} #end :
-      state #7 ReadDataByte_st
-      #pragma diagram {"xy":"h5814;v41750","wh":"40000;26000"} #end :
-      state #8 CheckEndByte_st
-      #pragma diagram {"xy":"h112414;v-35350","wh":"40000;26000"} #end :
+      #pragma diagram {"xy":"h-18553;v15657","wh":"121000;22000"} #end :
+        diagram
+          (#77 expr #80 [1 .. 4 ]
+            where
+              (#80 group)
+          #pragma diagram {"xy":"h-19500;v0","wh":"18000;7000"} #end)
+          (#81 expr messageTemp
+          #pragma diagram {"xy":"h-48500;v0","wh":"16000;3200"} #end)
+          (#82 block Utils::FourUint8toint32
+                     #pragma diagram {"xy":"h15000;v0","wh":"20000;14000"} #end)
+          (#83 def frameLength
+          #pragma diagram {"xy":"h48500;v0","wh":"16000;3200"} #end)
+          
+          (#84 wire #81 => #80)
+          (#85 wire #77 => #82)
+          (#86 wire #82 => #83
+          #pragma diagram {"wp":"v0|#82 #83"} #end)
+      state #8 CheckStopByte_st
+      #pragma diagram {"xy":"h279446;v15657","wh":"162100;45300"} #end :
+        diagram
+          (#97 expr telemetryRxByte
+          #pragma diagram {"xy":"h-61050;v6750","wh":"20000;3200"} #end)
+          (#98 expr forward
+            <<Definitions::ENCODED_FRAME_SIZE>>
+            diagram
+              (let op = 0_ui8;
+              #pragma diagram {"xy":"h0;v0","wh":"20000;3200"} #end)
+            returns ([op])
+            #pragma diagram {"xy":"h-24750;v-8850","wh":"28600;19600"} #end)
+          (#100 def passedChecks
+          #pragma diagram {"xy":"h13050;v6750","wh":"16000;3200"} #end)
+          (#101 expr Definitions::STOP_BYTE
+          #pragma diagram {"xy":"h-64050;v13250","wh":"26000;3200"} #end)
+          (#102 expr #103 pre #104
+            where
+              (#103 group)
+              (#104 group)
+          #pragma diagram {"xy":"h15050;v1150"} #end)
+          (#105 expr #106 = #107
+            where
+              (#106 group)
+              (#107 group)
+          #pragma diagram {"xy":"h-15450;v8650"} #end)
+          (#108 expr messageTemp
+          #pragma diagram {"xy":"h-18450;v3050","wh":"16000;3200"} #end)
+          (#109 expr
+            (#110 with
+              [frameLength-1] = #111;)
+                where
+                  (#110 group)
+                  (#111 group)
+              #pragma diagram {"xy":"h43050;v13250","wh":"20000;7000"} #end)
+          (#112 expr if #113 then #114 else #115
+            where
+              (#113 group)
+              (#114 group)
+              (#115 group)
+          #pragma diagram {"xy":"h16050;v15150"} #end)
+          (#116 def messageTemp
+          #pragma diagram {"xy":"h69050;v13250","wh":"16000;3200"} #end)
+          (#117 expr 0_ui8
+          #pragma diagram {"xy":"h-15450;v17050","wh":"10000;3200"} #end)
+          
+          (#118 wire #117 => #115)
+          (#119 wire #109 => #116)
+          (#120 wire #101 => #107, #114
+          #pragma diagram {"wp":"#101 h18800[v-2700 #107, #114]"} #end)
+          (#121 wire #102 => #110
+          #pragma diagram {"wp":"#102 h7500 v10200 #110"} #end)
+          (#122 wire #108 => #104)
+          (#123 wire #105 => #100, #113
+          #pragma diagram {"wp":"#105 h9250[v-1900 #100, h18750 #113]"} #end)
+          (#124 wire #112 => #111)
+          (#125 wire #98 => #103
+          #pragma diagram {"wp":"v8100|#98 #103"} #end)
+          (#126 wire #97 => #106)
       state #9 FailedFrame_st
-      #pragma diagram {"xy":"h136439;v40000","wh":"40000;26000"} #end :
-      :1: #3 until 
+      #pragma diagram {"xy":"h89787;v55630","wh":"40000;26000"} #end :
+      state #158 ReadDataByte_st
+      #pragma diagram {"xy":"h119446;v15657","wh":"130409;47962"} #end :
+        diagram
+          (#127 expr idIdx
+          #pragma diagram {"xy":"h-56205;v14681","wh":"10000;3200"} #end)
+          (#128 expr telemetryRxByte
+          #pragma diagram {"xy":"h-4795;v5419","wh":"20000;3200"} #end)
+          (#129 expr #130 + #131
+            where
+              (#130 group)
+              (#131 group)
+          #pragma diagram {"xy":"h-10205;v16481"} #end)
+          (#132 expr
+            (#133 with
+              [5+idIdx] = #134;)
+                where
+                  (#133 group)
+                  (#134 group)
+              #pragma diagram {"xy":"h25205;v3519","wh":"16000;7000"} #end)
+          (#135 expr forward
+            <<Definitions::ENCODED_FRAME_SIZE>>
+            diagram
+              (let op = 0_ui8;
+              #pragma diagram {"xy":"h0;v0","wh":"20000;3200"} #end)
+            returns ([op])
+            #pragma diagram {"xy":"h-44595;v-10181","wh":"28600;19600"} #end)
+          (#137 expr 1_i32
+          #pragma diagram {"xy":"h-32205;v18381","wh":"10000;3200"} #end)
+          (#138 expr #139 pre #140
+            where
+              (#139 group)
+              (#140 group)
+          #pragma diagram {"xy":"h-33205;v12781"} #end)
+          (#141 def messageTemp
+          #pragma diagram {"xy":"h53205;v3519","wh":"16000;3200"} #end)
+          (#142 expr #143 pre #144
+            where
+              (#143 group)
+              (#144 group)
+          #pragma diagram {"xy":"h-795;v-181"} #end)
+          (#145 expr messageTemp
+          #pragma diagram {"xy":"h-38295;v1719","wh":"16000;3200"} #end)
+          (#146 def idIdx
+          #pragma diagram {"xy":"h11795;v16481","wh":"10000;3200"} #end)
+          (#147 expr 0_i32
+          #pragma diagram {"xy":"h-56205;v10881","wh":"10000;3200"} #end)
+          
+          (#148 wire #138 => #130
+          #pragma diagram {"wp":"#138 h7500 v1800 #130"} #end)
+          (#149 wire #128 => #134)
+          (#150 wire #145 => #144)
+          (#151 wire #135 => #143
+          #pragma diagram {"wp":"v8100|#135 #143"} #end)
+          (#152 wire #132 => #141)
+          (#153 wire #129 => #146)
+          (#154 wire #137 => #131)
+          (#155 wire #127 => #140)
+          (#156 wire #147 => #139)
+          (#157 wire #142 => #133
+          #pragma diagram {"wp":"#142 h7500 v1800 #133"} #end)
+      :1: #3 until if (telemetryRxReady)
       restart #4
-      #pragma diagram {"tp":"h34050;v5894|#3 h4683 h4683 h-85225;v-2569|#4"} #end;
+      #pragma diagram {"tp":"h-39246;v-286|#3 h-4683 h-4683 h81050;v-286|#4"} #end;
       :1: #4 until if (telemetryRxReady)
       restart #5
-      #pragma diagram {"tp":"h85225;v-8062|#4 h3250 h3250 h-27036;v399|#5"} #end;
-      #pragma diagram {"xy":"H-18659;V83838","wh":"333878;109550"} #end)
+      #pragma diagram {"tp":"h-81050;v-10786|#4 h-4582 h-4582 h65205;v-10786|#5"} #end;
+      :2: #5 until if (telemetryRxReady)
+      restart #5
+      #pragma diagram {"tp":"h57;v-23981|#5 v-500 v-500 v-500 v-1402 h-2805;v-1402 h-2805 h-10732 h-38531 h-8534 h-4396 h-2198;v1538 v3075 v5970 v5970 v5970 v2738 h1369;v2738 h1369 h667 h667 h-65205;v-286|#5"} #end;
+      :1: #5 until if (lenIdx=4)
+      restart #6
+      #pragma diagram {"tp":"h65205;v11714|#5 h500 h500 h500 h2676 h2676;v5352 v5352 v19148 h34361;v19148 h34361 h22907 h47148 h-60500;v4714|#6"} #end;
+      :1: #6 until if (telemetryRxReady)
+      restart #158
+      #pragma diagram {"tp":"h60500;v-286|#6 h4098 h4098 h-65205;v-286|#158"} #end;
+      :2: #158 until if (telemetryRxReady)
+      restart #158
+      #pragma diagram {"tp":"h65205;v-11786|#158 h500 h500 h500 h1426 h1426;v-2750 v-5500 v-1342 v-1342 v-1342 v-2816 h-1707;v-1408 h-3413 h-4960 h-20180 h-5130 h-2305 h-2305;v1152 v1152 v667 v667 h29557;v-23981|#158"} #end;
+      :3: #158 until if (idIdx=(frameLength-Definitions::TELEMETRY_MSG_TEMPLATE_SIZE+2+8+4) and telemetryRxReady)
+      restart #8
+      #pragma diagram {"tp":"h65205;v10714|#158 h4582 h4582 h-81050;v10714|#8"} #end;
+      #pragma diagram {"xy":"H35065;V75981","wh":"728993;145259"} #end)
 }
 
 node TelemetryDataTransmission ()

@@ -144,15 +144,12 @@ node Int32to4uint8 (int: int32;)
     (#47 wire #29 => #33)
 }
 
-node FourUint8toint32 (MSB:uint8;
-                       secondMSB:uint8;
-                       secondLSB:uint8;
-                       LSB:uint8;)
+node FourUint8toint32 (i0:uint8^4;)
   returns (out:int32;)
 {
   diagram
-    (let out=(MSB:>int32)*256*256*256_i32+(secondMSB:>int32)*256*256_i32+(secondLSB:>int32)*256_i32+(LSB:>int32);
-    #pragma diagram {"xy":"H-6150;V-30050","wh":"106000;3200"} #end)
+    (let out=(i0[0]:>int32)*256*256*256_i32+(i0[1]:>int32)*256*256_i32+(i0[2]:>int32)*256_i32+(i0[3]:>int32);
+    #pragma diagram {"xy":"H-8150;V-30050","wh":"102000;3200"} #end)
 }
 
 node Int64to8uint8 (int: int64;)
