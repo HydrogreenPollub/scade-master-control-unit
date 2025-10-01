@@ -11,9 +11,9 @@
       "Key": "Int16to2uint8_outputs"
     },
     {
-      "Kind": "HeaderFile",
-      "Path": "resources\\imp.c",
-      "Key": ""
+      "Kind": "SimulationData",
+      "Path": "SampleMessage.sd",
+      "Key": "SampleMessage"
     }
   ]
 }

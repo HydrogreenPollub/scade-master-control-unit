@@ -62,3 +62,15 @@ _harness harness_Float64to8uint8
     (var
         numb:float64;)
 }
+
+_harness TelemetryDataReceptionTest
+{
+  diagram
+    (#0 #pragma swt under_test #end block Logic::TelemetryDataReception
+                                          #pragma diagram {"xy":"H14450;V-3800","wh":"20000;14000"} #end)
+    (#1 block (_source SampleMessage)
+    #pragma diagram {"xy":"H-20550;V-3800","wh":"12000;7000"} #end)
+    
+    (#2 wire #1 => #0
+    #pragma diagram {"wp":"v0|#1 #0"} #end)
+}
