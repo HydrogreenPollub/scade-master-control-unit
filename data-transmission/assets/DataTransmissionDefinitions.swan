@@ -148,3 +148,5 @@ const EMPTY_ENCODED_MSG : uint8^256 = [
   0,0,0,0,0,0,0,0,0,0,
   0,0,0,0,0,0
 ];
+
+const PLACEHOLDER_MSG: Message = ProtiumOperatingStateMsg {Disconnected};
