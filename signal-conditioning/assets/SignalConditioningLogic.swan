@@ -349,7 +349,7 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#4 expr accelPedalRaw
     #pragma diagram {"xy":"H-27059;V-28500","wh":"18000;3200"} #end)
     (#5 expr accessoryBatteryVoltageRaw
-    #pragma diagram {"xy":"H-164416;V-87622","wh":"30000;3200"} #end)
+    #pragma diagram {"xy":"H-211566;V-87622","wh":"30000;3200"} #end)
     (#6 expr supercapacitorCurrentRaw
     #pragma diagram {"xy":"H-160916;V48452","wh":"28000;3200"} #end)
     (#7 def brakePedalVoltage
@@ -361,7 +361,7 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#10 def accessoryBatteryCurrent
     #pragma diagram {"xy":"H-83916;V6152","wh":"26000;3200"} #end)
     (#11 expr supercapacitorVoltageRaw
-    #pragma diagram {"xy":"H-163416;V-53870","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-216191;V-53870","wh":"28000;3200"} #end)
     (#12 def fuelCellOutputCurrent
     #pragma diagram {"xy":"H-83916;V27302","wh":"24000;3200"} #end)
     (#13 expr motorControllerSupplyCurrentRaw
@@ -375,7 +375,7 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#17 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -100, toHigh: 100)
                #pragma diagram {"xy":"H-121416;V48452","wh":"20000;14000"} #end)
     (#18 expr fuelCellOutputVoltageRaw
-    #pragma diagram {"xy":"H-163416;V-70746","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-211566;V-70746","wh":"28000;3200"} #end)
     (#19 def accelPedalVoltage
     #pragma diagram {"xy":"H42941;V-28500","wh":"20000;3200"} #end)
     (#20 expr brakePedalRaw
@@ -395,7 +395,7 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#27 def fuelCellOutputVoltage
     #pragma diagram {"xy":"H-86416;V-70746","wh":"24000;3200"} #end)
     (#28 expr motorControllerSupplyVoltageRaw
-    #pragma diagram {"xy":"H-166416;V-36994","wh":"34000;3200"} #end)
+    #pragma diagram {"xy":"H-214566;V-36994","wh":"34000;3200"} #end)
     (#29 expr accessoryBatteryCurrentRaw
     #pragma diagram {"xy":"H-162916;V6152","wh":"30000;3200"} #end)
     (#30 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -50, toHigh: 50)
@@ -412,7 +412,6 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     #pragma diagram {"xy":"H-30972;V-64568","wh":"22000;3200"} #end)
     
     (#36 wire #6 => #17)
-    (#37 wire #28 => #3)
     (#38 wire #30 => #10
     #pragma diagram {"wp":"v0|#30 #10"} #end)
     (#39 wire #3 => #33
@@ -420,7 +419,6 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#40 wire #21 => #16
     #pragma diagram {"wp":"v0|#21 #16"} #end)
     (#41 wire #26 => #25)
-    (#42 wire #5 => #31)
     (#43 wire #14 => #0
     #pragma diagram {"wp":"v0|#14 #0"} #end)
     (#44 wire #13 => #21)
@@ -441,10 +439,8 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#54 wire #32 => #27
     #pragma diagram {"wp":"v0|#32 #27"} #end)
     (#55 wire #20 => #22)
-    (#56 wire #18 => #32)
     (#57 wire #22 => #7
     #pragma diagram {"wp":"v0|#22 #7"} #end)
-    (#58 wire #11 => #14)
     (#59 wire #1 => #19
     #pragma diagram {"wp":"v0|#1 #19"} #end)
 }
@@ -766,6 +762,86 @@ node Debouncing (inputSignal: bool;
       restart #24
       #pragma diagram {"tp":"h47729;v3430|#44 h500 h500 h500 h15465 h15465;v-17162 v-17162 v-667 v-667 h0;v5600|#24"} #end;
       #pragma diagram {"xy":"H50230;V-207662","wh":"245375;105875"} #end)
+}
+
+function ADCScaling (adcRaw: uint16;)
+  returns (voltage: float32;)
+{
+  diagram
+    (#0 expr adcRaw
+    #pragma diagram {"xy":"H-50300;V-11225","wh":"10000;3200"} #end)
+    (#1 expr (#2 :> float32)
+      where
+        (#2 group)
+    #pragma diagram {"xy":"H-27250;V-11225","wh":"16000;7000"} #end)
+    (#3 expr #4 * #5
+      where
+        (#4 group)
+        (#5 group)
+    #pragma diagram {"xy":"H-4725;V-4462"} #end)
+    (#7 expr #8 / #9
+      where
+        (#8 group)
+        (#9 group)
+    #pragma diagram {"xy":"H11050;V7288"} #end)
+    (#11 def voltage
+    #pragma diagram {"xy":"H34050;V7288","wh":"12000;3200"} #end)
+    (#6 expr Definitions::ADC_RESOLUTION
+    #pragma diagram {"xy":"H-20950;V9188","wh":"30000;3200"} #end)
+    (#10 expr Definitions::V_REF
+    #pragma diagram {"xy":"H-32725;V-2562","wh":"22000;3200"} #end)
+    
+    (#12 wire #0 => #2)
+    (#13 wire #1 => #4
+    #pragma diagram {"wp":"#1 h6262 v4863 #4"} #end)
+    (#15 wire #3 => #8
+    #pragma diagram {"wp":"#3 h4387 v9850 #8"} #end)
+    (#17 wire #7 => #11)
+    (#14 wire #6 => #9)
+    (#16 wire #10 => #5)
+}
+
+function DividerScaling (measuredVoltage: float32;
+                         Rtop : float32;
+                         Rbottom : float32;)
+  returns (realVoltage: float32;)
+{
+  diagram
+    (#0 expr measuredVoltage
+    #pragma diagram {"xy":"H-47050;V-7350","wh":"20000;3200"} #end)
+    (#1 expr #2 * #3
+      where
+        (#2 group)
+        (#3 group)
+    #pragma diagram {"xy":"H-25050;V-1250"} #end)
+    (#4 expr Rtop
+    #pragma diagram {"xy":"H-97050;V-7350"} #end)
+    (#5 expr #6 + #7
+      where
+        (#6 group)
+        (#7 group)
+    #pragma diagram {"xy":"H-74050;V-5450"} #end)
+    (#8 expr Rbottom
+    #pragma diagram {"xy":"H-99050;V-3550","wh":"12000;3200"} #end)
+    (#9 expr #10 / #11
+      where
+        (#10 group)
+        (#11 group)
+    #pragma diagram {"xy":"H-47050;V650"} #end)
+    (#12 expr Rbottom
+    #pragma diagram {"xy":"H-70050;V2550","wh":"12000;3200"} #end)
+    (#13 def realVoltage
+    #pragma diagram {"xy":"H-50;V-1250","wh":"16000;3200"} #end)
+    
+    (#14 wire #0 => #2
+    #pragma diagram {"wp":"#0 h5000 v4200 #2"} #end)
+    (#15 wire #4 => #6)
+    (#16 wire #8 => #7)
+    (#17 wire #5 => #10
+    #pragma diagram {"wp":"#5 h8000 v4200 #10"} #end)
+    (#18 wire #12 => #11)
+    (#19 wire #9 => #3)
+    (#20 wire #1 => #13)
 }
 
 function LinearMapping (value: uint16;

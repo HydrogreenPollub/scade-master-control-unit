@@ -6,3 +6,7 @@ const GEAR_RATIO: float32 = 10.4;
 const MPS_TO_KMPH: float32 = 3.6;
 
 const PI: float32 = 3.141592;
+
+const V_REF: float32 = 3.0;
+
+const ADC_RESOLUTION: float32 = 4095.0;

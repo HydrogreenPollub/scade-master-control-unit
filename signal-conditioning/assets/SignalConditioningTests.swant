@@ -72,8 +72,7 @@ _harness SignalConditioningSimulation
       where
         (#32 group)
     #pragma diagram {"xy":"H-21362;V65439","wh":"16000;7000"} #end)
-    (#33 expr #34.(
-    supercapacitorCurrentRaw:supercapacitorCurrentRaw,
+    (#33 expr #34.(supercapacitorCurrentRaw:supercapacitorCurrentRaw,
     accelPedalRaw:accelPedalRaw,
     brakePedalRaw:brakePedalRaw,
     accessoryBatteryCurrentRaw:accessoryBatteryCurrentRaw,
@@ -93,8 +92,7 @@ _harness SignalConditioningSimulation
     calibrationBtnRaw:calibrationBtnRaw,
     leakageSensorSwitchRaw:leakageSensorSwitchRaw,
     shellTelemetryEmergencyRelayRaw:shellTelemetryEmergencyRelayRaw,
-    rpmHz:rpmHz
-    )
+    rpmHz:rpmHz)
       where
         (#34 group)
     #pragma diagram {"IsGraphicalVariant":true,"xy":"H25845;V22538"} #end)
@@ -110,12 +108,12 @@ _harness SignalConditioningSimulation
     (#36 wire #3 .(supercapacitorCurrentRaw) => #2
     #pragma diagram {"wp":"v-58388|#3 #2"} #end)
     (#37 wire #1 => #4 .(supercapacitorCurrentRaw))
-    (#38 wire #3 .(startBtnRaw ) => #4 .(startBtnRaw)
+    (#38 wire #3 .(startBtnRaw) => #4 .(startBtnRaw)
     #pragma diagram {"wp":"v55642|#3 #4"} #end)
     (#39 wire #9 => #3
     #pragma diagram {"wp":"v0|#9 #3"} #end)
     (#72 wire #40 => #6
-    #pragma diagram {"wp":"v-0|#40 h3252 v42900 #6"} #end)
+    #pragma diagram {"wp":"v0|#40 h3252 v42900 #6"} #end)
     (#73 wire #41 => #13
     #pragma diagram {"wp":"v0|#41 h2252 v29324 #13"} #end)
     (#42 wire #3 .(accessoryBatteryCurrentRaw) => #15
