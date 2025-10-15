@@ -339,97 +339,79 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
 {
   diagram
     (#0 def supercapacitorVoltage
-    #pragma diagram {"xy":"H-89898;V-58170","wh":"24000;3200"} #end)
-    (#1 block (LinearMapping \ fromLow: 1638, fromHigh: 4095, toLow: 0, toHigh: 5)
-              #pragma diagram {"xy":"H89531;V-28500","wh":"20000;14000"} #end)
+    #pragma diagram {"xy":"H-109398;V-58170","wh":"24000;3200"} #end)
     (#2 def hydrogenHighPressure
-    #pragma diagram {"xy":"H129362;V-82770","wh":"24000;3200"} #end)
-    (#3 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 60)
-              #pragma diagram {"xy":"H-125854;V-36994","wh":"20000;14000"} #end)
+    #pragma diagram {"xy":"H109862;V-82770","wh":"24000;3200"} #end)
     (#4 expr accelPedalRaw
-    #pragma diagram {"xy":"H-22969;V-28500","wh":"18000;3200"} #end)
+    #pragma diagram {"xy":"H-3469;V-28500","wh":"18000;3200"} #end)
     (#5 expr accessoryBatteryVoltageRaw
-    #pragma diagram {"xy":"H-244868;V-87622","wh":"30000;3200"} #end)
+    #pragma diagram {"xy":"H-225368;V-87622","wh":"30000;3200"} #end)
     (#6 expr supercapacitorCurrentRaw
     #pragma diagram {"xy":"H-241872;V48452","wh":"28000;3200"} #end)
     (#7 def brakePedalVoltage
-    #pragma diagram {"xy":"H123149;V-7967","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H103649;V-7967","wh":"20000;3200"} #end)
     (#8 def hydrogenLeakage
-    #pragma diagram {"xy":"H124458;V-64568","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H104958;V-64568","wh":"20000;3200"} #end)
     (#9 def accessoryBatteryVoltage
-    #pragma diagram {"xy":"H-87868;V-87622","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-107368;V-87622","wh":"26000;3200"} #end)
     (#10 def accessoryBatteryCurrent
-    #pragma diagram {"xy":"H-87464;V6152","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-106964;V6152","wh":"26000;3200"} #end)
     (#11 expr supercapacitorVoltageRaw
-    #pragma diagram {"xy":"H-244898;V-58170","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-225398;V-58170","wh":"28000;3200"} #end)
     (#12 def fuelCellOutputCurrent
     #pragma diagram {"xy":"H-88301;V26763","wh":"24000;3200"} #end)
     (#13 expr motorControllerSupplyCurrentRaw
     #pragma diagram {"xy":"H-244872;V71432","wh":"34000;3200"} #end)
-    (#14 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 60)
-               #pragma diagram {"xy":"H-127398;V-58170","wh":"20000;14000"} #end)
-    (#15 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 700)
-               #pragma diagram {"xy":"H91862;V-82770","wh":"20000;14000"} #end)
     (#16 def motorControllerSupplyCurrent
     #pragma diagram {"xy":"H-82872;V71432","wh":"32000;3200"} #end)
-    (#17 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -100, toHigh: 100)
+    (#17 block (LinearMapping \ fromLow: 2.497, fromHigh: 2.688, toLow: 0.0, toHigh: 6.0)
                #pragma diagram {"xy":"H-124372;V48452","wh":"20000;14000"} #end)
     (#18 expr fuelCellOutputVoltageRaw
-    #pragma diagram {"xy":"H-242317;V-109885","wh":"28000;3200"} #end)
+    #pragma diagram {"xy":"H-222817;V-109885","wh":"28000;3200"} #end)
     (#19 def accelPedalVoltage
-    #pragma diagram {"xy":"H125031;V-28500","wh":"20000;3200"} #end)
+    #pragma diagram {"xy":"H105531;V-28500","wh":"20000;3200"} #end)
     (#20 expr brakePedalRaw
-    #pragma diagram {"xy":"H-24851;V-7967","wh":"18000;3200"} #end)
-    (#21 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -50, toHigh: 50)
+    #pragma diagram {"xy":"H-5351;V-7967","wh":"18000;3200"} #end)
+    (#21 block (LinearMapping \ fromLow: 2.497, fromHigh: 2.688, toLow: 0.0, toHigh: 6.0)
                #pragma diagram {"xy":"H-124372;V71432","wh":"20000;14000"} #end)
-    (#22 block (LinearMapping \ fromLow: 1638, fromHigh: 4095, toLow: 0, toHigh: 5)
-               #pragma diagram {"xy":"H87649;V-7967","wh":"20000;14000"} #end)
     (#23 def supercapacitorCurrent
     #pragma diagram {"xy":"H-86872;V48452","wh":"24000;3200"} #end)
-    (#24 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 5)
-               #pragma diagram {"xy":"H88958;V-64568","wh":"20000;14000"} #end)
-    (#25 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -30, toHigh: 30)
+    (#25 block (LinearMapping \ fromLow: 2.510, fromHigh: 3.000, toLow: 0.0, toHigh: 6.0)
                #pragma diagram {"xy":"H-125801;V26763","wh":"20000;14000"} #end)
     (#26 expr fuelCellOutputCurrentRaw
     #pragma diagram {"xy":"H-243301;V26763","wh":"28000;3200"} #end)
     (#27 def fuelCellOutputVoltage
-    #pragma diagram {"xy":"H-87317;V-109885","wh":"24000;3200"} #end)
+    #pragma diagram {"xy":"H-106817;V-109885","wh":"24000;3200"} #end)
     (#28 expr motorControllerSupplyVoltageRaw
-    #pragma diagram {"xy":"H-246354;V-36994","wh":"34000;3200"} #end)
+    #pragma diagram {"xy":"H-226854;V-36994","wh":"34000;3200"} #end)
     (#29 expr accessoryBatteryCurrentRaw
-    #pragma diagram {"xy":"H-244464;V6152","wh":"30000;3200"} #end)
-    (#30 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: -50, toHigh: 50)
-               #pragma diagram {"xy":"H-125964;V6152","wh":"20000;14000"} #end)
-    (#31 block (LinearMapping \ fromLow: 0, fromHigh: 1638, toLow: 0, toHigh: 20)
-               #pragma diagram {"xy":"H-126368;V-87622","wh":"20000;14000"} #end)
-    (#32 block (LinearMapping \ fromLow: 0, fromHigh: 4095, toLow: 0, toHigh: 60)
-               #pragma diagram {"xy":"H-124817;V-109885","wh":"20000;14000"} #end)
+    #pragma diagram {"xy":"H-224964;V6152","wh":"30000;3200"} #end)
     (#33 def motorControllerSupplyVoltage
-    #pragma diagram {"xy":"H-84354;V-36994","wh":"32000;3200"} #end)
+    #pragma diagram {"xy":"H-103854;V-36994","wh":"32000;3200"} #end)
     (#34 expr hydrogenHighPressureRaw
-    #pragma diagram {"xy":"H-24638;V-82770","wh":"26000;3200"} #end)
+    #pragma diagram {"xy":"H-5138;V-82770","wh":"26000;3200"} #end)
     (#35 expr hydrogenLeakageRaw
-    #pragma diagram {"xy":"H-25542;V-64568","wh":"22000;3200"} #end)
+    #pragma diagram {"xy":"H-6042;V-64568","wh":"22000;3200"} #end)
     (#37 block ADCScaling
-               #pragma diagram {"xy":"H-204368;V-87622","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-184868;V-87622","wh":"20000;14000"} #end)
     (#42 block (DividerScaling \ Rtop: 34800+1000, Rbottom: 4700)
-               #pragma diagram {"xy":"H-165368;V-87622","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-145868;V-87622","wh":"20000;14000"} #end)
     (#36 block ADCScaling
-               #pragma diagram {"xy":"H-202817;V-109885","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-183317;V-109885","wh":"20000;14000"} #end)
     (#41 block (DividerScaling \ Rtop: 2*931000+2*44200, Rbottom: 90900)
-               #pragma diagram {"xy":"H-163817;V-109885","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-144317;V-109885","wh":"20000;14000"} #end)
     (#44 block (DividerScaling \ Rtop: 2*931000+2*44200, Rbottom: 90900)
-               #pragma diagram {"xy":"H-166398;V-58170","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-146898;V-58170","wh":"20000;14000"} #end)
     (#46 block ADCScaling
-               #pragma diagram {"xy":"H-205398;V-58170","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-185898;V-58170","wh":"20000;14000"} #end)
     (#48 block (DividerScaling \ Rtop: 2*931000+2*44200, Rbottom: 90900)
-               #pragma diagram {"xy":"H-164854;V-36994","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-145354;V-36994","wh":"20000;14000"} #end)
     (#49 block ADCScaling
-               #pragma diagram {"xy":"H-203854;V-36994","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-184354;V-36994","wh":"20000;14000"} #end)
     (#51 block (DividerScaling \ Rtop: 1000, Rbottom: 10000)
-               #pragma diagram {"xy":"H-164964;V6152","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-145464;V6152","wh":"20000;14000"} #end)
     (#55 block ADCScaling
-               #pragma diagram {"xy":"H-203964;V6152","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H-184464;V6152","wh":"20000;14000"} #end)
     (#61 block (DividerScaling \ Rtop: 34800+1000, Rbottom: 10000)
                #pragma diagram {"xy":"H-164801;V26763","wh":"20000;14000"} #end)
     (#62 block ADCScaling
@@ -443,78 +425,68 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#66 block ADCScaling
                #pragma diagram {"xy":"H-202372;V71432","wh":"20000;14000"} #end)
     (#67 block (DividerScaling \ Rtop: 34800+1000, Rbottom: 10000)
-               #pragma diagram {"xy":"H52862;V-82770","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H72362;V-82770","wh":"20000;14000"} #end)
     (#68 block ADCScaling
-               #pragma diagram {"xy":"H13862;V-82770","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H33362;V-82770","wh":"20000;14000"} #end)
     (#69 block (DividerScaling \ Rtop: 34800+1000, Rbottom: 10000)
-               #pragma diagram {"xy":"H49958;V-64568","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H69458;V-64568","wh":"20000;14000"} #end)
     (#70 block ADCScaling
-               #pragma diagram {"xy":"H10958;V-64568","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H30458;V-64568","wh":"20000;14000"} #end)
     (#71 block ADCScaling
-               #pragma diagram {"xy":"H11531;V-28500","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H31031;V-28500","wh":"20000;14000"} #end)
     (#72 block (DividerScaling \ Rtop: 34800+1000, Rbottom: 10000)
-               #pragma diagram {"xy":"H50531;V-28500","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H70031;V-28500","wh":"20000;14000"} #end)
     (#73 block ADCScaling
-               #pragma diagram {"xy":"H9649;V-7967","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H29149;V-7967","wh":"20000;14000"} #end)
     (#74 block (DividerScaling \ Rtop: 34800+1000, Rbottom: 10000)
-               #pragma diagram {"xy":"H48649;V-7967","wh":"20000;14000"} #end)
+               #pragma diagram {"xy":"H68149;V-7967","wh":"20000;14000"} #end)
     
-    (#38 wire #30 => #10
-    #pragma diagram {"wp":"v0|#30 #10"} #end)
-    (#39 wire #3 => #33
-    #pragma diagram {"wp":"v0|#3 #33"} #end)
     (#40 wire #21 => #16
     #pragma diagram {"wp":"v0|#21 #16"} #end)
-    (#43 wire #14 => #0
-    #pragma diagram {"wp":"v0|#14 #0"} #end)
     (#45 wire #25 => #12
     #pragma diagram {"wp":"v0|#25 #12"} #end)
     (#47 wire #17 => #23
     #pragma diagram {"wp":"v0|#17 #23"} #end)
-    (#50 wire #31 => #9
-    #pragma diagram {"wp":"v0|#31 #9"} #end)
-    (#52 wire #24 => #8
-    #pragma diagram {"wp":"v0|#24 #8"} #end)
-    (#53 wire #15 => #2
-    #pragma diagram {"wp":"v0|#15 #2"} #end)
-    (#54 wire #32 => #27
-    #pragma diagram {"wp":"v0|#32 #27"} #end)
-    (#57 wire #22 => #7
-    #pragma diagram {"wp":"v-0|#22 #7"} #end)
-    (#59 wire #1 => #19
-    #pragma diagram {"wp":"v0|#1 #19"} #end)
     (#75 wire #29 => #55)
     (#56 wire #5 => #37)
-    (#76 wire #51 => #30
-    #pragma diagram {"wp":"v0|#51 #30"} #end)
-    (#77 wire #41 => #32
-    #pragma diagram {"wp":"v0|#41 #32"} #end)
+    (#1 wire #51 => #10
+    #pragma diagram {"wp":"v0|#51 #10"} #end)
+    (#3 wire #48 => #33
+    #pragma diagram {"wp":"v0|#48 #33"} #end)
+    (#14 wire #44 => #0
+    #pragma diagram {"wp":"v0|#44 #0"} #end)
     (#78 wire #55 => #51
     #pragma diagram {"wp":"v0|#55 #51"} #end)
     (#79 wire #34 => #68)
     (#80 wire #4 => #71)
     (#81 wire #68 => #67
     #pragma diagram {"wp":"v0|#68 #67"} #end)
+    (#15 wire #42 => #9
+    #pragma diagram {"wp":"v0|#42 #9"} #end)
     (#82 wire #26 => #62)
+    (#22 wire #69 => #8
+    #pragma diagram {"wp":"v0|#69 #8"} #end)
+    (#24 wire #67 => #2
+    #pragma diagram {"wp":"v0|#67 #2"} #end)
+    (#30 wire #41 => #27
+    #pragma diagram {"wp":"v0|#41 #27"} #end)
     (#83 wire #71 => #72
     #pragma diagram {"wp":"v0|#71 #72"} #end)
-    (#58 wire #42 => #31
-    #pragma diagram {"wp":"v0|#42 #31"} #end)
+    (#31 wire #74 => #7
+    #pragma diagram {"wp":"v-0|#74 #7"} #end)
     (#60 wire #37 => #42
     #pragma diagram {"wp":"v0|#37 #42"} #end)
+    (#32 wire #72 => #19
+    #pragma diagram {"wp":"v0|#72 #19"} #end)
     (#84 wire #18 => #36)
     (#85 wire #36 => #41
     #pragma diagram {"wp":"v0|#36 #41"} #end)
     (#86 wire #46 => #44
     #pragma diagram {"wp":"v0|#46 #44"} #end)
     (#87 wire #11 => #46)
-    (#88 wire #44 => #14
-    #pragma diagram {"wp":"v0|#44 #14"} #end)
     (#89 wire #49 => #48
     #pragma diagram {"wp":"v0|#49 #48"} #end)
     (#90 wire #28 => #49)
-    (#91 wire #48 => #3
-    #pragma diagram {"wp":"v0|#48 #3"} #end)
     (#92 wire #62 => #61
     #pragma diagram {"wp":"v0|#62 #61"} #end)
     (#93 wire #61 => #25
@@ -529,20 +501,12 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#98 wire #13 => #66)
     (#99 wire #65 => #21
     #pragma diagram {"wp":"v0|#65 #21"} #end)
-    (#100 wire #67 => #15
-    #pragma diagram {"wp":"v0|#67 #15"} #end)
     (#101 wire #70 => #69
     #pragma diagram {"wp":"v0|#70 #69"} #end)
     (#102 wire #35 => #70)
-    (#103 wire #69 => #24
-    #pragma diagram {"wp":"v0|#69 #24"} #end)
-    (#104 wire #72 => #1
-    #pragma diagram {"wp":"v0|#72 #1"} #end)
     (#105 wire #73 => #74
     #pragma diagram {"wp":"v-0|#73 #74"} #end)
     (#106 wire #20 => #73)
-    (#107 wire #74 => #22
-    #pragma diagram {"wp":"v-0|#74 #22"} #end)
 }
 
 node DebounceDigitalSignals (speedSensorPulseRaw : bool;
