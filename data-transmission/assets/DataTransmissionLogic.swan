@@ -2123,8 +2123,7 @@ node TelemetryDataReception (telemetryRxReady: bool;
                     #pragma diagram {"xy":"h10000;v0","wh":"26000;3200"} #end)
                     
                     (#178 wire #176 => #177)
-                :2: #99 until if (not passedEndOfFrameChecks
-                                  )
+                :2: #99 until if (not passedEndOfFrameChecks)
                 restart #107
                 #pragma diagram {"tp":"h47000;v-2240|#99 h96333 h96333 h-28000;v-2240|#107"} #end;
                 :1: #99 until if (passedEndOfFrameChecks)
@@ -2164,7 +2163,7 @@ node TelemetryDataReception (telemetryRxReady: bool;
       #pragma diagram {"tp":"h71600;v-31390|#5 h500 h500 h500 h1571 h1571;v-833 v-1667 v-1667 h-5000;v-833 h-5000 h-20524 h-20524 h-20524 h-2465 h-2465;v1232 v1232 v667 v667 h-259;v-31925|#5"} #end;
       :2: #158 until if (telemetryRxReady)
       restart #158
-      #pragma diagram {"tp":"h42000;v-7890|#158 h500 h500 h500 h1621 h1621;v-2083 v-4167 v-1017 v-1017 v-1017 v-2133 h-4928;v-1067 h-14322;v0 h-9625 h-9625;v1279 v1279 v667 v667 h8241;v-15831|#158"} #end;
+      #pragma diagram {"tp":"h42000;v-7890|#158 h500 h500 h500 h1621 h1621;v-2083 v-4167 v-1017 v-1017 v-1017 v-2133 h-4928;v-1067 h-14322 h-9625 h-9625;v1279 v1279 v667 v667 h8241;v-15831|#158"} #end;
       :3: #158 until if (dataIdx=(frameLength-Definitions::TELEMETRY_MSG_TEMPLATE_SIZE+2+8+4) and telemetryRxReady)
       restart #112
       #pragma diagram {"tp":"h42000;v7610|#158 h4150 h4150 h-247550;v7610|#112"} #end;
@@ -2177,9 +2176,16 @@ node TelemetryDataReception (telemetryRxReady: bool;
       #pragma diagram {"xy":"H149517;V120045","wh":"1221947;142490"} #end)
 }
 
-node TelemetryDataTransmission ()
-  returns ()
+node TelemetryDataTransmission (placeholderInput: bool;)
+  returns (placeholderOutput: bool;)
 {
+  diagram
+    (#0 expr placeholderInput
+    #pragma diagram {"xy":"H-46050;V-14450","wh":"20000;3200"} #end)
+    (#1 def placeholderOutput
+    #pragma diagram {"xy":"H-15750;V-14450","wh":"20000;3200"} #end)
+    
+    (#2 wire #0 => #1)
 }
 
 node ProtiumDataReception ()

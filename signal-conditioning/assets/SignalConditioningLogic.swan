@@ -227,89 +227,21 @@ function SignalConditioningOut (shouldProtiumRun : bool;
                                 canRecuperate : bool;
                                 accelerationValueRaw : uint16;
                                 recuperationValueRaw : uint16;)
-  returns (unusedOutputRelay3 : bool;
-           vcc5vIso1En : bool;
-           vcc5vIso2En : bool;
-           vcc5vEn : bool;
-           vcc10v5En : bool;
-           vee0v23SD : bool;
-           rs485ReDe1 : bool;
-           rs485ReDe2 : bool;
-           testOutput : bool;
-           accelerationVoltage : float32;
-           brakeVoltage : float32;
-           unusedOutputAo3 : float32;
-           unusedOutputAo4 : float32;)
+  returns (accelerationVoltage : uint16;
+           brakeVoltage : uint16;)
 {
   diagram
-    (#2 def unusedOutputRelay3
-    #pragma diagram {"xy":"H46888;V13838","wh":"22000;3200"} #end)
-    (#3 def vcc5vIso1En
-    #pragma diagram {"xy":"H43388;V24638","wh":"16000;3200"} #end)
-    (#4 def vcc5vIso2En
-    #pragma diagram {"xy":"H43875;V35438","wh":"16000;3200"} #end)
-    (#5 def vcc5vEn
-    #pragma diagram {"xy":"H42394;V48238","wh":"12000;3200"} #end)
-    (#6 def vcc10v5En
-    #pragma diagram {"xy":"H43394;V58662","wh":"14000;3200"} #end)
-    (#7 def vee0v23SD
-    #pragma diagram {"xy":"H44375;V70825","wh":"14000;3200"} #end)
-    (#8 def rs485ReDe1
-    #pragma diagram {"xy":"H43394;V79250","wh":"14000;3200"} #end)
-    (#9 def rs485ReDe2
-    #pragma diagram {"xy":"H43894;V88938","wh":"14000;3200"} #end)
-    (#10 def testOutput
-    #pragma diagram {"xy":"H-65762;V84800","wh":"14000;3200"} #end)
     (#11 def accelerationVoltage
-    #pragma diagram {"xy":"H-61762;V93475","wh":"22000;3200"} #end)
+    #pragma diagram {"xy":"H-13988;V51175","wh":"22000;3200"} #end)
     (#12 def brakeVoltage
-    #pragma diagram {"xy":"H-64762;V102150","wh":"16000;3200"} #end)
-    (#13 def unusedOutputAo3
-    #pragma diagram {"xy":"H-16988;V14888","wh":"20000;3200"} #end)
-    (#14 def unusedOutputAo4
-    #pragma diagram {"xy":"H-16988;V24638","wh":"20000;3200"} #end)
-    (#15 expr false
-    #pragma diagram {"xy":"H18888;V13838","wh":"10000;3200"} #end)
-    (#16 expr 0.0_f32
-    #pragma diagram {"xy":"H-55900;V14888","wh":"12000;3200"} #end)
-    (#17 expr 0.0_f32
-    #pragma diagram {"xy":"H-56643;V24638","wh":"12000;3200"} #end)
-    (#18 expr false
-    #pragma diagram {"xy":"H20375;V70825","wh":"10000;3200"} #end)
-    (#19 expr false
-    #pragma diagram {"xy":"H19894;V88938","wh":"10000;3200"} #end)
-    (#20 expr true
-    #pragma diagram {"xy":"H20394;V79250"} #end)
-    (#21 expr true
-    #pragma diagram {"xy":"H20394;V58662"} #end)
-    (#22 expr true
-    #pragma diagram {"xy":"H20394;V48238"} #end)
-    (#23 expr true
-    #pragma diagram {"xy":"H19875;V35438"} #end)
-    (#24 expr true
-    #pragma diagram {"xy":"H19388;V24638"} #end)
-    (#27 expr true
-    #pragma diagram {"xy":"H-95662;V84800"} #end)
-    (#28 expr 0.0_f32
-    #pragma diagram {"xy":"H-92388;V90875","wh":"12000;3200"} #end)
-    (#29 expr 0.0_f32
-    #pragma diagram {"xy":"H-95918;V101275","wh":"12000;3200"} #end)
+    #pragma diagram {"xy":"H-16988;V59850","wh":"16000;3200"} #end)
+    (#28 expr 0
+    #pragma diagram {"xy":"H-43864;V51175"} #end)
+    (#29 expr 0
+    #pragma diagram {"xy":"H-45094;V59850"} #end)
     
-    (#30 wire #16 => #13)
-    (#31 wire #17 => #14)
-    (#32 wire #15 => #2)
-    (#33 wire #18 => #7)
-    (#34 wire #19 => #9)
-    (#35 wire #20 => #8)
-    (#36 wire #21 => #6)
-    (#37 wire #22 => #5)
-    (#38 wire #23 => #4)
-    (#39 wire #24 => #3)
-    (#42 wire #27 => #10)
-    (#43 wire #29 => #12
-    #pragma diagram {"wp":"#29 h10078 v875 #12"} #end)
-    (#44 wire #28 => #11
-    #pragma diagram {"wp":"#28 h8313 v2600 #11"} #end)
+    (#43 wire #29 => #12)
+    (#44 wire #28 => #11)
 }
 
 function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
@@ -473,7 +405,7 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#83 wire #71 => #72
     #pragma diagram {"wp":"v0|#71 #72"} #end)
     (#31 wire #74 => #7
-    #pragma diagram {"wp":"v-0|#74 #7"} #end)
+    #pragma diagram {"wp":"v0|#74 #7"} #end)
     (#60 wire #37 => #42
     #pragma diagram {"wp":"v0|#37 #42"} #end)
     (#32 wire #72 => #19
@@ -489,23 +421,23 @@ function MapAnalogSignals (supercapacitorCurrentRaw : uint16;
     (#90 wire #28 => #49)
     (#92 wire #62 => #61
     #pragma diagram {"wp":"v0|#62 #61"} #end)
-    (#93 wire #61 => #25
+    (#93 wire #61 => #25 .(input)
     #pragma diagram {"wp":"v0|#61 #25"} #end)
     (#94 wire #64 => #63
     #pragma diagram {"wp":"v0|#64 #63"} #end)
     (#95 wire #6 => #64)
-    (#96 wire #63 => #17
+    (#96 wire #63 => #17 .(input)
     #pragma diagram {"wp":"v0|#63 #17"} #end)
     (#97 wire #66 => #65
     #pragma diagram {"wp":"v0|#66 #65"} #end)
     (#98 wire #13 => #66)
-    (#99 wire #65 => #21
+    (#99 wire #65 => #21 .(input)
     #pragma diagram {"wp":"v0|#65 #21"} #end)
     (#101 wire #70 => #69
     #pragma diagram {"wp":"v0|#70 #69"} #end)
     (#102 wire #35 => #70)
     (#105 wire #73 => #74
-    #pragma diagram {"wp":"v-0|#73 #74"} #end)
+    #pragma diagram {"wp":"v0|#73 #74"} #end)
     (#106 wire #20 => #73)
 }
 
@@ -908,15 +840,15 @@ function DividerScaling (measuredVoltage: float32;
     (#20 wire #1 => #13)
 }
 
-function LinearMapping (realVoltage: float32;
+function LinearMapping (input: float32;
                         fromLow : float32;
                         fromHigh : float32;
                         toHigh : float32;
                         toLow : float32;)
-  returns (mapped: float32;)
+  returns (output: float32;)
 {
   diagram
-    (#0 def mapped
+    (#0 def output
     #pragma diagram {"xy":"H44680;V14757","wh":"10000;3200"} #end)
     (#1 expr fromHigh - fromLow
     #pragma diagram {"xy":"H-41320;V14757","wh":"22000;3200"} #end)
@@ -939,8 +871,8 @@ function LinearMapping (realVoltage: float32;
         (#12 group)
         (#13 group)
     #pragma diagram {"xy":"H-54220;V7057"} #end)
-    (#2 expr realVoltage
-    #pragma diagram {"xy":"H-101220;V3257","wh":"16000;3200"} #end)
+    (#2 expr input
+    #pragma diagram {"xy":"H-104220;V3257","wh":"10000;3200"} #end)
     (#21 expr #22 - #23
       where
         (#22 group)

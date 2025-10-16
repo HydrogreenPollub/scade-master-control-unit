@@ -125,11 +125,9 @@ function Validation (isEmergencySwitchPressed: bool;
     #pragma diagram {"xy":"H-38016;V-12138"} #end)
     (-- add message validation here later
      let
-     
     #pragma diagram {"xy":"H-115273;V56216","wh":"38000;6078"} #end)
     (-- add message validation here later
      let
-     
     #pragma diagram {"xy":"H-113144;V-16249","wh":"38000;6078"} #end)
     
     (#9 wire #7 => #0
@@ -233,11 +231,9 @@ function EmergencyCheck (isEmergencySwitchPressed: bool;
     #pragma diagram {"xy":"H-118591;V-29850","wh":"26000;3200"} #end)
     (-- add message validation here later
      let
-     
     #pragma diagram {"xy":"H-87965;V45184","wh":"38000;6078"} #end)
     (-- add message validation here later
      let
-     
     #pragma diagram {"xy":"H-81009;V12306","wh":"38000;6078"} #end)
     (#19 def emg_telemetry
     #pragma diagram {"xy":"H-78275;V54150","wh":"18000;3200"} #end)
@@ -354,7 +350,6 @@ function ErrorCheck (supercapacitorCurrent : float32;
     #pragma diagram {"xy":"H408563;V-138400","wh":"14000;3200"} #end)
     (-- add message validation here later
      let
-     
     #pragma diagram {"xy":"H379207;V-98939","wh":"38000;6078"} #end)
     
     (#47 wire #0 => #1)

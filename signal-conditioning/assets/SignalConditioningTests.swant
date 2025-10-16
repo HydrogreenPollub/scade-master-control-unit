@@ -96,9 +96,9 @@ _harness SignalConditioningSimulation
       where
         (#34 group)
     #pragma diagram {"IsGraphicalVariant":true,"xy":"H25845;V22538"} #end)
-    (#40 block (SignalConditioningLogic::LinerMappingFloat \ fromLow: 0.0, fromHigh: 1.0, toLow: 0.0, toHigh: 4095.0)
+    (#40 block (SignalConditioningLogic::LinearMapping \ fromLow: 0.0, fromHigh: 1.0, toLow: 0.0, toHigh: 4095.0)
                #pragma diagram {"xy":"H-45866;V-43138","wh":"20000;14000"} #end)
-    (#41 block (SignalConditioningLogic::LinerMappingFloat \ fromLow: 0.0, fromHigh: 1.0, toLow: 0.0, toHigh: 4095.0)
+    (#41 block (SignalConditioningLogic::LinearMapping \ fromLow: 0.0, fromHigh: 1.0, toLow: 0.0, toHigh: 4095.0)
                #pragma diagram {"xy":"H-45866;V-22262","wh":"20000;14000"} #end)
     
     (#17 wire #11 => #8
